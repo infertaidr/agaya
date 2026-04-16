@@ -22,6 +22,8 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
+    console.log('API response status:', response.status);
+    console.log('API response:', JSON.stringify(data));
 
     if (!response.ok) {
       return res.status(500).json({ error: data.error?.message || 'API error' });
@@ -29,6 +31,7 @@ export default async function handler(req, res) {
 
     res.status(200).json({ content: data.content[0].text });
   } catch (error) {
+    console.log('Fetch error:', error.message);
     res.status(500).json({ error: error.message });
   }
 }
