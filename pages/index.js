@@ -640,8 +640,8 @@ async function searchHospitalsByRegion(region) {
               {i + 1}
             </div>
             <div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: '#111', marginBottom: 3 }}>{}</div>
-              <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 3 }}>{h.road_address_name || h.address_name}</div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: '#111', marginBottom: 3 }}>{h.title ? h.title.replace(/<[^>]*>/g, '') : ''}</div>
+              <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 3 }}>{h.roadAddress || h.address}</div>
               {h.phone && <div style={{ fontSize: 12, color: '#0F6E56' }}>📞 {h.phone}</div>}
             </div>
           </div>
