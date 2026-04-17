@@ -2,17 +2,36 @@ import { useState } from 'react';
 
 const SYSTEM = {
   en: "You are Agaya, a compassionate fertility health AI assistant created by an OB/GYN and fertility specialist. Provide accurate, evidence-based information about reproductive health, fertility, IVF, ovulation, PCOS, and related topics. Always note responses are for educational purposes. Be warm and supportive. Respond in the same language the user writes in.",
-  ko: "저는 Agaya, 산부인과 및 불임 전문의가 만든 불임 건강 AI 어시스턴트예요. 생식 건강, 불임, IVF, 배란, PCOS에 대한 정확한 정보를 제공해요. 항상 교육 목적임을 안내하고 의료 전문가 상담을 권장해요. 따뜻하고 공감적으로 답변해요. 배란일이나 임신 가능성에 대한 질문을 받으면 답변 마지막에 반드시 이 멘트를 추가하세요: '💡 더 정확한 배란일 예측을 원하신다면, 위의 [📅 배란] 탭에서 최근 6개월간 생리 시작일을 입력해보세요. 주기 패턴을 분석해서 더 정확한 배란 예측일을 알려드려요!'",
+  AMH 수치 해석: AMH는 난소에 남아있는 난자 수를 반영하는 호르몬이에요. AMH가 높을수록 좋아요. AMH 1.0 이하는 난소 예비력이 낮은 것이에요. 예를 들어 35세에 AMH 1.39이면 난소 나이가 40~41세 수준으로 실제 나이보다 난소가 좋지 않은 상태예요. 이런 경우 몇 번 자연 시도를 해보고 안 된다면 전문의와 상담해보라고 안내하세요. 절대로 'Ovarian Age Index'라는 용어를 사용하지 마세요. AMH 수치 그대로 해석해주세요.
   sw: "Wewe ni Agaya, msaidizi wa AI wa afya ya uzazi aliyeundwa na daktari wa uzazi. Toa taarifa sahihi kuhusu afya ya uzazi. Jibu kwa Kiswahili."
 };
 
 function getAMHInterpretation(amh, age) {
   let amhLevel = '';
   let amhMsg = '';
-  if (amh >= 3.5) { amhLevel = '높음'; amhMsg = '난소 예비력이 좋아요. 난자 수가 충분해요.'; }
-  else if (amh >= 1.5) { amhLevel = '정상'; amhMsg = '난소 예비력이 정상 범위예요.'; }
-  else if (amh >= 0.5) { amhLevel = '낮음'; amhMsg = '난소 예비력이 다소 낮아요. 전문의 상담을 권장해요.'; }
-  else { amhLevel = '매우 낮음'; amhMsg = '난소 예비력이 많이 감소했어요. 빠른 전문의 상담이 필요해요.'; }
+  let ovarianAge = '';
+
+  if (amh >= 4.0) {
+    amhLevel = '높음';
+    amhMsg = '난소 예비력이 매우 좋아요. 난자 수가 충분해요.';
+    ovarianAge = '실제 나이보다 난소가 젊은 편이에요.';
+  } else if (amh >= 2.5) {
+    amhLevel = '정상';
+    amhMsg = '난소 예비력이 정상 범위예요.';
+    ovarianAge = '나이에 맞는 정상적인 난소 기능이에요.';
+  } else if (amh >= 1.5) {
+    amhLevel = '정상 하한';
+    amhMsg = '난소 예비력이 정상 범위이지만 낮은 편이에요.';
+    ovarianAge = `실제 나이(${age}세)보다 난소 나이가 약간 높을 수 있어요. 자연 시도 후 안 된다면 전문의 상담을 권장해요.`;
+  } else if (amh >= 0.7) {
+    amhLevel = '낮음';
+    amhMsg = '난소 예비력이 낮아요.';
+    ovarianAge = `실제 나이(${age}세)보다 난소 나이가 상당히 높아요. 몇 번 자연 시도 후 안 된다면 빠른 전문의 상담이 필요해요.`;
+  } else {
+    amhLevel = '매우 낮음';
+    amhMsg = '난소 예비력이 많이 감소했어요.';
+    ovarianAge = `난소 나이가 많이 진행된 상태예요. 빠른 전문의 상담이 꼭 필요해요.`;
+  }
 
   let chromo = '';
   let chromoMsg = '';
@@ -21,9 +40,9 @@ function getAMHInterpretation(amh, age) {
   else if (age < 38) { chromo = '약 45~60%'; chromoMsg = '나이에 따라 염색체 이상 비율이 증가하고 있어요.'; }
   else if (age < 40) { chromo = '약 35~45%'; chromoMsg = '염색체 정상 난자 비율이 감소하고 있어요. 적극적인 치료를 권장해요.'; }
   else if (age < 43) { chromo = '약 20~35%'; chromoMsg = '염색체 이상 비율이 높아요. 전문의와 적극적으로 상담하세요.'; }
-  else { chromo = '약 10~20%'; chromoMsg = '염색체 정상 난자 비율이 많이 감소했어요. 전문의와 상담이 꼭 필요해요.'; }
+  else { chromo = '약 10~20%'; chromoMsg = '염색체 정상 난자 비율이 많이 감소했어요. 전문의 상담이 꼭 필요해요.'; }
 
-  return { amhLevel, amhMsg, chromo, chromoMsg };
+  return { amhLevel, amhMsg, ovarianAge, chromo, chromoMsg };
 }
 
 export default function Home() {
