@@ -200,7 +200,6 @@ const [searchQuery, setSearchQuery] = useState('');
 
   function toggleSymptom(s) { setSymptoms(prev => prev.includes(s) ? prev.filter(x => x !== s) : [...prev, s]); }
 const KAKAO_REST_KEY = '0a0ff8c07c0722a923ae4de88ef11c9b';
-
 async function searchHospitalsByRegion(region) {
   if (!region.trim()) return;
   setHospitalLoading(true);
