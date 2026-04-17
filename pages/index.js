@@ -6,6 +6,26 @@ const SYSTEM = {
   sw: "Wewe ni Agaya, msaidizi wa AI wa afya ya uzazi aliyeundwa na daktari wa uzazi. Toa taarifa sahihi kuhusu afya ya uzazi. Jibu kwa Kiswahili."
 };
 
+function getAMHInterpretation(amh, age) {
+  let amhLevel = '';
+  let amhMsg = '';
+  if (amh >= 3.5) { amhLevel = '높음'; amhMsg = '난소 예비력이 좋아요. 난자 수가 충분해요.'; }
+  else if (amh >= 1.5) { amhLevel = '정상'; amhMsg = '난소 예비력이 정상 범위예요.'; }
+  else if (amh >= 0.5) { amhLevel = '낮음'; amhMsg = '난소 예비력이 다소 낮아요. 전문의 상담을 권장해요.'; }
+  else { amhLevel = '매우 낮음'; amhMsg = '난소 예비력이 많이 감소했어요. 빠른 전문의 상담이 필요해요.'; }
+
+  let chromo = '';
+  let chromoMsg = '';
+  if (age < 30) { chromo = '약 70~85%'; chromoMsg = '염색체 정상 난자 비율이 높아요.'; }
+  else if (age < 35) { chromo = '약 60~70%'; chromoMsg = '염색체 정상 난자 비율이 양호해요.'; }
+  else if (age < 38) { chromo = '약 45~60%'; chromoMsg = '나이에 따라 염색체 이상 비율이 증가하고 있어요.'; }
+  else if (age < 40) { chromo = '약 35~45%'; chromoMsg = '염색체 정상 난자 비율이 감소하고 있어요. 적극적인 치료를 권장해요.'; }
+  else if (age < 43) { chromo = '약 20~35%'; chromoMsg = '염색체 이상 비율이 높아요. 전문의와 적극적으로 상담하세요.'; }
+  else { chromo = '약 10~20%'; chromoMsg = '염색체 정상 난자 비율이 많이 감소했어요. 전문의와 상담이 꼭 필요해요.'; }
+
+  return { amhLevel, amhMsg, chromo, chromoMsg };
+}
+
 export default function Home() {
   const [lang, setLang] = useState('ko');
   const [tab, setTab] = useState('chat');
@@ -13,6 +33,8 @@ export default function Home() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [periods, setPeriods] = useState(['','','','','','']);
+  const [age, setAge] = useState('');
+  const [amh, setAmh] = useState('');
   const [ovulResult, setOvulResult] = useState(null);
   const [symptoms, setSymptoms] = useState([]);
   const [symptomResult, setSymptomResult] = useState('');
@@ -44,7 +66,6 @@ export default function Home() {
       thisMonth: '이번 달',
       analyze: '배란 패턴 분석하기',
       avgCycle: '평균 주기',
-      variation: '주기 변동',
       nextOvul: '다음 배란 예측일',
       fertile: '가임 기간',
       nextPeriod: '다음 생리 예정일',
@@ -58,6 +79,14 @@ export default function Home() {
       tipWhy: '📅 가임기가 약 1주일인 이유는 정자가 미리 기다릴 수 있기 때문이에요.',
       tipBest: '➡️ 배란 2~3일 전부터 배란일까지가 임신 확률이 가장 높아요!',
       dataNote: '개 주기 데이터 기반 분석',
+      ageLabel: '나이 (세)',
+      amhLabel: 'AMH 수치 (ng/mL)',
+      amhSub: 'AMH는 남아있는 난자 수를 반영해요. 검사 결과가 있다면 입력해주세요.',
+      amhLevel: 'AMH 수준',
+      amhInterp: 'AMH 해석',
+      chromoTitle: '나이별 염색체 정상 난자 비율',
+      chromoImportant: '⭐ 나이가 가장 중요해요',
+      chromoExplain: 'AMH는 난소에 남아있는 난자 수를 보여주지만, 난자의 질(염색체 정상 여부)은 나이가 결정해요. 매달 배란되는 난자가 염색체 정상일 확률은 나이에 따라 크게 달라져요.',
     },
     en: {
       periodTitle: '6-Month Period Tracker',
@@ -66,7 +95,6 @@ export default function Home() {
       thisMonth: 'This month',
       analyze: 'Analyze Ovulation Pattern',
       avgCycle: 'Average cycle',
-      variation: 'Cycle variation',
       nextOvul: 'Predicted ovulation',
       fertile: 'Fertile window',
       nextPeriod: 'Next period',
@@ -80,6 +108,14 @@ export default function Home() {
       tipWhy: '📅 The fertile window is about 1 week because sperm can wait for the egg.',
       tipBest: '➡️ The highest chance of pregnancy is 2-3 days before ovulation through ovulation day!',
       dataNote: ' cycles analyzed',
+      ageLabel: 'Age (years)',
+      amhLabel: 'AMH Level (ng/mL)',
+      amhSub: 'AMH reflects your remaining egg count. Enter your test result if available.',
+      amhLevel: 'AMH Level',
+      amhInterp: 'Interpretation',
+      chromoTitle: 'Normal Chromosome Rate by Age',
+      chromoImportant: '⭐ Age is the most important factor',
+      chromoExplain: 'AMH shows how many eggs remain, but egg quality (chromosomal normality) is determined by age. The chance of a chromosomally normal egg decreases significantly with age.',
     },
     sw: {
       periodTitle: 'Rekodi ya Hedhi ya Miezi 6',
@@ -88,7 +124,6 @@ export default function Home() {
       thisMonth: 'Mwezi huu',
       analyze: 'Changanua Mfumo wa Ovulesheni',
       avgCycle: 'Wastani wa mzunguko',
-      variation: 'Tofauti ya mzunguko',
       nextOvul: 'Ovulesheni inayotarajiwa',
       fertile: 'Kipindi cha uzazi',
       nextPeriod: 'Hedhi inayokuja',
@@ -102,6 +137,14 @@ export default function Home() {
       tipWhy: '📅 Kipindi cha uzazi ni wiki moja kwa sababu manii yanaweza kusubiri yai.',
       tipBest: '➡️ Uwezekano mkubwa wa ujauzito ni siku 2-3 kabla ya ovulesheni!',
       dataNote: ' mizunguko iliyochambuliwa',
+      ageLabel: 'Umri (miaka)',
+      amhLabel: 'Kiwango cha AMH (ng/mL)',
+      amhSub: 'AMH inaonyesha idadi ya mayai yaliyobaki.',
+      amhLevel: 'Kiwango cha AMH',
+      amhInterp: 'Tafsiri',
+      chromoTitle: 'Uwiano wa Kawaida wa Kromosomu kwa Umri',
+      chromoImportant: '⭐ Umri ndio muhimu zaidi',
+      chromoExplain: 'AMH inaonyesha idadi ya mayai, lakini ubora wa yai unaamuliwa na umri.',
     }
   };
 
@@ -152,6 +195,7 @@ export default function Home() {
     const earlyOvul = new Date(lastPeriod); earlyOvul.setDate(lastPeriod.getDate() + min - 14);
     const lateOvul = new Date(lastPeriod); lateOvul.setDate(lastPeriod.getDate() + max - 14);
     const fmt = d => d.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' });
+    const amhData = (age && amh) ? getAMHInterpretation(parseFloat(amh), parseInt(age)) : null;
     setOvulResult({
       avg, min, max, variation,
       nextPeriod: fmt(nextPeriod),
@@ -159,7 +203,10 @@ export default function Home() {
       ovulRange: `${fmt(earlyOvul)} ~ ${fmt(lateOvul)}`,
       fertile: `${fmt(fertileStart)} ~ ${fmt(fertileEnd)}`,
       isIrregular: variation > 7,
-      cycleCount: cycles.length
+      cycleCount: cycles.length,
+      amhData,
+      age: age ? parseInt(age) : null,
+      amh: amh ? parseFloat(amh) : null,
     });
   }
 
@@ -251,7 +298,22 @@ export default function Home() {
       {tab === 'ovulation' && (
         <div>
           <h2 style={{ fontSize: 16, fontWeight: 600, marginBottom: 6, color: '#111' }}>{L.periodTitle}</h2>
-          <p style={{ fontSize: 13, color: '#6b7280', marginBottom: 20 }}>{L.periodSub}</p>
+          <p style={{ fontSize: 13, color: '#6b7280', marginBottom: 16 }}>{L.periodSub}</p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 16, padding: 16, background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
+            <div>
+              <label style={{ display: 'block', fontSize: 12, color: '#6b7280', marginBottom: 4 }}>{L.ageLabel}</label>
+              <input type="number" value={age} onChange={e => setAge(e.target.value)} placeholder="예: 35" min="20" max="55" style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid #d1d5db', fontSize: 14 }} />
+            </div>
+            <div>
+              <label style={{ display: 'block', fontSize: 12, color: '#6b7280', marginBottom: 4 }}>{L.amhLabel}</label>
+              <input type="number" value={amh} onChange={e => setAmh(e.target.value)} placeholder="예: 2.5" step="0.1" min="0" style={{ width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid #d1d5db', fontSize: 14 }} />
+            </div>
+            <div style={{ gridColumn: '1 / -1' }}>
+              <p style={{ fontSize: 12, color: '#6b7280', margin: 0 }}>{L.amhSub}</p>
+            </div>
+          </div>
+
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 20 }}>
             {periods.map((p, i) => (
               <div key={i}>
@@ -262,6 +324,7 @@ export default function Home() {
               </div>
             ))}
           </div>
+
           <button onClick={analyzeOvulation} style={{ width: '100%', padding: 12, background: '#1D9E75', color: 'white', border: 'none', borderRadius: 8, cursor: 'pointer', fontSize: 15, fontWeight: 600, marginBottom: 16 }}>
             {L.analyze}
           </button>
@@ -271,31 +334,67 @@ export default function Home() {
           )}
 
           {ovulResult && !ovulResult.error && (
-            <div style={{ background: '#E1F5EE', borderRadius: 12, padding: '1.25rem', border: '1px solid #5DCAA5' }}>
-              <div style={{ marginBottom: 12, padding: '8px 12px', borderRadius: 8, background: ovulResult.isIrregular ? '#FEF3C7' : '#D1FAE5', fontSize: 14, fontWeight: 600, color: ovulResult.isIrregular ? '#92400E' : '#065F46' }}>
-                {ovulResult.isIrregular ? L.irregular : L.regular}
-                {ovulResult.isIrregular && <span style={{ fontWeight: 400, fontSize: 12, display: 'block', marginTop: 4 }}>주기 변동이 {ovulResult.variation}일로 불규칙해요. 전문의 상담을 권장합니다.</span>}
-              </div>
-              {[
-                [L.avgCycle, `${ovulResult.avg}${L.days} (${ovulResult.min}~${ovulResult.max}일)`],
-                [L.nextOvul, ovulResult.ovulDay],
-                ['배란 가능 범위', ovulResult.ovulRange],
-                [L.fertile, ovulResult.fertile],
-                [L.nextPeriod, ovulResult.nextPeriod],
-              ].map(([label, value]) => (
-                <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #9FE1CB' }}>
-                  <span style={{ fontSize: 13, color: '#0F6E56' }}>{label}</span>
-                  <span style={{ fontSize: 14, fontWeight: 600, color: '#085041' }}>{value}</span>
+            <div>
+              <div style={{ background: '#E1F5EE', borderRadius: 12, padding: '1.25rem', border: '1px solid #5DCAA5', marginBottom: 16 }}>
+                <div style={{ marginBottom: 12, padding: '8px 12px', borderRadius: 8, background: ovulResult.isIrregular ? '#FEF3C7' : '#D1FAE5', fontSize: 14, fontWeight: 600, color: ovulResult.isIrregular ? '#92400E' : '#065F46' }}>
+                  {ovulResult.isIrregular ? L.irregular : L.regular}
+                  {ovulResult.isIrregular && <span style={{ fontWeight: 400, fontSize: 12, display: 'block', marginTop: 4 }}>주기 변동이 {ovulResult.variation}일로 불규칙해요. 전문의 상담을 권장합니다.</span>}
                 </div>
-              ))}
-              <p style={{ fontSize: 12, color: '#6b7280', marginTop: 12 }}>* {ovulResult.cycleCount}{L.dataNote}</p>
-              <div style={{ marginTop: 12, padding: '12px 14px', background: 'white', borderRadius: 8, border: '1px solid #9FE1CB', fontSize: 13, lineHeight: 1.9, color: '#374151' }}>
-                <strong style={{ color: '#0F6E56', display: 'block', marginBottom: 6 }}>{L.tip}</strong>
-                <p style={{ margin: '4px 0' }}>{L.tipEgg}</p>
-                <p style={{ margin: '4px 0' }}>{L.tipSperm}</p>
-                <p style={{ margin: '4px 0' }}>{L.tipWhy}</p>
-                <p style={{ margin: '6px 0 0', color: '#0F6E56', fontWeight: 600 }}>{L.tipBest}</p>
+                {[
+                  [L.avgCycle, `${ovulResult.avg}${L.days} (${ovulResult.min}~${ovulResult.max}일)`],
+                  [L.nextOvul, ovulResult.ovulDay],
+                  ['배란 가능 범위', ovulResult.ovulRange],
+                  [L.fertile, ovulResult.fertile],
+                  [L.nextPeriod, ovulResult.nextPeriod],
+                ].map(([label, value]) => (
+                  <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #9FE1CB' }}>
+                    <span style={{ fontSize: 13, color: '#0F6E56' }}>{label}</span>
+                    <span style={{ fontSize: 14, fontWeight: 600, color: '#085041' }}>{value}</span>
+                  </div>
+                ))}
+                <p style={{ fontSize: 12, color: '#6b7280', marginTop: 12 }}>* {ovulResult.cycleCount}{L.dataNote}</p>
+                <div style={{ marginTop: 12, padding: '12px 14px', background: 'white', borderRadius: 8, border: '1px solid #9FE1CB', fontSize: 13, lineHeight: 1.9, color: '#374151' }}>
+                  <strong style={{ color: '#0F6E56', display: 'block', marginBottom: 6 }}>{L.tip}</strong>
+                  <p style={{ margin: '4px 0' }}>{L.tipEgg}</p>
+                  <p style={{ margin: '4px 0' }}>{L.tipSperm}</p>
+                  <p style={{ margin: '4px 0' }}>{L.tipWhy}</p>
+                  <p style={{ margin: '6px 0 0', color: '#0F6E56', fontWeight: 600 }}>{L.tipBest}</p>
+                </div>
               </div>
+
+              {ovulResult.amhData && ovulResult.age && (
+                <div style={{ background: '#EFF6FF', borderRadius: 12, padding: '1.25rem', border: '1px solid #BFDBFE' }}>
+                  <h3 style={{ fontSize: 15, fontWeight: 600, color: '#1E40AF', marginBottom: 12 }}>{L.chromoTitle}</h3>
+                  <div style={{ padding: '10px 12px', background: '#DBEAFE', borderRadius: 8, marginBottom: 12 }}>
+                    <p style={{ fontSize: 13, fontWeight: 600, color: '#1E40AF', margin: '0 0 4px' }}>{L.chromoImportant}</p>
+                    <p style={{ fontSize: 12, color: '#1E3A8A', margin: 0 }}>{L.chromoExplain}</p>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 12 }}>
+                    <div style={{ padding: '10px 12px', background: 'white', borderRadius: 8, border: '1px solid #BFDBFE' }}>
+                      <p style={{ fontSize: 11, color: '#6b7280', margin: '0 0 4px' }}>나이</p>
+                      <p style={{ fontSize: 20, fontWeight: 700, color: '#1E40AF', margin: 0 }}>{ovulResult.age}세</p>
+                    </div>
+                    <div style={{ padding: '10px 12px', background: 'white', borderRadius: 8, border: '1px solid #BFDBFE' }}>
+                      <p style={{ fontSize: 11, color: '#6b7280', margin: '0 0 4px' }}>염색체 정상 난자 비율</p>
+                      <p style={{ fontSize: 20, fontWeight: 700, color: '#1E40AF', margin: 0 }}>{ovulResult.amhData.chromo}</p>
+                    </div>
+                  </div>
+                  <p style={{ fontSize: 13, color: '#1E3A8A', margin: '0 0 12px', lineHeight: 1.7 }}>{ovulResult.amhData.chromoMsg}</p>
+                  {ovulResult.amh && (
+                    <div style={{ padding: '10px 12px', background: 'white', borderRadius: 8, border: '1px solid #BFDBFE' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div>
+                          <p style={{ fontSize: 11, color: '#6b7280', margin: '0 0 2px' }}>{L.amhLevel}: <strong>{ovulResult.amhData.amhLevel}</strong> (AMH {ovulResult.amh} ng/mL)</p>
+                          <p style={{ fontSize: 12, color: '#374151', margin: 0 }}>{ovulResult.amhData.amhMsg}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  <div style={{ marginTop: 12, padding: '8px 12px', background: '#FEF3C7', borderRadius: 8, fontSize: 12, color: '#92400E' }}>
+                    ⚕️ 이 정보는 교육 목적이에요. 정확한 진단과 치료는 불임 전문의와 상담하세요.
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
