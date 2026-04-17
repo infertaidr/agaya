@@ -663,7 +663,7 @@ function searchHospitalsByRegion(region) {
     <div style={{ marginTop: 12, fontSize: 11, color: '#9ca3af', textAlign: 'center' }}>
       보건복지부 공식 지정 병원 · 방문 전 전화 확인을 권장해요
     </div>
-  {tab === 'ovtest' && (
+          {tab === 'ovtest' && (
           <div>
             <div style={{ padding: '10px 12px', background: '#FEF3C7', borderRadius: 8, fontSize: 12, color: '#92400E', marginBottom: 16 }}>
               ⚕️ 교육 목적이에요. AI 분석은 의학적 진단이 아니며 전문의 상담을 권장해요.
