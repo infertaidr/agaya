@@ -721,5 +721,6 @@ function searchHospitalsByRegion(region) {
         )}
         </div>
         )}
+      </div>
   );
 }
