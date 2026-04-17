@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 const SYSTEM = {
   en: "You are Agaya, a compassionate fertility health AI assistant created by an OB/GYN and fertility specialist. Provide accurate, evidence-based information about reproductive health, fertility, IVF, ovulation, PCOS, and related topics. Always note responses are for educational purposes. Be warm and supportive. Respond in the same language the user writes in.",
-  ko: "저는 Agaya, 산부인과 및 불임 전문의가 만든 불임 건강 AI 어시스턴트예요. 생식 건강, 불임, IVF, 배란, PCOS에 대한 정확한 정보를 제공해요. 항상 교육 목적임을 안내하고 의료 전문가 상담을 권장해요. 따뜻하고 공감적으로 답변해요. 배란일이나 임신 가능성에 대한 질문을 받으면 답변 마지막에 반드시 이 멘트를 추가하세요: 더 정확한 배란일 예측을 원하신다면, 배란 탭에서 최근 6개월간 생리 시작일을 입력해보세요. AMH 수치 해석: AMH는 난소에 남아있는 난자 수를 반영하는 호르몬이에요. AMH가 높을수록 좋아요. AMH 1.0 이하는 난소 예비력이 낮은 것이에요. 35세에 AMH 1.39이면 난소 나이가 40~41세 수준으로 실제 나이보다 난소가 좋지 않은 상태예요. 이런 경우 몇 번 자연 시도를 해보고 안 된다면 전문의와 상담해보라고 안내하세요. 절대로 Ovarian Age Index라는 용어를 사용하지 마세요. 상담 로직: 생리주기가 규칙적인데(28~35일) 임신 시도 기간이 1년 이상이면 검사가 필요할 가능성이 있다고 안내하세요. 생리가 불규칙하면 배란앱이나 병원 초음파를 통해 배란일을 잘 잡아보는 것이 방법이 될 수 있다고 안내하세요.",
+  ko: "저는 Agaya, 산부인과 및 불임 전문의가 만든 불임 건강 AI 어시스턴트예요. 생식 건강, 불임, IVF, 배란, PCOS에 대한 정확한 정보를 제공해요. 항상 교육 목적임을 안내하고 의료 전문가 상담을 권장해요. 따뜻하고 공감적으로 답변해요. 배란일이나 임신 가능성에 대한 질문을 받으면 답변 마지막에 반드시 이 멘트를 추가하세요: 더 정확한 배란일 예측을 원하신다면, 배란 탭에서 최근 6개월간 생리 시작일을 입력해보세요. AMH 수치 해석: AMH는 난소에 남아있는 난자 수를 반영하는 호르몬이에요. AMH가 높을수록 좋아요. AMH 1.0 이하는 난소 예비력이 낮은 것이에요. 35세에 AMH 1.39이면 난소 나이가 40~41세 수준으로 실제 나이보다 난소가 좋지 않은 상태예요. 이런 경우 몇 번 자연 시도를 해보고 안 된다면 전문의와 상담해보라고 안내하세요. 절대로 Ovarian Age Index라는 용어를 사용하지 마세요. 상담 로직: 생리주기가 규칙적인데(28~35일) 임신 시도 기간이 1년 이상이면 검사가 필요할 가능성이 있다고 안내하세요. 생리가 불규칙하면 배란앱이나 병원 초음파를 통해 배란일을 잘 잡아보는 것이 방법이 될 수 있다고 안내하세요.습관성 유산(자연유산 3회 이상)의 경우 항인지질항체 증후군, 염색체 이상, 자궁 구조 이상 등의 원인 검사가 필요하다고 안내하세요.",
   sw: "Wewe ni Agaya, msaidizi wa AI wa afya ya uzazi aliyeundwa na daktari wa uzazi. Toa taarifa sahihi kuhusu afya ya uzazi. Jibu kwa Kiswahili."
 };
 
@@ -85,7 +85,7 @@ export default function Home() {
 
   const quickQ = {
     en: ['IVF process', 'PCOS symptoms', 'Ovulation signs', 'Fertility diet'],
-    ko: ['IVF 과정', 'PCOS 증상', '배란 징후', '임신 준비 식단'],
+    ko: ['IVF 과정', 'PCOS 증상', '배란 징후', '임신 준비 식단', '습관성 유산'],
     sw: ['Mchakato wa IVF', 'Dalili za PCOS', 'Ishara za ovulesheni', 'Lishe ya uzazi']
   };
 
@@ -428,6 +428,40 @@ export default function Home() {
           </div>
 
           <div style={{ marginBottom: 20, padding: 16, background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
+  <p style={{ fontSize: 14, fontWeight: 600, color: '#374151', margin: '0 0 12px' }}>🤰 산과력</p>
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+    <div>
+      <label style={lStyle}>임신 경험</label>
+      <select value={profile.pregnancyHistory||''} onChange={e => setProfile({...profile, pregnancyHistory: e.target.value})} style={selectStyle}>
+        <option value="">선택</option>
+        <option value="없음">없음 (초임)</option>
+        <option value="있음">있음</option>
+      </select>
+    </div>
+    <div>
+      <label style={lStyle}>분만 경험</label>
+      <select value={profile.deliveryHistory||''} onChange={e => setProfile({...profile, deliveryHistory: e.target.value})} style={selectStyle}>
+        <option value="">선택</option>
+        <option value="없음">없음</option>
+        <option value="자연분만">자연분만</option>
+        <option value="제왕절개">제왕절개</option>
+        <option value="자연+제왕">자연분만+제왕절개</option>
+      </select>
+    </div>
+    <div>
+      <label style={lStyle}>자연유산 횟수</label>
+      <input type="number" value={profile.miscarriageCount||''} onChange={e => setProfile({...profile, miscarriageCount: e.target.value})} placeholder="예: 2" min="0" style={iStyle} />
+    </div>
+    <div>
+      <label style={lStyle}>계류유산 횟수</label>
+      <input type="number" value={profile.missedAbortionCount||''} onChange={e => setProfile({...profile, missedAbortionCount: e.target.value})} placeholder="예: 1" min="0" style={iStyle} />
+    </div>
+  </div>
+  <div style={{ padding: '8px 12px', background: '#FEF9C3', borderRadius: 8, fontSize: 12, color: '#854D0E' }}>
+    💡 자연유산이 3회 이상이면 습관성 유산으로 분류되며 정밀 검사가 필요해요.
+  </div>
+</div>
+                  <div style={{ marginBottom: 20, padding: 16, background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
             <p style={{ fontSize: 14, fontWeight: 600, color: '#374151', margin: '0 0 12px' }}>🏥 병력 및 약물</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <div><label style={lStyle}>산부인과 수술/시술 기왕력</label><input type="text" value={profile.surgeryHistory} onChange={e => setProfile({...profile, surgeryHistory: e.target.value})} placeholder="예: 제왕절개 (2020), 자궁경부 레이저 시술 (2019)" style={iStyle} /></div>
