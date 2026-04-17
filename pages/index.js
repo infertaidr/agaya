@@ -20,7 +20,7 @@ export default function Home() {
 
   const welcomeMsg = {
     en: "Hello! I'm Agaya, your fertility health assistant. How can I help you today?",
-    ko: "안녕하세요! 저는 Agaya, 불임 건강 AI 어시스턴트예요. 무엇을 도와드릴까요?",
+    ko: ko: "저는 Agaya, 산부인과 및 불임 전문의가 만든 불임 건강 AI 어시스턴트예요. 생식 건강, 불임, IVF, 배란, PCOS에 대한 정확한 정보를 제공해요. 항상 교육 목적임을 안내하고 의료 전문가 상담을 권장해요. 따뜻하고 공감적으로 답변해요. 배란일이나 임신 가능성에 대한 질문을 받으면 답변 마지막에 반드시 이 멘트를 추가하세요: '💡 더 정확한 배란일 예측을 원하신다면, 위의 [📅 배란] 탭에서 최근 6개월간 생리 시작일을 입력해보세요. 주기 패턴을 분석해서 더 정확한 배란 예측일을 알려드려요!'",
     sw: "Habari! Mimi ni Agaya, msaidizi wako wa afya ya uzazi."
   };
 
