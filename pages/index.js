@@ -527,7 +527,15 @@ function searchHospitalsByRegion(region) {
   <div>
     <div style={{ padding: '10px 12px', background: '#FEF3C7', borderRadius: 8, fontSize: 12, color: '#92400E', marginBottom: 16 }}>
       ⚕️ 이 기능은 교육 목적으로만 제공돼요. AI 분석은 진단이 아니며, 반드시 전문 의료인과 상담하세요.
-    </div>
+    <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
+  {['🔬 초음파 분석', '🧪 배란테스트 분석'].map(type => (
+    <button key={type} onClick={() => setImgType(type)}
+      style={{ flex: 1, padding: '8px 12px', borderRadius: 8, border: '1px solid', borderColor: imgType===type ? '#1D9E75' : '#d1d5db', background: imgType===type ? '#E1F5EE' : 'white', color: imgType===type ? '#0F6E56' : '#374151', cursor: 'pointer', fontSize: 13, fontWeight: imgType===type ? 600 : 400 }}>
+      {type}
+    </button>
+  ))}
+</div>
+        </div>
     <div
       onClick={() => document.getElementById('img-upload').click()}
       style={{ border: '2px dashed #5DCAA5', borderRadius: 12, padding: 32, textAlign: 'center', background: '#f9fafb', marginBottom: 16, cursor: 'pointer' }}
