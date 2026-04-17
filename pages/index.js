@@ -199,7 +199,6 @@ const [searchQuery, setSearchQuery] = useState('');
   }
 
   function toggleSymptom(s) { setSymptoms(prev => prev.includes(s) ? prev.filter(x => x !== s) : [...prev, s]); }
-const KAKAO_REST_KEY = '0a0ff8c07c0722a923ae4de88ef11c9b';
 async function searchHospitalsByRegion(region) {
   if (!region.trim()) return;
   setHospitalLoading(true);
@@ -207,10 +206,8 @@ async function searchHospitalsByRegion(region) {
   setHospitals([]);
   try {
     const keyword = `${region} 난임병원`;
-    const url = `https://dapi.kakao.com/v2/local/search/keyword.json?query=${encodeURIComponent(keyword)}&size=15`;
-    const res = await fetch(url, {
-      headers: { Authorization: `KakaoAK ${KAKAO_REST_KEY}` }
-    });
+    const url = `/api/hospitals?region=${encodeURIComponent(region)}`;
+    const res = await fetch(url);
     const data = await res.json();
     setHospitals(data.documents || []);
     if ((data.documents || []).length === 0) {
