@@ -2,7 +2,7 @@ export default async function handler(req, res) {
   const { region } = req.query;
   if (!region) return res.status(400).json({ error: 'region required' });
   try {
-    const query = encodeURIComponent(`${region} 시험관아기시술`);
+    const query = encodeURIComponent(`${region} 시험관아기`);
     const url = `https://openapi.naver.com/v1/search/local.json?query=${query}&display=15&sort=comment`;
     const response = await fetch(url, {
       headers: {
