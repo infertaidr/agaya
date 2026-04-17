@@ -46,6 +46,10 @@ export default function Home() {
   const [symptomLoading, setSymptomLoading] = useState(false);
   const [profile, setProfile] = useState(EMPTY_PROFILE);
   const [profileSaved, setProfileSaved] = useState(false);
+  const [imgPreview, setImgPreview] = useState('');
+const [imgResult, setImgResult] = useState('');
+const [imgLoading, setImgLoading] = useState(false);
+const [imgQuestion, setImgQuestion] = useState('');
 
   useEffect(() => {
     try {
