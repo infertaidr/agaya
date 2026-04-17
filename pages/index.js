@@ -520,7 +520,7 @@ export default function Home() {
             <p style={{ color: '#6b7280', fontSize: 12, margin: 0 }}>
               {imgType === '🧪 배란테스트 분석' ? '컨트롤선(C)과 테스트선(T)이 잘 보이게 찍어주세요' : '클릭하거나 이미지를 드래그해서 올려주세요 (JPG, PNG)'}
             </p>
-            <input type="file" id="img-upload" accept="image/*" style={{ display: 'none' }} onChange={e => {
+            <input type="file" id="img-upload" accept="image/*" capture="environment" style={{ display: 'none' }} onChange={e => {
               const file = e.target.files[0];
               if (!file) return;
               const reader = new FileReader();
