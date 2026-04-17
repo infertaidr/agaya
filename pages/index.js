@@ -209,8 +209,8 @@ async function searchHospitalsByRegion(region) {
     const url = `/api/hospitals?region=${encodeURIComponent(region)}`;
     const res = await fetch(url);
     const data = await res.json();
-    setHospitals(data.documents || []);
-    if ((data.documents || []).length === 0) {
+    setHospitals(data.items || []);
+    if ((data.items || []).length === 0) {
       setHospitalError('검색 결과가 없어요. 다른 지역명으로 시도해보세요.');
     }
   } catch (e) {
