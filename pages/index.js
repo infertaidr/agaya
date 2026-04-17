@@ -599,6 +599,64 @@ async function searchHospitalsByRegion(region) {
     )}
   </div>
 )}
+  {tab === 'hospital' && (
+  <div>
+    <div style={{ padding: '10px 12px', background: '#E1F5EE', borderRadius: 8, fontSize: 12, color: '#0F6E56', marginBottom: 16 }}>
+      🏥 지역명으로 주변 난임·불임 병원을 찾아드려요
+    </div>
+    <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
+      <input
+        value={searchQuery}
+        onChange={e => setSearchQuery(e.target.value)}
+        onKeyDown={e => e.key === 'Enter' && searchHospitalsByRegion(searchQuery)}
+        placeholder="지역명 입력 (예: 강남구, 수원, 창원)"
+        style={{ flex: 1, padding: '9px 12px', borderRadius: 8, border: '1px solid #d1d5db', fontSize: 14 }}
+      />
+      <button
+        onClick={() => searchHospitalsByRegion(searchQuery)}
+        style={{ padding: '9px 18px', background: '#1D9E75', color: 'white', border: 'none', borderRadius: 8, fontSize: 14, cursor: 'pointer' }}>
+        검색
+      </button>
+    </div>
+    <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 20 }}>
+      {['서울', '부산', '대구', '인천', '광주', '대전', '수원', '창원', '전주', '청주'].map(city => (
+        <button key={city}
+          onClick={() => { setSearchQuery(city); searchHospitalsByRegion(city); }}
+          style={{ fontSize: 12, padding: '5px 12px', borderRadius: 20, border: '1px solid #5DCAA5', color: '#0F6E56', background: 'white', cursor: 'pointer' }}>
+          {city}
+        </button>
+      ))}
+    </div>
+    {hospitalLoading && (
+      <div style={{ textAlign: 'center', padding: 24, color: '#6b7280', fontSize: 14 }}>🔍 검색 중...</div>
+    )}
+    {hospitalError && (
+      <div style={{ padding: 12, background: '#FEF3C7', borderRadius: 8, fontSize: 13, color: '#92400E' }}>{hospitalError}</div>
+    )}
+    {hospitals.length > 0 && (
+      <div style={{ background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
+        <div style={{ padding: '10px 16px', fontSize: 13, color: '#6b7280', borderBottom: '1px solid #e5e7eb' }}>
+          {hospitals.length}곳 발견
+        </div>
+        {hospitals.map((h, i) => (
+          <div key={i} style={{ display: 'flex', gap: 12, padding: '12px 16px', borderBottom: i < hospitals.length - 1 ? '1px solid #e5e7eb' : 'none' }}>
+            <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#E1F5EE', color: '#0F6E56', fontSize: 12, fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              {i + 1}
+            </div>
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: '#111', marginBottom: 3 }}>{h.place_name}</div>
+              <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 3 }}>{h.road_address_name || h.address_name}</div>
+              {h.phone && <div style={{ fontSize: 12, color: '#0F6E56' }}>📞 {h.phone}</div>}
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+    <div style={{ marginTop: 12, fontSize: 11, color: '#9ca3af', textAlign: 'center' }}>
+      카카오맵 API 기반 · 방문 전 전화 확인을 권장해요
+    </div>
+  </div>
+)}
 </div>
   );
 }
