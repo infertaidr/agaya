@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 const SYSTEM = {
   en: "You are Agaya, a compassionate fertility health AI assistant created by an OB/GYN and fertility specialist. Provide accurate, evidence-based information about reproductive health, fertility, IVF, ovulation, PCOS, and related topics. Always note responses are for educational purposes. Be warm and supportive. Respond in the same language the user writes in.",
-  ko: "저는 Agaya, 산부인과 및 불임 전문의가 만든 불임 건강 AI 어시스턴트예요. 생식 건강, 불임, IVF, 배란, PCOS에 대한 정확한 정보를 제공해요. 항상 교육 목적임을 안내하고 의료 전문가 상담을 권장해요. 따뜻하고 공감적으로 답변해요. 배란일이나 임신 가능성에 대한 질문을 받으면 답변 마지막에 반드시 이 멘트를 추가하세요: 더 정확한 배란일 예측을 원하신다면, 배란 탭에서 최근 6개월간 생리 시작일을 입력해보세요. AMH 수치 해석: AMH는 난소에 남아있는 난자 수를 반영하는 호르몬이에요. AMH가 높을수록 좋아요. AMH 1.0 이하는 난소 예비력이 낮은 것이에요. 35세에 AMH 1.39이면 난소 나이가 40~41세 수준으로 실제 나이보다 난소가 좋지 않은 상태예요. 이런 경우 몇 번 자연 시도를 해보고 안 된다면 전문의와 상담해보라고 안내하세요. 절대로 Ovarian Age Index라는 용어를 사용하지 마세요.",
+  ko: "저는 Agaya, 산부인과 및 불임 전문의가 만든 불임 건강 AI 어시스턴트예요. 생식 건강, 불임, IVF, 배란, PCOS에 대한 정확한 정보를 제공해요. 항상 교육 목적임을 안내하고 의료 전문가 상담을 권장해요. 따뜻하고 공감적으로 답변해요. 배란일이나 임신 가능성에 대한 질문을 받으면 답변 마지막에 반드시 이 멘트를 추가하세요: 더 정확한 배란일 예측을 원하신다면, 배란 탭에서 최근 6개월간 생리 시작일을 입력해보세요. AMH 수치 해석: AMH는 난소에 남아있는 난자 수를 반영하는 호르몬이에요. AMH가 높을수록 좋아요. AMH 1.0 이하는 난소 예비력이 낮은 것이에요. 35세에 AMH 1.39이면 난소 나이가 40~41세 수준으로 실제 나이보다 난소가 좋지 않은 상태예요. 이런 경우 몇 번 자연 시도를 해보고 안 된다면 전문의와 상담해보라고 안내하세요. 절대로 Ovarian Age Index라는 용어를 사용하지 마세요. 상담 로직: 생리주기가 규칙적인데(28~35일) 임신 시도 기간이 1년 이상이면 검사가 필요할 가능성이 있다고 안내하세요. 생리가 불규칙하면 배란앱이나 병원 초음파를 통해 배란일을 잘 잡아보는 것이 방법이 될 수 있다고 안내하세요.",
   sw: "Wewe ni Agaya, msaidizi wa AI wa afya ya uzazi aliyeundwa na daktari wa uzazi. Toa taarifa sahihi kuhusu afya ya uzazi. Jibu kwa Kiswahili."
 };
 
@@ -25,8 +25,10 @@ function getAMHInterpretation(amh, age) {
 
 const EMPTY_PROFILE = {
   age: '', amh: '', periods: ['','','','','',''],
-  surgeryHistory: '', fibroids: false, endometriosis: false,
-  otherConditions: '', tryingMonths: ''
+  periodPain: '', periodFlow: '', cycleType: 'regular',
+  tryingMonths: '', weekendCouple: false, contraception: '',
+  surgeryHistory: '', currentMeds: '', allergies: '',
+  hsgResult: '', spermResult: '', hormoneResult: '',
 };
 
 export default function Home() {
@@ -148,7 +150,7 @@ export default function Home() {
       const saved = localStorage.getItem('agaya_profile');
       if (saved) {
         const p = JSON.parse(saved);
-        systemWithProfile += ` 사용자 정보: 나이 ${p.age||'미입력'}세, AMH ${p.amh||'미입력'} ng/mL, 수술경력: ${p.surgeryHistory||'없음'}, 자궁근종: ${p.fibroids?'있음':'없음'}, 자궁내막증: ${p.endometriosis?'있음':'없음'}, 기타: ${p.otherConditions||'없음'}, 임신 시도 기간: ${p.tryingMonths||'미입력'}개월. 이 정보를 참고해서 개인화된 답변을 해주세요.`;
+        systemWithProfile += ` 사용자 정보: 나이 ${p.age||'미입력'}세, AMH ${p.amh||'미입력'} ng/mL, 생리통 ${p.periodPain||'미입력'}, 생리양 ${p.periodFlow||'미입력'}, 생리주기 ${p.cycleType==='regular'?'규칙적':'불규칙'}, 임신 시도 기간 ${p.tryingMonths||'미입력'}개월, 주말부부 ${p.weekendCouple?'예':'아니오'}, 피임 ${p.contraception||'없음'}, 수술기왕력 ${p.surgeryHistory||'없음'}, 복용중인 약 ${p.currentMeds||'없음'}, 알러지 ${p.allergies||'없음'}, 나팔관촬영 ${p.hsgResult||'미시행'}, 정액검사 ${p.spermResult||'미시행'}, 호르몬검사 ${p.hormoneResult||'미시행'}. 이 정보를 참고해서 개인화된 답변을 해주세요. 생리주기가 규칙적인데 임신 시도 기간이 12개월 이상이면 검사 필요 가능성을 안내하세요. 생리가 불규칙하면 배란앱이나 병원 초음파로 배란일 잡기를 권장하세요.`;
       }
     } catch(e) {}
     const newMessages = [...messages, { role: 'user', content: text }];
@@ -204,6 +206,7 @@ export default function Home() {
 
   const iStyle = { width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid #d1d5db', fontSize: 14, boxSizing: 'border-box' };
   const lStyle = { display: 'block', fontSize: 12, color: '#6b7280', marginBottom: 4 };
+  const selectStyle = { ...iStyle, background: 'white' };
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '20px', fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24, paddingBottom: 16, borderBottom: '1px solid #e5e7eb' }}>
@@ -355,45 +358,93 @@ export default function Home() {
         <div>
           <h2 style={{ fontSize: 16, fontWeight: 600, margin: '0 0 8px' }}>🔒 내 건강 정보</h2>
           <div style={{ padding: '10px 12px', background: '#FEF3C7', borderRadius: 8, fontSize: 12, color: '#92400E', marginBottom: 20 }}>
-            🛡️ 이 정보는 오직 본인 기기에만 저장돼요. 서버에 전송되지 않아요. 저장하면 채팅 상담 시 Agaya가 참고해서 더 정확한 답변을 드려요.
+            🛡️ 이 정보는 오직 본인 기기에만 저장돼요. 서버에 전송되지 않아요. 저장하면 채팅 상담 시 Agaya가 참고해서 더 개인화된 답변을 드려요.
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 16 }}>
-            <div><label style={lStyle}>나이 (세)</label><input type="number" value={age} onChange={e => setAge(e.target.value)} placeholder="예: 35" style={iStyle} /></div>
-            <div><label style={lStyle}>AMH 수치 (ng/mL)</label><input type="number" value={amh} onChange={e => setAmh(e.target.value)} placeholder="예: 2.5" step="0.1" style={iStyle} /></div>
-            <div><label style={lStyle}>임신 시도 기간 (개월)</label><input type="number" value={profile.tryingMonths} onChange={e => setProfile({...profile, tryingMonths: e.target.value})} placeholder="예: 12" style={iStyle} /></div>
+
+          <div style={{ marginBottom: 20, padding: 16, background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
+            <p style={{ fontSize: 14, fontWeight: 600, color: '#374151', margin: '0 0 12px' }}>📋 기본 정보</p>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              <div><label style={lStyle}>나이 (세)</label><input type="number" value={age} onChange={e => setAge(e.target.value)} placeholder="예: 35" style={iStyle} /></div>
+              <div><label style={lStyle}>AMH 수치 (ng/mL)</label><input type="number" value={amh} onChange={e => setAmh(e.target.value)} placeholder="예: 2.5" step="0.1" style={iStyle} /></div>
+            </div>
           </div>
-          <div style={{ marginBottom: 16 }}>
-            <label style={lStyle}>수술 경력</label>
-            <input type="text" value={profile.surgeryHistory} onChange={e => setProfile({...profile, surgeryHistory: e.target.value})} placeholder="예: 난소낭종 제거술 (2022년)" style={iStyle} />
+
+          <div style={{ marginBottom: 20, padding: 16, background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
+            <p style={{ fontSize: 14, fontWeight: 600, color: '#374151', margin: '0 0 12px' }}>🩸 생리 정보</p>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+              <div>
+                <label style={lStyle}>생리통</label>
+                <select value={profile.periodPain} onChange={e => setProfile({...profile, periodPain: e.target.value})} style={selectStyle}>
+                  <option value="">선택</option>
+                  <option value="없음">없음</option>
+                  <option value="약함">약함</option>
+                  <option value="중간">중간</option>
+                  <option value="심함">심함 (진통제 필요)</option>
+                </select>
+              </div>
+              <div>
+                <label style={lStyle}>생리양</label>
+                <select value={profile.periodFlow} onChange={e => setProfile({...profile, periodFlow: e.target.value})} style={selectStyle}>
+                  <option value="">선택</option>
+                  <option value="적음">적음</option>
+                  <option value="보통">보통</option>
+                  <option value="많음">많음</option>
+                  <option value="매우 많음">매우 많음 (패드 1시간마다 교체)</option>
+                </select>
+              </div>
+              <div>
+                <label style={lStyle}>생리 주기</label>
+                <select value={profile.cycleType} onChange={e => setProfile({...profile, cycleType: e.target.value})} style={selectStyle}>
+                  <option value="regular">규칙적 (±3일 이내)</option>
+                  <option value="irregular">불규칙 (±3일 초과)</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label style={lStyle}>최근 6개월 생리 시작일</label>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+                {periods.map((p, i) => (
+                  <div key={i}>
+                    <label style={{ ...lStyle, fontSize: 11 }}>{i === 5 ? '이번 달' : `${5-i}개월 전`}</label>
+                    <input type="date" value={p} onChange={e => { const n = [...periods]; n[i] = e.target.value; setPeriods(n); }} style={iStyle} />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-          <div style={{ marginBottom: 16, padding: 16, background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
-            <p style={{ fontSize: 13, fontWeight: 600, marginBottom: 12 }}>자궁/난소 이상 유무</p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+
+          <div style={{ marginBottom: 20, padding: 16, background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
+            <p style={{ fontSize: 14, fontWeight: 600, color: '#374151', margin: '0 0 12px' }}>👶 임신 시도</p>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+              <div><label style={lStyle}>임신 시도 기간 (개월)</label><input type="number" value={profile.tryingMonths} onChange={e => setProfile({...profile, tryingMonths: e.target.value})} placeholder="예: 12" style={iStyle} /></div>
+              <div><label style={lStyle}>피임 방법 (현재 또는 과거)</label><input type="text" value={profile.contraception} onChange={e => setProfile({...profile, contraception: e.target.value})} placeholder="예: 경구피임약 3년" style={iStyle} /></div>
+            </div>
+            <div>
               <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 14 }}>
-                <input type="checkbox" checked={profile.fibroids} onChange={e => setProfile({...profile, fibroids: e.target.checked})} style={{ width: 16, height: 16, accentColor: '#1D9E75' }} />
-                자궁근종 있음
-              </label>
-              <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 14 }}>
-                <input type="checkbox" checked={profile.endometriosis} onChange={e => setProfile({...profile, endometriosis: e.target.checked})} style={{ width: 16, height: 16, accentColor: '#1D9E75' }} />
-                자궁내막증 있음
+                <input type="checkbox" checked={profile.weekendCouple} onChange={e => setProfile({...profile, weekendCouple: e.target.checked})} style={{ width: 16, height: 16, accentColor: '#1D9E75' }} />
+                주말부부 (주중 별거)
               </label>
             </div>
           </div>
-          <div style={{ marginBottom: 16 }}>
-            <label style={lStyle}>기타 질환 / 메모</label>
-            <textarea value={profile.otherConditions} onChange={e => setProfile({...profile, otherConditions: e.target.value})} placeholder="예: 갑상선 기능 저하증, PCOS, 남편 정자 운동성 저하 등" rows={3} style={{ ...iStyle, resize: 'vertical', lineHeight: 1.6 }} />
-          </div>
-          <div style={{ marginBottom: 20 }}>
-            <label style={lStyle}>최근 6개월 생리 시작일</label>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-              {periods.map((p, i) => (
-                <div key={i}>
-                  <label style={{ ...lStyle, fontSize: 11 }}>{i === 5 ? '이번 달' : `${5-i}개월 전`}</label>
-                  <input type="date" value={p} onChange={e => { const n = [...periods]; n[i] = e.target.value; setPeriods(n); }} style={iStyle} />
-                </div>
-              ))}
+
+          <div style={{ marginBottom: 20, padding: 16, background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
+            <p style={{ fontSize: 14, fontWeight: 600, color: '#374151', margin: '0 0 12px' }}>🏥 병력 및 약물</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <div><label style={lStyle}>산부인과 수술/시술 기왕력</label><input type="text" value={profile.surgeryHistory} onChange={e => setProfile({...profile, surgeryHistory: e.target.value})} placeholder="예: 제왕절개 (2020), 자궁경부 레이저 시술 (2019)" style={iStyle} /></div>
+              <div><label style={lStyle}>복용 중인 약</label><input type="text" value={profile.currentMeds} onChange={e => setProfile({...profile, currentMeds: e.target.value})} placeholder="예: 갑상선 약, 철분제" style={iStyle} /></div>
+              <div><label style={lStyle}>알러지 (식품/약/조영제)</label><input type="text" value={profile.allergies} onChange={e => setProfile({...profile, allergies: e.target.value})} placeholder="예: 페니실린 알러지, 조영제 알러지" style={iStyle} /></div>
             </div>
           </div>
+
+          <div style={{ marginBottom: 20, padding: 16, background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
+            <p style={{ fontSize: 14, fontWeight: 600, color: '#374151', margin: '0 0 12px' }}>🔬 검사 결과 (있다면)</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <div><label style={lStyle}>나팔관 촬영검사 (HSG) 결과</label><input type="text" value={profile.hsgResult} onChange={e => setProfile({...profile, hsgResult: e.target.value})} placeholder="예: 양측 나팔관 통과, 우측 폐쇄" style={iStyle} /></div>
+              <div><label style={lStyle}>정액검사 결과</label><input type="text" value={profile.spermResult} onChange={e => setProfile({...profile, spermResult: e.target.value})} placeholder="예: 정상, 운동성 저하 (40%), 정자수 감소" style={iStyle} /></div>
+              <div><label style={lStyle}>호르몬 검사 결과</label><input type="text" value={profile.hormoneResult} onChange={e => setProfile({...profile, hormoneResult: e.target.value})} placeholder="예: FSH 8.5, LH 5.2, E2 45, TSH 정상" style={iStyle} /></div>
+            </div>
+          </div>
+
           <div style={{ display: 'flex', gap: 10 }}>
             <button onClick={saveProfile} style={{ flex: 1, padding: 12, background: '#1D9E75', color: 'white', border: 'none', borderRadius: 8, cursor: 'pointer', fontSize: 15, fontWeight: 600 }}>
               {profileSaved ? '✅ 저장됐어요!' : '💾 저장하기'}
