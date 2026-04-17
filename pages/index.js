@@ -31,6 +31,8 @@ const EMPTY_PROFILE = {
   hsgResult: '', spermResult: '', hormoneResult: '',
 };
 
+const HOSPITAL_DATA = [{"region":"종로구","name":"서울대학교병원","type":"상급종합병원","address":"서울특별시 종로구 대학로 101 (연건동)","phone":"1588-5700"},{"region":"성북구","name":"고려대학교의과대학부속병원(안암병원)","type":"상급종합병원","address":"서울특별시 성북구 고려대로 73 (안암동5가)","phone":"1577-0083"},{"region":"서대문구","name":"연세대학교의과대학세브란스병원","type":"상급종합병원","address":"서울특별시 서대문구 연세로 50-1 (신촌동)","phone":"02-2228-0114"},{"region":"구로구","name":"고려대학교의과대학부속구로병원","type":"상급종합병원","address":"서울특별시 구로구 구로동로 148 (구로동)","phone":"02-2626-1114"},{"region":"송파구","name":"서울아산병원","type":"상급종합병원","address":"서울특별시 송파구 올림픽로43길 88 (풍납동)","phone":"02-3010-3114"},{"region":"강남구","name":"차의과학대학교 강남차병원","type":"종합병원","address":"서울특별시 강남구 논현로 566 (역삼동)","phone":"02-3468-3000"},{"region":"양천구","name":"이화여자대학교의과대학부속목동병원","type":"상급종합병원","address":"서울특별시 양천구 안양천로 1071 (목동)","phone":"02-2650-5114"},{"region":"강남구","name":"삼성서울병원","type":"상급종합병원","address":"서울특별시 강남구 일원로 81 (일원동)","phone":"02-3410-2114"},{"region":"노원구","name":"노원을지대학교병원","type":"종합병원","address":"서울특별시 노원구 한글비석로 68 (하계동)","phone":"02-970-8000"},{"region":"강서구","name":"미즈메디병원","type":"종합병원","address":"서울특별시 강서구 강서로 295 (내발산동)","phone":"02-2007-1000"},{"region":"중구","name":"국립중앙의료원","type":"종합병원","address":"서울특별시 중구 을지로 245 (을지로6가)","phone":"02-2260-7114"},{"region":"중랑구","name":"서울특별시서울의료원","type":"종합병원","address":"서울특별시 중랑구 신내로 156 (신내동)","phone":"02-2276-7000"},{"region":"강서구","name":"유광사여성병원","type":"병원","address":"서울특별시 강서구 강서로 194 (화곡동)","phone":"02-2608-1011"},{"region":"동대문구","name":"마리아병원","type":"병원","address":"서울특별시 동대문구 천호대로 20 (신설동)","phone":"02-2234-6555"},{"region":"노원구","name":"메디아이여성병원","type":"병원","address":"서울특별시 노원구 노원로 448 (상계동)","phone":"02-936-2122"},{"region":"도봉구","name":"에이치큐브병원","type":"병원","address":"서울특별시 도봉구 도봉로 604 (창동)","phone":"02-900-2000"},{"region":"송파구","name":"마리아병원 송파","type":"병원","address":"서울특별시 송파구 송이로 152 (가락동)","phone":"02-2152-6555"},{"region":"구로구","name":"삼성미래여성병원","type":"병원","address":"서울특별시 구로구 서해안로 2296 (오류동)","phone":"02-2682-2100"},{"region":"강남구","name":"미래와희망산부인과의원","type":"의원","address":"서울특별시 강남구 언주로 707(논현동)","phone":"02-3015-8806"},{"region":"서초구","name":"아이수산부인과의원","type":"의원","address":"서울특별시 서초구 동작대로 108 (방배동)","phone":"02-3483-2255"},{"region":"마포구","name":"서울라헬여성의원","type":"의원","address":"서울특별시 마포구 마포대로 109 (공덕동)","phone":"02-3286-7500"},{"region":"강남구","name":"엠여성의원","type":"의원","address":"서울특별시 강남구 테헤란로 407 (삼성동)","phone":"02-6188-0070"},{"region":"송파구","name":"사랑아이여성의원","type":"의원","address":"서울특별시 송파구 백제고분로 69 (잠실동)","phone":"02-419-7501"},{"region":"부산서구","name":"부산대학교병원","type":"상급종합병원","address":"부산광역시 서구 구덕로 179 (아미동1가)","phone":"051-240-7000"},{"region":"부산진구","name":"인제대학교부산백병원","type":"상급종합병원","address":"부산광역시 부산진구 복지로 75","phone":"051-890-6114"},{"region":"부산서구","name":"동아대학교병원","type":"상급종합병원","address":"부산광역시 서구 대신공원로 26 (동대신동3가)","phone":"051-240-2400"},{"region":"부산동구","name":"일신기독병원","type":"종합병원","address":"부산광역시 동구 정공단로 27 (좌천동)","phone":"051-630-0300"},{"region":"부산해운대구","name":"인제대학교 해운대백병원","type":"종합병원","address":"부산광역시 해운대구 해운대로 875 (좌동)","phone":"051-797-0100"},{"region":"부산동래구","name":"세화병원","type":"병원","address":"부산광역시 동래구 미남로132번길 28 (온천동)","phone":"051-505-1333"},{"region":"부산북구","name":"미래로병원","type":"병원","address":"부산광역시 북구 금곡대로 15 (덕천동)","phone":"051-330-5000"},{"region":"부산해운대구","name":"삼성제일산부인과의원","type":"의원","address":"부산광역시 해운대구 해운대로 369 (우동)","phone":"051-747-3999"},{"region":"부산연제구","name":"마리아의원 부산","type":"의원","address":"부산광역시 연제구 월드컵대로 125 (연산동)","phone":"051-441-6555"},{"region":"인천남동구","name":"길병원","type":"상급종합병원","address":"인천광역시 남동구 남동대로774번길 21 (구월동)","phone":""},{"region":"수원영통구","name":"아주대학교병원","type":"상급종합병원","address":"경기도 수원시 영통구 월드컵로 164 (원천동)","phone":"031-219-5114"},{"region":"성남분당구","name":"분당차병원","type":"종합병원","address":"경기도 성남시 분당구 야탑로 59 (야탑동)","phone":"031-780-5000"},{"region":"성남분당구","name":"분당서울대학교병원","type":"상급종합병원","address":"경기도 성남시 분당구 구미로173번길 82 (구미동)","phone":"031-787-2114"},{"region":"고양일산동구","name":"일산차병원","type":"종합병원","address":"경기도 고양시 일산동구 중앙로 1205 (장항동)","phone":"031-782-8300"},{"region":"안산단원구","name":"고려대학교안산병원","type":"상급종합병원","address":"경기도 안산시 단원구 적금로 123 (고잔동)","phone":"031-1577-7516"},{"region":"원주시","name":"연세대학교 원주세브란스기독병원","type":"상급종합병원","address":"강원특별자치도 원주시 일산로 20 (일산동)","phone":"033-741-0114"},{"region":"춘천시","name":"강원대학교병원","type":"종합병원","address":"강원특별자치도 춘천시 백령로 156 (효자동)","phone":"033-258-2000"},{"region":"청주서원구","name":"모태안여성병원","type":"병원","address":"충청북도 청주시 서원구 복대로17번길 57","phone":"043-272-0001"},{"region":"대전중구","name":"충남대학교병원","type":"상급종합병원","address":"대전광역시 중구 문화로 282 (대사동)","phone":"042-1599-7123"},{"region":"대전서구","name":"건양대학교병원","type":"상급종합병원","address":"대전광역시 서구 관저동로 158 (관저동)","phone":"042-600-9999"},{"region":"세종시","name":"세종충남대학교병원","type":"종합병원","address":"세종특별자치시 보듬7로 20 (도담동)","phone":"1800-3114"},{"region":"천안서북구","name":"혜성산부인과병원","type":"병원","address":"충청남도 천안시 서북구 미라2길 18-11 (쌍용동)","phone":"041-572-4567"},{"region":"전주덕진구","name":"전북대학교병원","type":"상급종합병원","address":"전라북도 전주시 덕진구 건지로 20 (금암동)","phone":"063-250-1129"},{"region":"전주완산구","name":"예수병원","type":"종합병원","address":"전라북도 전주시 완산구 서원로 365 (중화산동1가)","phone":"063-230-8114"},{"region":"전주덕진구","name":"대자인병원","type":"종합병원","address":"전라북도 전주시 덕진구 견훤로 390 (우아동3가)","phone":"063-240-2000"},{"region":"광주동구","name":"전남대학교병원","type":"상급종합병원","address":"광주광역시 동구 제봉로 42 (학동)","phone":"062-1899-0000"},{"region":"광주동구","name":"조선대학교병원","type":"상급종합병원","address":"광주광역시 동구 필문대로 365 (학동)","phone":"062-220-3321"},{"region":"광주서구","name":"시엘병원","type":"병원","address":"광주광역시 서구 무진대로 957 (광천동)","phone":"062-368-1700"},{"region":"순천시","name":"미즈여성아동병원","type":"병원","address":"전라남도 순천시 조례1길 10-26 (조례동)","phone":"061-720-8022"},{"region":"대구중구","name":"경북대학교병원","type":"상급종합병원","address":"대구광역시 중구 동덕로 130 (삼덕동2가)","phone":"053-200-5114"},{"region":"대구달서구","name":"계명대학교동산병원","type":"상급종합병원","address":"대구광역시 달서구 달구벌대로 1035 (신당동)","phone":"1577-6622"},{"region":"포항북구","name":"여성아이병원","type":"병원","address":"경상북도 포항시 북구 우창동로22번길 7 (우현동)","phone":"054-255-5000"},{"region":"대구수성구","name":"효성병원","type":"병원","address":"대구광역시 수성구 수성로 194 (중동)","phone":"053-766-7070"},{"region":"진주시","name":"경상국립대학교병원","type":"상급종합병원","address":"경상남도 진주시 강남로 79 (칠암동)","phone":"055-750-8000"},{"region":"울산동구","name":"울산대학교병원","type":"상급종합병원","address":"울산광역시 동구 대학병원로 25 (전하동)","phone":"052-250-7000"},{"region":"창원의창구","name":"창원한마음병원","type":"종합병원","address":"경상남도 창원시 의창구 용동로57번길 8 (사림동)","phone":"055-225-0000"},{"region":"창원성산구","name":"창원경상국립대학교병원","type":"종합병원","address":"경상남도 창원시 성산구 삼정자로 11 (성주동)","phone":"055-214-2000"},{"region":"김해시","name":"우리여성병원","type":"병원","address":"경상남도 김해시 내외중앙로 91 (내동)","phone":"055-321-0114"},{"region":"창원의창구","name":"엘르메디여성의원","type":"의원","address":"경상남도 창원시 의창구 서상로 1 (동정동)","phone":"055-253-2111"},{"region":"제주시","name":"엘산부인과의원","type":"의원","address":"제주특별자치도 제주시 중앙로 352 (이도이동)","phone":"064-726-6555"}];
+
 export default function Home() {
   const [lang, setLang] = useState('ko');
   const [tab, setTab] = useState('chat');
@@ -47,13 +49,14 @@ export default function Home() {
   const [profile, setProfile] = useState(EMPTY_PROFILE);
   const [profileSaved, setProfileSaved] = useState(false);
   const [imgPreview, setImgPreview] = useState('');
-const [imgResult, setImgResult] = useState('');
-const [imgLoading, setImgLoading] = useState(false);
-const [imgQuestion, setImgQuestion] = useState('');
+  const [imgResult, setImgResult] = useState('');
+  const [imgLoading, setImgLoading] = useState(false);
+  const [imgQuestion, setImgQuestion] = useState('');
+  const [imgType, setImgType] = useState('🔬 초음파 분석');
   const [hospitals, setHospitals] = useState([]);
-const [hospitalLoading, setHospitalLoading] = useState(false);
-const [hospitalError, setHospitalError] = useState('');
-const [searchQuery, setSearchQuery] = useState('');
+  const [hospitalError, setHospitalError] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+
   useEffect(() => {
     try {
       const saved = localStorage.getItem('agaya_profile');
@@ -84,6 +87,13 @@ const [searchQuery, setSearchQuery] = useState('');
     setOvulResult(null);
   }
 
+  function searchHospitalsByRegion(region) {
+    if (!region.trim()) return;
+    const filtered = HOSPITAL_DATA.filter(h => h.address.includes(region) || h.region.includes(region));
+    setHospitals(filtered);
+    setHospitalError(filtered.length === 0 ? '해당 지역 정부 지정 난임병원이 없어요.' : '');
+  }
+
   const welcomeMsg = {
     en: "Hello! I'm Agaya, your fertility health assistant. How can I help you today?",
     ko: "안녕하세요! 저는 Agaya, 불임 건강 AI 어시스턴트예요. 무엇을 도와드릴까요?",
@@ -108,7 +118,7 @@ const [searchQuery, setSearchQuery] = useState('');
       month: '개월 전', thisMonth: '이번 달', analyze: '배란 패턴 분석하기',
       avgCycle: '평균 주기', nextOvul: '다음 배란 예측일', fertile: '가임 기간', nextPeriod: '다음 생리 예정일',
       irregular: '⚠️ 주기 불규칙', regular: '✅ 주기 규칙적', days: '일', inputMore: '최소 2개월 이상 입력해주세요',
-      tip: '💡 알아두세요', tipEgg: '🥚 난자는 배란 후 24~48시간 생존해요. 배란일은 보통 하루예요.',
+      tip: '💡 알아두세요', tipEgg: '🥚 난자는 배란 후 24~48시간 생존해요.',
       tipSperm: '🔬 정자는 자궁 내에서 3~5일 생존할 수 있어요.',
       tipWhy: '📅 가임기가 약 1주일인 이유는 정자가 미리 기다릴 수 있기 때문이에요.',
       tipBest: '➡️ 배란 2~3일 전부터 배란일까지가 임신 확률이 가장 높아요!',
@@ -116,7 +126,7 @@ const [searchQuery, setSearchQuery] = useState('');
       amhSub: 'AMH는 남아있는 난자 수를 반영해요. 검사 결과가 있다면 입력해주세요.',
       amhLevel: 'AMH 수준', chromoTitle: '나이별 염색체 정상 난자 비율',
       chromoImportant: '⭐ 나이가 가장 중요해요',
-      chromoExplain: 'AMH는 난소에 남아있는 난자 수를 보여주지만, 난자의 질(염색체 정상 여부)은 나이가 결정해요.',
+      chromoExplain: 'AMH는 난소에 남아있는 난자 수를 보여주지만, 난자의 질은 나이가 결정해요.',
     },
     en: {
       periodTitle: '6-Month Period Tracker', periodSub: 'Enter your last 6 period start dates to analyze your ovulation pattern',
@@ -157,7 +167,7 @@ const [searchQuery, setSearchQuery] = useState('');
       const saved = localStorage.getItem('agaya_profile');
       if (saved) {
         const p = JSON.parse(saved);
-        systemWithProfile += ` 사용자 정보: 나이 ${p.age||'미입력'}세, AMH ${p.amh||'미입력'} ng/mL, 생리통 ${p.periodPain||'미입력'}, 생리양 ${p.periodFlow||'미입력'}, 생리주기 ${p.cycleType==='regular'?'규칙적':'불규칙'}, 임신 시도 기간 ${p.tryingMonths||'미입력'}개월, 주말부부 ${p.weekendCouple?'예':'아니오'}, 피임 ${p.contraception||'없음'}, 수술기왕력 ${p.surgeryHistory||'없음'}, 복용중인 약 ${p.currentMeds||'없음'}, 알러지 ${p.allergies||'없음'}, 나팔관촬영 ${p.hsgResult||'미시행'}, 정액검사 ${p.spermResult||'미시행'}, 호르몬검사 ${p.hormoneResult||'미시행'}. 이 정보를 참고해서 개인화된 답변을 해주세요. 생리주기가 규칙적인데 임신 시도 기간이 12개월 이상이면 검사 필요 가능성을 안내하세요. 생리가 불규칙하면 배란앱이나 병원 초음파로 배란일 잡기를 권장하세요.`;
+        systemWithProfile += ` 사용자 정보: 나이 ${p.age||'미입력'}세, AMH ${p.amh||'미입력'} ng/mL, 생리통 ${p.periodPain||'미입력'}, 생리양 ${p.periodFlow||'미입력'}, 생리주기 ${p.cycleType==='regular'?'규칙적':'불규칙'}, 임신 시도 기간 ${p.tryingMonths||'미입력'}개월, 주말부부 ${p.weekendCouple?'예':'아니오'}, 피임 ${p.contraception||'없음'}, 수술기왕력 ${p.surgeryHistory||'없음'}, 복용중인 약 ${p.currentMeds||'없음'}, 알러지 ${p.allergies||'없음'}, 나팔관촬영 ${p.hsgResult||'미시행'}, 정액검사 ${p.spermResult||'미시행'}, 호르몬검사 ${p.hormoneResult||'미시행'}. 이 정보를 참고해서 개인화된 답변을 해주세요.`;
       }
     } catch(e) {}
     const newMessages = [...messages, { role: 'user', content: text }];
@@ -198,35 +208,7 @@ const [searchQuery, setSearchQuery] = useState('');
   }
 
   function toggleSymptom(s) { setSymptoms(prev => prev.includes(s) ? prev.filter(x => x !== s) : [...prev, s]); }
-const HOSPITAL_DATA = [{"region":"종로구","name":"서울대학교병원","type":"상급종합병원","address":"서울특별시 종로구 대학로 101 (연건동)","phone":"1588-5700"},{"region":"성북구","name":"고려대학교의과대학부속병원(안암병원)","type":"상급종합병원","address":"서울특별시 성북구 고려대로 73 (안암동5가)","phone":"1577-0083"},{"region":"서대문구","name":"연세대학교의과대학세브란스병원","type":"상급종합병원","address":"서울특별시 서대문구 연세로 50-1 (신촌동)","phone":"02-2228-0114"},{"region":"구로구","name":"고려대학교의과대학부속구로병원","type":"상급종합병원","address":"서울특별시 구로구 구로동로 148 (구로동)","phone":"02-2626-1114"},{"region":"송파구","name":"서울아산병원","type":"상급종합병원","address":"서울특별시 송파구 올림픽로43길 88 (풍납동)","phone":"02-3010-3114"},{"region":"강남구","name":"차의과학대학교 강남차병원","type":"종합병원","address":"서울특별시 강남구 논현로 566 (역삼동)","phone":"02-3468-3000"},{"region":"양천구","name":"이화여자대학교의과대학부속목동병원","type":"상급종합병원","address":"서울특별시 양천구 안양천로 1071 (목동)","phone":"02-2650-5114"},{"region":"강남구","name":"삼성서울병원","type":"상급종합병원","address":"서울특별시 강남구 일원로 81 (일원동)","phone":"02-3410-2114"},{"region":"노원구","name":"노원을지대학교병원","type":"종합병원","address":"서울특별시 노원구 한글비석로 68 (하계동)","phone":"02-970-8000"},{"region":"강서구","name":"미즈메디병원","type":"종합병원","address":"서울특별시 강서구 강서로 295 (내발산동)","phone":"02-2007-1000"},{"region":"중구","name":"국립중앙의료원","type":"종합병원","address":"서울특별시 중구 을지로 245 (을지로6가)","phone":"02-2260-7114"},{"region":"중랑구","name":"서울특별시서울의료원","type":"종합병원","address":"서울특별시 중랑구 신내로 156 (신내동)","phone":"02-2276-7000"},{"region":"강서구","name":"유광사여성병원","type":"병원","address":"서울특별시 강서구 강서로 194 (화곡동)","phone":"02-2608-1011"},{"region":"동대문구","name":"마리아병원","type":"병원","address":"서울특별시 동대문구 천호대로 20 (신설동)","phone":"02-2234-6555"},{"region":"노원구","name":"메디아이여성병원","type":"병원","address":"서울특별시 노원구 노원로 448 (상계동)","phone":"02-936-2122"},{"region":"도봉구","name":"에이치큐브병원","type":"병원","address":"서울특별시 도봉구 도봉로 604 (창동)","phone":"02-900-2000"},{"region":"송파구","name":"마리아병원 송파","type":"병원","address":"서울특별시 송파구 송이로 152 (가락동)","phone":"02-2152-6555"},{"region":"구로구","name":"삼성미래여성병원","type":"병원","address":"서울특별시 구로구 서해안로 2296 (오류동)","phone":"02-2682-2100"},{"region":"강남구","name":"미래와희망산부인과의원","type":"의원","address":"서울특별시 강남구 언주로 707(논현동)","phone":"02-3015-8806"},{"region":"서초구","name":"아이수산부인과의원","type":"의원","address":"서울특별시 서초구 동작대로 108 (방배동)","phone":"02-3483-2255"},{"region":"마포구","name":"서울라헬여성의원","type":"의원","address":"서울특별시 마포구 마포대로 109 (공덕동)","phone":"02-3286-7500"},{"region":"강남구","name":"엠여성의원","type":"의원","address":"서울특별시 강남구 테헤란로 407 (삼성동)","phone":"02-6188-0070"},{"region":"송파구","name":"사랑아이여성의원","type":"의원","address":"서울특별시 송파구 백제고분로 69 (잠실동)","phone":"02-419-7501"},{"region":"부산서구","name":"부산대학교병원","type":"상급종합병원","address":"부산광역시 서구 구덕로 179 (아미동1가)","phone":"051-240-7000"},{"region":"부산진구","name":"인제대학교부산백병원","type":"상급종합병원","address":"부산광역시 부산진구 복지로 75","phone":"051-890-6114"},{"region":"부산서구","name":"동아대학교병원","type":"상급종합병원","address":"부산광역시 서구 대신공원로 26 (동대신동3가)","phone":"051-240-2400"},{"region":"부산동구","name":"일신기독병원","type":"종합병원","address":"부산광역시 동구 정공단로 27 (좌천동)","phone":"051-630-0300"},{"region":"부산해운대구","name":"인제대학교 해운대백병원","type":"종합병원","address":"부산광역시 해운대구 해운대로 875 (좌동)","phone":"051-797-0100"},{"region":"부산동래구","name":"세화병원","type":"병원","address":"부산광역시 동래구 미남로132번길 28 (온천동)","phone":"051-505-1333"},{"region":"부산북구","name":"미래로병원","type":"병원","address":"부산광역시 북구 금곡대로 15 (덕천동)","phone":"051-330-5000"},{"region":"부산해운대구","name":"삼성제일산부인과의원","type":"의원","address":"부산광역시 해운대구 해운대로 369 (우동)","phone":"051-747-3999"},{"region":"부산연제구","name":"마리아의원 부산","type":"의원","address":"부산광역시 연제구 월드컵대로 125 (연산동)","phone":"051-441-6555"},{"region":"인천남동구","name":"길병원","type":"상급종합병원","address":"인천광역시 남동구 남동대로774번길 21 (구월동)","phone":""},{"region":"수원영통구","name":"아주대학교병원","type":"상급종합병원","address":"경기도 수원시 영통구 월드컵로 164 (원천동)","phone":"031-219-5114"},{"region":"성남분당구","name":"분당차병원","type":"종합병원","address":"경기도 성남시 분당구 야탑로 59 (야탑동)","phone":"031-780-5000"},{"region":"성남분당구","name":"분당서울대학교병원","type":"상급종합병원","address":"경기도 성남시 분당구 구미로173번길 82 (구미동)","phone":"031-787-2114"},{"region":"고양일산동구","name":"일산차병원","type":"종합병원","address":"경기도 고양시 일산동구 중앙로 1205 (장항동)","phone":"031-782-8300"},{"region":"안산단원구","name":"고려대학교안산병원","type":"상급종합병원","address":"경기도 안산시 단원구 적금로 123 (고잔동)","phone":"031-1577-7516"},{"region":"원주시","name":"연세대학교 원주세브란스기독병원","type":"상급종합병원","address":"강원특별자치도 원주시 일산로 20 (일산동)","phone":"033-741-0114"},{"region":"춘천시","name":"강원대학교병원","type":"종합병원","address":"강원특별자치도 춘천시 백령로 156 (효자동)","phone":"033-258-2000"},{"region":"청주서원구","name":"모태안여성병원","type":"병원","address":"충청북도 청주시 서원구 복대로17번길 57","phone":"043-272-0001"},{"region":"대전중구","name":"충남대학교병원","type":"상급종합병원","address":"대전광역시 중구 문화로 282 (대사동)","phone":"042-1599-7123"},{"region":"대전서구","name":"건양대학교병원","type":"상급종합병원","address":"대전광역시 서구 관저동로 158 (관저동)","phone":"042-600-9999"},{"region":"세종시","name":"세종충남대학교병원","type":"종합병원","address":"세종특별자치시 보듬7로 20 (도담동)","phone":"1800-3114"},{"region":"천안서북구","name":"혜성산부인과병원","type":"병원","address":"충청남도 천안시 서북구 미라2길 18-11 (쌍용동)","phone":"041-572-4567"},{"region":"전주덕진구","name":"전북대학교병원","type":"상급종합병원","address":"전라북도 전주시 덕진구 건지로 20 (금암동)","phone":"063-250-1129"},{"region":"전주완산구","name":"예수병원","type":"종합병원","address":"전라북도 전주시 완산구 서원로 365 (중화산동1가)","phone":"063-230-8114"},{"region":"전주덕진구","name":"대자인병원","type":"종합병원","address":"전라북도 전주시 덕진구 견훤로 390 (우아동3가)","phone":"063-240-2000"},{"region":"광주동구","name":"전남대학교병원","type":"상급종합병원","address":"광주광역시 동구 제봉로 42 (학동)","phone":"062-1899-0000"},{"region":"광주동구","name":"조선대학교병원","type":"상급종합병원","address":"광주광역시 동구 필문대로 365 (학동)","phone":"062-220-3321"},{"region":"광주서구","name":"시엘병원","type":"병원","address":"광주광역시 서구 무진대로 957 (광천동)","phone":"062-368-1700"},{"region":"순천시","name":"미즈여성아동병원","type":"병원","address":"전라남도 순천시 조례1길 10-26 (조례동)","phone":"061-720-8022"},{"region":"대구중구","name":"경북대학교병원","type":"상급종합병원","address":"대구광역시 중구 동덕로 130 (삼덕동2가)","phone":"053-200-5114"},{"region":"대구달서구","name":"계명대학교동산병원","type":"상급종합병원","address":"대구광역시 달서구 달구벌대로 1035 (신당동)","phone":"1577-6622"},{"region":"포항북구","name":"여성아이병원","type":"병원","address":"경상북도 포항시 북구 우창동로22번길 7 (우현동)","phone":"054-255-5000"},{"region":"대구수성구","name":"효성병원","type":"병원","address":"대구광역시 수성구 수성로 194 (중동)","phone":"053-766-7070"},{"region":"진주시","name":"경상국립대학교병원","type":"상급종합병원","address":"경상남도 진주시 강남로 79 (칠암동)","phone":"055-750-8000"},{"region":"울산동구","name":"울산대학교병원","type":"상급종합병원","address":"울산광역시 동구 대학병원로 25 (전하동)","phone":"052-250-7000"},{"region":"창원의창구","name":"창원한마음병원","type":"종합병원","address":"경상남도 창원시 의창구 용동로57번길 8 (사림동)","phone":"055-225-0000"},{"region":"창원성산구","name":"창원경상국립대학교병원","type":"종합병원","address":"경상남도 창원시 성산구 삼정자로 11 (성주동)","phone":"055-214-2000"},{"region":"김해시","name":"우리여성병원","type":"병원","address":"경상남도 김해시 내외중앙로 91 (내동)","phone":"055-321-0114"},{"region":"창원의창구","name":"엘르메디여성의원","type":"의원","address":"경상남도 창원시 의창구 서상로 1 (동정동)","phone":"055-253-2111"},{"region":"제주시","name":"엘산부인과의원","type":"의원","address":"제주특별자치도 제주시 중앙로 352 (이도이동)","phone":"064-726-6555"}];
 
-const SIDO_MAP = {
-  '서울': ['종로구','성북구','서대문구','구로구','송파구','강남구','양천구','노원구','강서구','중구','중랑구','동대문구','도봉구','마포구','서초구','강동구'],
-  '부산': ['부산서구','부산진구','부산동구','부산해운대구','부산동래구','부산북구','부산연제구','부산사하구'],
-  '인천': ['인천남동구','인천미추홀구','인천서구','인천부평구'],
-  '경기': ['수원영통구','수원팔달구','수원권선구','성남분당구','고양일산동구','고양일산서구','안산단원구','안양만안구','안양동안구','부천원미구','의정부시','군포시','이천시','평택시','화성시','용인수지구','하남시'],
-  '강원': ['원주시','춘천시','강릉시'],
-  '충북': ['청주서원구'],
-  '충남': ['천안서북구','홍성군','아산시'],
-  '대전': ['대전중구','대전서구'],
-  '세종': ['세종시'],
-  '전북': ['전주덕진구','전주완산구','군산시','익산시'],
-  '광주': ['광주동구','광주서구'],
-  '전남': ['순천시'],
-  '대구': ['대구중구','대구달서구','대구수성구','대구동구'],
-  '경북': ['포항북구','포항남구','안동시','구미시'],
-  '경남': ['진주시','창원의창구','창원성산구','김해시','울산동구','울산남구'],
-  '울산': ['울산동구','울산남구'],
-  '제주': ['제주시'],
-};
-
-function searchHospitalsByRegion(region) {
-  const filtered = HOSPITAL_DATA.filter(h => h.address.includes(region) || h.region.includes(region));
-  setHospitals(filtered);
-  if (filtered.length === 0) setHospitalError('해당 지역 정부 지정 난임병원이 없어요.');
-  else setHospitalError('');
-  setHospitalLoading(false);
-}
   async function analyzeSymptoms() {
     if (!symptoms.length) return;
     setSymptomLoading(true);
@@ -242,6 +224,7 @@ function searchHospitalsByRegion(region) {
   const iStyle = { width: '100%', padding: '8px 12px', borderRadius: 8, border: '1px solid #d1d5db', fontSize: 14, boxSizing: 'border-box' };
   const lStyle = { display: 'block', fontSize: 12, color: '#6b7280', marginBottom: 4 };
   const selectStyle = { ...iStyle, background: 'white' };
+
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '20px', fontFamily: 'system-ui, sans-serif' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24, paddingBottom: 16, borderBottom: '1px solid #e5e7eb' }}>
@@ -393,9 +376,8 @@ function searchHospitalsByRegion(region) {
         <div>
           <h2 style={{ fontSize: 16, fontWeight: 600, margin: '0 0 8px' }}>🔒 내 건강 정보</h2>
           <div style={{ padding: '10px 12px', background: '#FEF3C7', borderRadius: 8, fontSize: 12, color: '#92400E', marginBottom: 20 }}>
-            🛡️ 이 정보는 오직 본인 기기에만 저장돼요. 서버에 전송되지 않아요. 저장하면 채팅 상담 시 Agaya가 참고해서 더 개인화된 답변을 드려요.
+            🛡️ 이 정보는 오직 본인 기기에만 저장돼요. 서버에 전송되지 않아요.
           </div>
-
           <div style={{ marginBottom: 20, padding: 16, background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
             <p style={{ fontSize: 14, fontWeight: 600, color: '#374151', margin: '0 0 12px' }}>📋 기본 정보</p>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
@@ -403,7 +385,6 @@ function searchHospitalsByRegion(region) {
               <div><label style={lStyle}>AMH 수치 (ng/mL)</label><input type="number" value={amh} onChange={e => setAmh(e.target.value)} placeholder="예: 2.5" step="0.1" style={iStyle} /></div>
             </div>
           </div>
-
           <div style={{ marginBottom: 20, padding: 16, background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
             <p style={{ fontSize: 14, fontWeight: 600, color: '#374151', margin: '0 0 12px' }}>🩸 생리 정보</p>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
@@ -424,7 +405,7 @@ function searchHospitalsByRegion(region) {
                   <option value="적음">적음</option>
                   <option value="보통">보통</option>
                   <option value="많음">많음</option>
-                  <option value="매우 많음">매우 많음 (패드 1시간마다 교체)</option>
+                  <option value="매우 많음">매우 많음</option>
                 </select>
               </div>
               <div>
@@ -447,73 +428,67 @@ function searchHospitalsByRegion(region) {
               </div>
             </div>
           </div>
-
           <div style={{ marginBottom: 20, padding: 16, background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
             <p style={{ fontSize: 14, fontWeight: 600, color: '#374151', margin: '0 0 12px' }}>👶 임신 시도</p>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
               <div><label style={lStyle}>임신 시도 기간 (개월)</label><input type="number" value={profile.tryingMonths} onChange={e => setProfile({...profile, tryingMonths: e.target.value})} placeholder="예: 12" style={iStyle} /></div>
-              <div><label style={lStyle}>피임 방법 (현재 또는 과거)</label><input type="text" value={profile.contraception} onChange={e => setProfile({...profile, contraception: e.target.value})} placeholder="예: 경구피임약 3년" style={iStyle} /></div>
+              <div><label style={lStyle}>피임 방법</label><input type="text" value={profile.contraception} onChange={e => setProfile({...profile, contraception: e.target.value})} placeholder="예: 경구피임약 3년" style={iStyle} /></div>
             </div>
-            <div>
-              <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 14 }}>
-                <input type="checkbox" checked={profile.weekendCouple} onChange={e => setProfile({...profile, weekendCouple: e.target.checked})} style={{ width: 16, height: 16, accentColor: '#1D9E75' }} />
-                주말부부 (주중 별거)
-              </label>
+            <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 14 }}>
+              <input type="checkbox" checked={profile.weekendCouple} onChange={e => setProfile({...profile, weekendCouple: e.target.checked})} style={{ width: 16, height: 16, accentColor: '#1D9E75' }} />
+              주말부부 (주중 별거)
+            </label>
+          </div>
+          <div style={{ marginBottom: 20, padding: 16, background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
+            <p style={{ fontSize: 14, fontWeight: 600, color: '#374151', margin: '0 0 12px' }}>🤰 산과력</p>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+              <div>
+                <label style={lStyle}>임신 경험</label>
+                <select value={profile.pregnancyHistory||''} onChange={e => setProfile({...profile, pregnancyHistory: e.target.value})} style={selectStyle}>
+                  <option value="">선택</option>
+                  <option value="없음">없음 (초임)</option>
+                  <option value="있음">있음</option>
+                </select>
+              </div>
+              <div>
+                <label style={lStyle}>분만 경험</label>
+                <select value={profile.deliveryHistory||''} onChange={e => setProfile({...profile, deliveryHistory: e.target.value})} style={selectStyle}>
+                  <option value="">선택</option>
+                  <option value="없음">없음</option>
+                  <option value="자연분만">자연분만</option>
+                  <option value="제왕절개">제왕절개</option>
+                  <option value="자연+제왕">자연분만+제왕절개</option>
+                </select>
+              </div>
+              <div>
+                <label style={lStyle}>자연유산 횟수</label>
+                <input type="number" value={profile.miscarriageCount||''} onChange={e => setProfile({...profile, miscarriageCount: e.target.value})} placeholder="예: 2" min="0" style={iStyle} />
+              </div>
+              <div>
+                <label style={lStyle}>계류유산 횟수</label>
+                <input type="number" value={profile.missedAbortionCount||''} onChange={e => setProfile({...profile, missedAbortionCount: e.target.value})} placeholder="예: 1" min="0" style={iStyle} />
+              </div>
+            </div>
+            <div style={{ padding: '8px 12px', background: '#FEF9C3', borderRadius: 8, fontSize: 12, color: '#854D0E' }}>
+              💡 자연유산이 3회 이상이면 습관성 유산으로 분류되며 정밀 검사가 필요해요.
             </div>
           </div>
-
           <div style={{ marginBottom: 20, padding: 16, background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
-  <p style={{ fontSize: 14, fontWeight: 600, color: '#374151', margin: '0 0 12px' }}>🤰 산과력</p>
-  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
-    <div>
-      <label style={lStyle}>임신 경험</label>
-      <select value={profile.pregnancyHistory||''} onChange={e => setProfile({...profile, pregnancyHistory: e.target.value})} style={selectStyle}>
-        <option value="">선택</option>
-        <option value="없음">없음 (초임)</option>
-        <option value="있음">있음</option>
-      </select>
-    </div>
-    <div>
-      <label style={lStyle}>분만 경험</label>
-      <select value={profile.deliveryHistory||''} onChange={e => setProfile({...profile, deliveryHistory: e.target.value})} style={selectStyle}>
-        <option value="">선택</option>
-        <option value="없음">없음</option>
-        <option value="자연분만">자연분만</option>
-        <option value="제왕절개">제왕절개</option>
-        <option value="자연+제왕">자연분만+제왕절개</option>
-      </select>
-    </div>
-    <div>
-      <label style={lStyle}>자연유산 횟수</label>
-      <input type="number" value={profile.miscarriageCount||''} onChange={e => setProfile({...profile, miscarriageCount: e.target.value})} placeholder="예: 2" min="0" style={iStyle} />
-    </div>
-    <div>
-      <label style={lStyle}>계류유산 횟수</label>
-      <input type="number" value={profile.missedAbortionCount||''} onChange={e => setProfile({...profile, missedAbortionCount: e.target.value})} placeholder="예: 1" min="0" style={iStyle} />
-    </div>
-  </div>
-  <div style={{ padding: '8px 12px', background: '#FEF9C3', borderRadius: 8, fontSize: 12, color: '#854D0E' }}>
-    💡 자연유산이 3회 이상이면 습관성 유산으로 분류되며 정밀 검사가 필요해요.
-  </div>
-</div>
-                  <div style={{ marginBottom: 20, padding: 16, background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
             <p style={{ fontSize: 14, fontWeight: 600, color: '#374151', margin: '0 0 12px' }}>🏥 병력 및 약물</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <div><label style={lStyle}>산부인과 수술/시술 기왕력</label><input type="text" value={profile.surgeryHistory} onChange={e => setProfile({...profile, surgeryHistory: e.target.value})} placeholder="예: 제왕절개 (2020), 자궁경부 레이저 시술 (2019)" style={iStyle} /></div>
+              <div><label style={lStyle}>산부인과 수술/시술 기왕력</label><input type="text" value={profile.surgeryHistory} onChange={e => setProfile({...profile, surgeryHistory: e.target.value})} placeholder="예: 제왕절개 (2020)" style={iStyle} /></div>
               <div><label style={lStyle}>복용 중인 약</label><input type="text" value={profile.currentMeds} onChange={e => setProfile({...profile, currentMeds: e.target.value})} placeholder="예: 갑상선 약, 철분제" style={iStyle} /></div>
-              <div><label style={lStyle}>알러지 (식품/약/조영제)</label><input type="text" value={profile.allergies} onChange={e => setProfile({...profile, allergies: e.target.value})} placeholder="예: 페니실린 알러지, 조영제 알러지" style={iStyle} /></div>
+              <div><label style={lStyle}>알러지</label><input type="text" value={profile.allergies} onChange={e => setProfile({...profile, allergies: e.target.value})} placeholder="예: 페니실린 알러지" style={iStyle} /></div>
             </div>
           </div>
-
           <div style={{ marginBottom: 20, padding: 16, background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
-            <p style={{ fontSize: 14, fontWeight: 600, color: '#374151', margin: '0 0 12px' }}>🔬 검사 결과 (있다면)</p>
+            <p style={{ fontSize: 14, fontWeight: 600, color: '#374151', margin: '0 0 12px' }}>🔬 검사 결과</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <div><label style={lStyle}>나팔관 촬영검사 (HSG) 결과</label><input type="text" value={profile.hsgResult} onChange={e => setProfile({...profile, hsgResult: e.target.value})} placeholder="예: 양측 나팔관 통과, 우측 폐쇄" style={iStyle} /></div>
-              <div><label style={lStyle}>정액검사 결과</label><input type="text" value={profile.spermResult} onChange={e => setProfile({...profile, spermResult: e.target.value})} placeholder="예: 정상, 운동성 저하 (40%), 정자수 감소" style={iStyle} /></div>
-              <div><label style={lStyle}>호르몬 검사 결과</label><input type="text" value={profile.hormoneResult} onChange={e => setProfile({...profile, hormoneResult: e.target.value})} placeholder="예: FSH 8.5, LH 5.2, E2 45, TSH 정상" style={iStyle} /></div>
+              <div><label style={lStyle}>나팔관 촬영검사 (HSG) 결과</label><input type="text" value={profile.hsgResult} onChange={e => setProfile({...profile, hsgResult: e.target.value})} placeholder="예: 양측 나팔관 통과" style={iStyle} /></div>
+              <div><label style={lStyle}>정액검사 결과</label><input type="text" value={profile.spermResult} onChange={e => setProfile({...profile, spermResult: e.target.value})} placeholder="예: 정상" style={iStyle} /></div>
+              <div><label style={lStyle}>호르몬 검사 결과</label><input type="text" value={profile.hormoneResult} onChange={e => setProfile({...profile, hormoneResult: e.target.value})} placeholder="예: FSH 8.5, LH 5.2" style={iStyle} /></div>
             </div>
           </div>
-
           <div style={{ display: 'flex', gap: 10 }}>
             <button onClick={saveProfile} style={{ flex: 1, padding: 12, background: '#1D9E75', color: 'white', border: 'none', borderRadius: 8, cursor: 'pointer', fontSize: 15, fontWeight: 600 }}>
               {profileSaved ? '✅ 저장됐어요!' : '💾 저장하기'}
@@ -524,151 +499,117 @@ function searchHospitalsByRegion(region) {
       )}
 
       {tab === 'image' && (
-  <div>
-    <div style={{ padding: '10px 12px', background: '#FEF3C7', borderRadius: 8, fontSize: 12, color: '#92400E', marginBottom: 16 }}>
-      ⚕️ 이 기능은 교육 목적으로만 제공돼요. AI 분석은 진단이 아니며, 반드시 전문 의료인과 상담하세요.
-    <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
-  {['🔬 초음파 분석', '🧪 배란테스트 분석'].map(type => (
-    <button key={type} onClick={() => setImgType(type)}
-      style={{ flex: 1, padding: '8px 12px', borderRadius: 8, border: '1px solid', borderColor: imgType===type ? '#1D9E75' : '#d1d5db', background: imgType===type ? '#E1F5EE' : 'white', color: imgType===type ? '#0F6E56' : '#374151', cursor: 'pointer', fontSize: 13, fontWeight: imgType===type ? 600 : 400 }}>
-      {type}
-    </button>
-  ))}
-</div>
-        </div>
-    <div
-      onClick={() => document.getElementById('img-upload').click()}
-      style={{ border: '2px dashed #5DCAA5', borderRadius: 12, padding: 32, textAlign: 'center', background: '#f9fafb', marginBottom: 16, cursor: 'pointer' }}
-    >
-      <div style={{ fontSize: 40, marginBottom: 8 }}>🔬</div>
-      <p style={{ color: '#374151', fontSize: 14, fontWeight: 600, margin: '0 0 4px' }}>초음파 / 검사 결과 이미지 업로드</p>
-      <p style={{ color: '#6b7280', fontSize: 12, margin: 0 }}>클릭하거나 이미지를 드래그해서 올려주세요 (JPG, PNG)</p>
-      <input type="file" id="img-upload" accept="image/*" style={{ display: 'none' }} onChange={e => {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = ev => {
-          setImgPreview(ev.target.result);
-          setImgResult('');
-        };
-        reader.readAsDataURL(file);
-      }} />
-    </div>
-
-    {imgPreview && (
-      <div style={{ marginBottom: 16 }}>
-        <img src={imgPreview} alt="업로드된 이미지" style={{ width: '100%', maxHeight: 300, objectFit: 'contain', borderRadius: 12, border: '1px solid #e5e7eb' }} />
-        <div style={{ marginTop: 12 }}>
-          <label style={lStyle}>이미지에 대해 질문하기 (선택)</label>
-          <input
-            type="text"
-            value={imgQuestion}
-            onChange={e => setImgQuestion(e.target.value)}
-            placeholder="예: 난포 크기가 어떻게 되나요? 자궁내막 두께는?"
-            style={iStyle}
-          />
-        </div>
-        <button
-          onClick={async () => {
-            setImgLoading(true);
-            setImgResult('');
-            try {
-              const base64 = imgPreview.split(',')[1];
-              const mimeType = imgPreview.split(';')[0].split(':')[1];
-              const question = imgQuestion || '이 초음파 이미지를 분석해주세요. 난포 크기, 자궁내막 두께, 이상 소견 등 보이는 것을 교육적으로 설명해주세요.';
-              const res = await fetch('/api/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  system: imgType === '🧪 배란테스트 분석' ? '당신은 배란테스트 분석 전문가예요. 업로드된 배란테스트 스틱 이미지를 분석해서 컨트롤선(C)과 테스트선(T)의 진하기를 비교하고 10점 만점으로 수치화해주세요. 형식: 점수: X.X/10, 판정: 양성/약양성/음성, 설명: (간단한 설명). 항상 교육 목적임을 명시하고 정확한 판단은 전문의와 상담하라고 안내하세요.' : '당신은 Agaya, 산부인과 및 불임 전문의가 만든 AI 어시스턴트예요. 업로드된 초음파 또는 의료 이미지를 보고 교육적 정보를 제공해요. 항상 이것이 교육 목적임을 명시하고 정확한 진단은 전문의와 상담하라고 안내하세요.',
-                  messages: [{
-                    role: 'user',
-                    content: [
-                      { type: 'image', source: { type: 'base64', media_type: mimeType, data: base64 } },
-                      { type: 'text', text: question }
-                    ]
-                  }]
-                })
-              });
-              const data = await res.json();
-              setImgResult(data.content || '분석 결과를 가져올 수 없어요.');
-            } catch(e) {
-              setImgResult('오류가 발생했어요. 다시 시도해주세요.');
-            }
-            setImgLoading(false);
-          }}
-          disabled={imgLoading}
-          style={{ width: '100%', padding: 12, background: '#1D9E75', color: 'white', border: 'none', borderRadius: 8, cursor: 'pointer', fontSize: 14, fontWeight: 600, marginTop: 12 }}
-        >
-          {imgLoading ? '🔍 분석 중...' : '🔬 이미지 분석하기'}
-        </button>
-      </div>
-    )}
-
-    {imgResult && (
-      <div style={{ padding: 16, background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb', fontSize: 14, lineHeight: 1.7, whiteSpace: 'pre-wrap', marginBottom: 16 }}>
-        {imgResult}
-      </div>
-    )}
-  </div>
-)}
-  {tab === 'hospital' && (
-  <div>
-    <div style={{ padding: '10px 12px', background: '#E1F5EE', borderRadius: 8, fontSize: 12, color: '#0F6E56', marginBottom: 16 }}>
-      🏥 지역명으로 주변 난임·불임 병원을 찾아드려요
-    </div>
-    <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
-      <input
-        value={searchQuery}
-        onChange={e => setSearchQuery(e.target.value)}
-        onKeyDown={e => e.key === 'Enter' && searchHospitalsByRegion(searchQuery)}
-        placeholder="지역명 입력 (예: 강남구, 수원, 창원)"
-        style={{ flex: 1, padding: '9px 12px', borderRadius: 8, border: '1px solid #d1d5db', fontSize: 14 }}
-      />
-      <button
-        onClick={() => searchHospitalsByRegion(searchQuery)}
-        style={{ padding: '9px 18px', background: '#1D9E75', color: 'white', border: 'none', borderRadius: 8, fontSize: 14, cursor: 'pointer' }}>
-        검색
-      </button>
-    </div>
-    <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 20 }}>
-      {['서울', '부산', '대구', '인천', '광주', '대전', '수원', '창원', '전주', '청주'].map(city => (
-        <button key={city}
-          onClick={() => { setSearchQuery(city); searchHospitalsByRegion(city); }}
-          style={{ fontSize: 12, padding: '5px 12px', borderRadius: 20, border: '1px solid #5DCAA5', color: '#0F6E56', background: 'white', cursor: 'pointer' }}>
-          {city}
-        </button>
-      ))}
-    </div>
-    {hospitalLoading && (
-      <div style={{ textAlign: 'center', padding: 24, color: '#6b7280', fontSize: 14 }}>🔍 검색 중...</div>
-    )}
-    {hospitalError && (
-      <div style={{ padding: 12, background: '#FEF3C7', borderRadius: 8, fontSize: 13, color: '#92400E' }}>{hospitalError}</div>
-    )}
-    {hospitals.length > 0 && (
-      <div style={{ background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
-        <div style={{ padding: '10px 16px', fontSize: 13, color: '#6b7280', borderBottom: '1px solid #e5e7eb' }}>
-          {hospitals.length}곳 발견
-        </div>
-        {hospitals.map((h, i) => (
-          <div key={i} style={{ display: 'flex', gap: 12, padding: '12px 16px', borderBottom: i < hospitals.length - 1 ? '1px solid #e5e7eb' : 'none' }}>
-            <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#E1F5EE', color: '#0F6E56', fontSize: 12, fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              {i + 1}
-            </div>
-            <div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: '#111', marginBottom: 3 }}>{h.name}</div>
-              <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 3 }}>{h.roadAddress || h.address}</div>
-              {h.phone && <div style={{ fontSize: 12, color: '#0F6E56' }}>📞 {h.phone}</div>}
-            </div>
+        <div>
+          <div style={{ padding: '10px 12px', background: '#FEF3C7', borderRadius: 8, fontSize: 12, color: '#92400E', marginBottom: 16 }}>
+            ⚕️ 이 기능은 교육 목적으로만 제공돼요. AI 분석은 진단이 아니며, 반드시 전문 의료인과 상담하세요.
           </div>
-        ))}
-      </div>
-    )}
-    <div style={{ marginTop: 12, fontSize: 11, color: '#9ca3af', textAlign: 'center' }}>
-      보건복지부 공식 지정 병원 · 방문 전 전화 확인을 권장해요
+          <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
+            {['🔬 초음파 분석', '🧪 배란테스트 분석'].map(type => (
+              <button key={type} onClick={() => setImgType(type)}
+                style={{ flex: 1, padding: '8px 12px', borderRadius: 8, border: '1px solid', borderColor: imgType===type ? '#1D9E75' : '#d1d5db', background: imgType===type ? '#E1F5EE' : 'white', color: imgType===type ? '#0F6E56' : '#374151', cursor: 'pointer', fontSize: 13, fontWeight: imgType===type ? 600 : 400 }}>
+                {type}
+              </button>
+            ))}
+          </div>
+          <div onClick={() => document.getElementById('img-upload').click()}
+            style={{ border: '2px dashed #5DCAA5', borderRadius: 12, padding: 32, textAlign: 'center', background: '#f9fafb', marginBottom: 16, cursor: 'pointer' }}>
+            <div style={{ fontSize: 40, marginBottom: 8 }}>🔬</div>
+            <p style={{ color: '#374151', fontSize: 14, fontWeight: 600, margin: '0 0 4px' }}>
+              {imgType === '🧪 배란테스트 분석' ? '배란테스트 스틱 사진 업로드' : '초음파 / 검사 결과 이미지 업로드'}
+            </p>
+            <p style={{ color: '#6b7280', fontSize: 12, margin: 0 }}>
+              {imgType === '🧪 배란테스트 분석' ? '컨트롤선(C)과 테스트선(T)이 잘 보이게 찍어주세요' : '클릭하거나 이미지를 드래그해서 올려주세요 (JPG, PNG)'}
+            </p>
+            <input type="file" id="img-upload" accept="image/*" style={{ display: 'none' }} onChange={e => {
+              const file = e.target.files[0];
+              if (!file) return;
+              const reader = new FileReader();
+              reader.onload = ev => { setImgPreview(ev.target.result); setImgResult(''); };
+              reader.readAsDataURL(file);
+            }} />
+          </div>
+          {imgPreview && (
+            <div style={{ marginBottom: 16 }}>
+              <img src={imgPreview} alt="업로드된 이미지" style={{ width: '100%', maxHeight: 300, objectFit: 'contain', borderRadius: 12, border: '1px solid #e5e7eb' }} />
+              {imgType !== '🧪 배란테스트 분석' && (
+                <div style={{ marginTop: 12 }}>
+                  <label style={lStyle}>이미지에 대해 질문하기 (선택)</label>
+                  <input type="text" value={imgQuestion} onChange={e => setImgQuestion(e.target.value)} placeholder="예: 난포 크기가 어떻게 되나요?" style={iStyle} />
+                </div>
+              )}
+              <button onClick={async () => {
+                setImgLoading(true);
+                setImgResult('');
+                try {
+                  const base64 = imgPreview.split(',')[1];
+                  const mimeType = imgPreview.split(';')[0].split(':')[1];
+                  const question = imgType === '🧪 배란테스트 분석'
+                    ? '이 배란테스트 스틱을 분석해주세요. 컨트롤선 대비 테스트선 진하기를 10점 만점으로 수치화하고 양성/음성 판정해주세요.'
+                    : (imgQuestion || '이 초음파 이미지를 분석해주세요. 난포 크기, 자궁내막 두께, 이상 소견 등 보이는 것을 교육적으로 설명해주세요.');
+                  const system = imgType === '🧪 배란테스트 분석'
+                    ? '당신은 배란테스트 분석 전문가예요. 업로드된 배란테스트 스틱 이미지를 분석해서 컨트롤선(C)과 테스트선(T)의 진하기를 비교하고 10점 만점으로 수치화해주세요. 형식: 점수: X.X/10, 판정: 양성/약양성/음성, 설명: (간단한 설명). 항상 교육 목적임을 명시하고 정확한 판단은 전문의와 상담하라고 안내하세요.'
+                    : '당신은 Agaya, 산부인과 및 불임 전문의가 만든 AI 어시스턴트예요. 업로드된 초음파 또는 의료 이미지를 보고 교육적 정보를 제공해요. 항상 이것이 교육 목적임을 명시하고 정확한 진단은 전문의와 상담하라고 안내하세요.';
+                  const res = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ system, messages: [{ role: 'user', content: [{ type: 'image', source: { type: 'base64', media_type: mimeType, data: base64 } }, { type: 'text', text: question }] }] })
+                  });
+                  const data = await res.json();
+                  setImgResult(data.content || '분석 결과를 가져올 수 없어요.');
+                } catch(e) { setImgResult('오류가 발생했어요. 다시 시도해주세요.'); }
+                setImgLoading(false);
+              }} disabled={imgLoading} style={{ width: '100%', padding: 12, background: '#1D9E75', color: 'white', border: 'none', borderRadius: 8, cursor: 'pointer', fontSize: 14, fontWeight: 600, marginTop: 12 }}>
+                {imgLoading ? '🔍 분석 중...' : imgType === '🧪 배란테스트 분석' ? '🧪 배란테스트 분석하기' : '🔬 이미지 분석하기'}
+              </button>
+            </div>
+          )}
+          {imgResult && (
+            <div style={{ padding: 16, background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb', fontSize: 14, lineHeight: 1.7, whiteSpace: 'pre-wrap', marginBottom: 16 }}>
+              {imgResult}
+            </div>
+          )}
+        </div>
+      )}
+
+      {tab === 'hospital' && (
+        <div>
+          <div style={{ padding: '10px 12px', background: '#E1F5EE', borderRadius: 8, fontSize: 12, color: '#0F6E56', marginBottom: 16 }}>
+            🏥 보건복지부 공식 지정 난임(체외수정) 병원을 찾아드려요
+          </div>
+          <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
+            <input value={searchQuery} onChange={e => setSearchQuery(e.target.value)} onKeyDown={e => e.key === 'Enter' && searchHospitalsByRegion(searchQuery)} placeholder="지역명 입력 (예: 강남구, 수원, 창원)" style={{ flex: 1, padding: '9px 12px', borderRadius: 8, border: '1px solid #d1d5db', fontSize: 14 }} />
+            <button onClick={() => searchHospitalsByRegion(searchQuery)} style={{ padding: '9px 18px', background: '#1D9E75', color: 'white', border: 'none', borderRadius: 8, fontSize: 14, cursor: 'pointer' }}>검색</button>
+          </div>
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 20 }}>
+            {['서울', '부산', '대구', '인천', '광주', '대전', '수원', '창원', '전주', '청주'].map(city => (
+              <button key={city} onClick={() => { setSearchQuery(city); searchHospitalsByRegion(city); }}
+                style={{ fontSize: 12, padding: '5px 12px', borderRadius: 20, border: '1px solid #5DCAA5', color: '#0F6E56', background: 'white', cursor: 'pointer' }}>
+                {city}
+              </button>
+            ))}
+          </div>
+          {hospitalError && <div style={{ padding: 12, background: '#FEF3C7', borderRadius: 8, fontSize: 13, color: '#92400E' }}>{hospitalError}</div>}
+          {hospitals.length > 0 && (
+            <div style={{ background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb' }}>
+              <div style={{ padding: '10px 16px', fontSize: 13, color: '#6b7280', borderBottom: '1px solid #e5e7eb' }}>{hospitals.length}곳 발견</div>
+              {hospitals.map((h, i) => (
+                <div key={i} style={{ display: 'flex', gap: 12, padding: '12px 16px', borderBottom: i < hospitals.length - 1 ? '1px solid #e5e7eb' : 'none' }}>
+                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#E1F5EE', color: '#0F6E56', fontSize: 12, fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{i + 1}</div>
+                  <div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: '#111', marginBottom: 3 }}>{h.name}</div>
+                    <div style={{ fontSize: 12, color: '#6b7280', marginBottom: 3 }}>{h.address}</div>
+                    {h.phone && <div style={{ fontSize: 12, color: '#0F6E56' }}>📞 {h.phone}</div>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+          <div style={{ marginTop: 12, fontSize: 11, color: '#9ca3af', textAlign: 'center' }}>
+            보건복지부 공식 지정 병원 · 방문 전 전화 확인을 권장해요
+          </div>
+        </div>
+      )}
+
     </div>
-        )}
-      </div>
-      );
+  );
 }
