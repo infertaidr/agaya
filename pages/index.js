@@ -54,9 +54,6 @@ const [imgQuestion, setImgQuestion] = useState('');
 const [hospitalLoading, setHospitalLoading] = useState(false);
 const [hospitalError, setHospitalError] = useState('');
 const [searchQuery, setSearchQuery] = useState('');
-const [ovtestImg, setOvtestImg] = useState('');
-const [ovtestResult, setOvtestResult] = useState('');
-const [ovtestLoading, setOvtestLoading] = useState(false);
   useEffect(() => {
     try {
       const saved = localStorage.getItem('agaya_profile');
@@ -263,7 +260,7 @@ function searchHospitalsByRegion(region) {
       </div>
 
       <div style={{ display: 'flex', borderBottom: '1px solid #e5e7eb', marginBottom: 24, overflowX: 'auto' }}>
-        {[['chat','💬 채팅'],['ovulation','📅 배란'],['symptoms','📋 증상'],['myinfo','🔒 내 정보'],['image','🔬 이미지'],['hospital','🏥 병원 찾기'],['ovtest','🔬 배란테스트']].map(([id, label]) => (
+        {[['chat','💬 채팅'],['ovulation','📅 배란'],['symptoms','📋 증상'],['myinfo','🔒 내 정보'],['image','🔬 이미지'],['hospital','🏥 병원 찾기']].map(([id, label]) => (
           <button key={id} onClick={() => setTab(id)} style={{ padding: '10px 14px', fontSize: 13, cursor: 'pointer', color: tab===id ? '#1D9E75' : '#6b7280', background: 'transparent', border: 'none', borderBottom: tab===id ? '2px solid #1D9E75' : '2px solid transparent', fontWeight: tab===id ? 600 : 400, whiteSpace: 'nowrap' }}>
             {label}
           </button>
@@ -663,64 +660,5 @@ function searchHospitalsByRegion(region) {
     <div style={{ marginTop: 12, fontSize: 11, color: '#9ca3af', textAlign: 'center' }}>
       보건복지부 공식 지정 병원 · 방문 전 전화 확인을 권장해요
     </div>
-          {tab === 'ovtest' && (
-          <div>
-            <div style={{ padding: '10px 12px', background: '#FEF3C7', borderRadius: 8, fontSize: 12, color: '#92400E', marginBottom: 16 }}>
-              ⚕️ 교육 목적이에요. AI 분석은 의학적 진단이 아니며 전문의 상담을 권장해요.
-            </div>
-            <div onClick={() => document.getElementById('ovtest-upload').click()}
-              style={{ border: '2px dashed #5DCAA5', borderRadius: 12, padding: 32, textAlign: 'center', background: '#f9fafb', marginBottom: 16, cursor: 'pointer' }}>
-              <div style={{ fontSize: 40, marginBottom: 8 }}>🔬</div>
-              <p style={{ color: '#374151', fontSize: 14, fontWeight: 600, margin: '0 0 4px' }}>배란테스트 스틱 사진 업로드</p>
-              <p style={{ color: '#6b7280', fontSize: 12, margin: 0 }}>컨트롤선(C)과 테스트선(T)이 잘 보이게 찍어주세요</p>
-              <input type="file" id="ovtest-upload" accept="image/*" style={{ display: 'none' }} onChange={e => {
-                const file = e.target.files[0];
-                if (!file) return;
-                const reader = new FileReader();
-                reader.onload = ev => { setOvtestImg(ev.target.result); setOvtestResult(''); };
-                reader.readAsDataURL(file);
-              }} />
-            </div>
-            {ovtestImg && (
-              <div style={{ marginBottom: 16 }}>
-                <img src={ovtestImg} alt="배란테스트" style={{ width: '100%', maxHeight: 300, objectFit: 'contain', borderRadius: 12, border: '1px solid #e5e7eb' }} />
-                <button onClick={async () => {
-                  setOvtestLoading(true);
-                  setOvtestResult('');
-                  try {
-                    const base64 = ovtestImg.split(',')[1];
-                    const mimeType = ovtestImg.split(';')[0].split(':')[1];
-                    const res = await fetch('/api/chat', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({
-                        system: '당신은 배란테스트 분석 전문가예요. 업로드된 배란테스트 스틱 이미지를 분석해서 컨트롤선(C)과 테스트선(T)의 진하기를 비교하고 10점 만점으로 수치화해주세요. 형식: 점수: X.X/10, 판정: 양성/약양성/음성, 설명: (간단한 설명). 항상 교육 목적임을 명시하고 정확한 판단은 전문의와 상담하라고 안내하세요.',
-                        messages: [{ role: 'user', content: [
-                          { type: 'image', source: { type: 'base64', media_type: mimeType, data: base64 } },
-                          { type: 'text', text: '이 배란테스트 스틱을 분석해주세요. 컨트롤선 대비 테스트선 진하기를 10점 만점으로 수치화하고 양성/음성 판정해주세요.' }
-                        ]}]
-                      })
-                    });
-                    const data = await res.json();
-                    setOvtestResult(data.content || '분석 결과를 가져올 수 없어요.');
-                  } catch(e) { setOvtestResult('오류가 발생했어요. 다시 시도해주세요.'); }
-                  setOvtestLoading(false);
-                }}
-                disabled={ovtestLoading}
-                style={{ width: '100%', padding: 12, background: '#1D9E75', color: 'white', border: 'none', borderRadius: 8, cursor: 'pointer', fontSize: 14, fontWeight: 600, marginTop: 12 }}>
-                  {ovtestLoading ? '🔍 분석 중...' : '🔬 배란테스트 분석하기'}
-                </button>
-              </div>
-            )}
-            {ovtestResult && (
-              <div style={{ padding: 16, background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb', fontSize: 14, lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>
-                {ovtestResult}
-              </div>
-            )}
-          </div>
-        )}
-        </div>
-        )}
-      </div>
-  );
+      );
 }
