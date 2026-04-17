@@ -668,5 +668,7 @@ function searchHospitalsByRegion(region) {
     <div style={{ marginTop: 12, fontSize: 11, color: '#9ca3af', textAlign: 'center' }}>
       보건복지부 공식 지정 병원 · 방문 전 전화 확인을 권장해요
     </div>
+        )}
+      </div>
       );
 }
