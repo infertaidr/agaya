@@ -489,17 +489,83 @@ export default function Home() {
       )}
 
       {tab === 'image' && (
-        <div>
-          <div style={{ border: '2px dashed #5DCAA5', borderRadius: 12, padding: 40, textAlign: 'center', background: '#f9fafb', marginBottom: 16 }}>
-            <div style={{ fontSize: 40, marginBottom: 8 }}>🔬</div>
-            <p style={{ color: '#6b7280', fontSize: 14 }}>초음파 / 검사 결과 이미지 업로드</p>
-            <p style={{ color: '#9ca3af', fontSize: 12 }}>Coming soon</p>
-          </div>
-          <div style={{ padding: 12, background: '#E1F5EE', borderRadius: 8, fontSize: 12, color: '#0F6E56' }}>
-            ⚕️ 교육 목적으로만 제공됩니다. 진단 및 치료는 반드시 전문 의료인과 상담하세요.
-          </div>
-        </div>
-      )}
+  <div>
+    <div style={{ padding: '10px 12px', background: '#FEF3C7', borderRadius: 8, fontSize: 12, color: '#92400E', marginBottom: 16 }}>
+      ⚕️ 이 기능은 교육 목적으로만 제공돼요. AI 분석은 진단이 아니며, 반드시 전문 의료인과 상담하세요.
     </div>
-  );
-}
+    <div
+      onClick={() => document.getElementById('img-upload').click()}
+      style={{ border: '2px dashed #5DCAA5', borderRadius: 12, padding: 32, textAlign: 'center', background: '#f9fafb', marginBottom: 16, cursor: 'pointer' }}
+    >
+      <div style={{ fontSize: 40, marginBottom: 8 }}>🔬</div>
+      <p style={{ color: '#374151', fontSize: 14, fontWeight: 600, margin: '0 0 4px' }}>초음파 / 검사 결과 이미지 업로드</p>
+      <p style={{ color: '#6b7280', fontSize: 12, margin: 0 }}>클릭하거나 이미지를 드래그해서 올려주세요 (JPG, PNG)</p>
+      <input type="file" id="img-upload" accept="image/*" style={{ display: 'none' }} onChange={e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = ev => {
+          setImgPreview(ev.target.result);
+          setImgResult('');
+        };
+        reader.readAsDataURL(file);
+      }} />
+    </div>
+
+    {imgPreview && (
+      <div style={{ marginBottom: 16 }}>
+        <img src={imgPreview} alt="업로드된 이미지" style={{ width: '100%', maxHeight: 300, objectFit: 'contain', borderRadius: 12, border: '1px solid #e5e7eb' }} />
+        <div style={{ marginTop: 12 }}>
+          <label style={lStyle}>이미지에 대해 질문하기 (선택)</label>
+          <input
+            type="text"
+            value={imgQuestion}
+            onChange={e => setImgQuestion(e.target.value)}
+            placeholder="예: 난포 크기가 어떻게 되나요? 자궁내막 두께는?"
+            style={iStyle}
+          />
+        </div>
+        <button
+          onClick={async () => {
+            setImgLoading(true);
+            setImgResult('');
+            try {
+              const base64 = imgPreview.split(',')[1];
+              const mimeType = imgPreview.split(';')[0].split(':')[1];
+              const question = imgQuestion || '이 초음파 이미지를 분석해주세요. 난포 크기, 자궁내막 두께, 이상 소견 등 보이는 것을 교육적으로 설명해주세요.';
+              const res = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  system: '당신은 Agaya, 산부인과 및 불임 전문의가 만든 AI 어시스턴트예요. 업로드된 초음파 또는 의료 이미지를 보고 교육적 정보를 제공해요. 항상 이것이 교육 목적임을 명시하고 정확한 진단은 전문의와 상담하라고 안내하세요.',
+                  messages: [{
+                    role: 'user',
+                    content: [
+                      { type: 'image', source: { type: 'base64', media_type: mimeType, data: base64 } },
+                      { type: 'text', text: question }
+                    ]
+                  }]
+                })
+              });
+              const data = await res.json();
+              setImgResult(data.content || '분석 결과를 가져올 수 없어요.');
+            } catch(e) {
+              setImgResult('오류가 발생했어요. 다시 시도해주세요.');
+            }
+            setImgLoading(false);
+          }}
+          disabled={imgLoading}
+          style={{ width: '100%', padding: 12, background: '#1D9E75', color: 'white', border: 'none', borderRadius: 8, cursor: 'pointer', fontSize: 14, fontWeight: 600, marginTop: 12 }}
+        >
+          {imgLoading ? '🔍 분석 중...' : '🔬 이미지 분석하기'}
+        </button>
+      </div>
+    )}
+
+    {imgResult && (
+      <div style={{ padding: 16, background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb', fontSize: 14, lineHeight: 1.7, whiteSpace: 'pre-wrap', marginBottom: 16 }}>
+        {imgResult}
+      </div>
+    )}
+  </div>
+)}
