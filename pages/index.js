@@ -226,7 +226,6 @@ function searchHospitalsByRegion(region) {
   setHospitals(filtered);
   if (filtered.length === 0) setHospitalError('해당 지역 정부 지정 난임병원이 없어요.');
   else setHospitalError('');
-}
   setHospitalLoading(false);
 }
   async function analyzeSymptoms() {
@@ -663,7 +662,7 @@ function searchHospitalsByRegion(region) {
       보건복지부 공식 지정 병원 · 방문 전 전화 확인을 권장해요
     </div>
   </div>
-)}
-</div>
+        )}
+       </div>
   );
 }
