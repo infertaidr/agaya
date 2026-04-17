@@ -50,6 +50,10 @@ export default function Home() {
 const [imgResult, setImgResult] = useState('');
 const [imgLoading, setImgLoading] = useState(false);
 const [imgQuestion, setImgQuestion] = useState('');
+  const [hospitals, setHospitals] = useState([]);
+const [hospitalLoading, setHospitalLoading] = useState(false);
+const [hospitalError, setHospitalError] = useState('');
+const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     try {
@@ -195,7 +199,29 @@ const [imgQuestion, setImgQuestion] = useState('');
   }
 
   function toggleSymptom(s) { setSymptoms(prev => prev.includes(s) ? prev.filter(x => x !== s) : [...prev, s]); }
+const KAKAO_REST_KEY = '0a0ff8c07c0722a923ae4de88ef11c9b';
 
+async function searchHospitalsByRegion(region) {
+  if (!region.trim()) return;
+  setHospitalLoading(true);
+  setHospitalError('');
+  setHospitals([]);
+  try {
+    const keyword = `${region} 난임병원`;
+    const url = `https://dapi.kakao.com/v2/local/search/keyword.json?query=${encodeURIComponent(keyword)}&size=15`;
+    const res = await fetch(url, {
+      headers: { Authorization: `KakaoAK ${KAKAO_REST_KEY}` }
+    });
+    const data = await res.json();
+    setHospitals(data.documents || []);
+    if ((data.documents || []).length === 0) {
+      setHospitalError('검색 결과가 없어요. 다른 지역명으로 시도해보세요.');
+    }
+  } catch (e) {
+    setHospitalError('검색 중 오류가 발생했어요. 다시 시도해주세요.');
+  }
+  setHospitalLoading(false);
+}
   async function analyzeSymptoms() {
     if (!symptoms.length) return;
     setSymptomLoading(true);
@@ -229,7 +255,7 @@ const [imgQuestion, setImgQuestion] = useState('');
       </div>
 
       <div style={{ display: 'flex', borderBottom: '1px solid #e5e7eb', marginBottom: 24, overflowX: 'auto' }}>
-        {[['chat','💬 채팅'],['ovulation','📅 배란'],['symptoms','📋 증상'],['myinfo','🔒 내 정보'],['image','🔬 이미지']].map(([id, label]) => (
+        {[['chat','💬 채팅'],['ovulation','📅 배란'],['symptoms','📋 증상'],['myinfo','🔒 내 정보'],['image','🔬 이미지'],['hospital','🏥 병원 찾기']].map(([id, label]) => (
           <button key={id} onClick={() => setTab(id)} style={{ padding: '10px 14px', fontSize: 13, cursor: 'pointer', color: tab===id ? '#1D9E75' : '#6b7280', background: 'transparent', border: 'none', borderBottom: tab===id ? '2px solid #1D9E75' : '2px solid transparent', fontWeight: tab===id ? 600 : 400, whiteSpace: 'nowrap' }}>
             {label}
           </button>
