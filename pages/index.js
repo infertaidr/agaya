@@ -185,6 +185,9 @@ export default function Home() {
           <p style={{ fontSize: 13, color: '#6b7280', margin: 0 }}>Fertility AI Assistant</p>
         </div>
         <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
+<a href="/blog" style={{ padding: '4px 12px', borderRadius: 6, border: '1px solid #5DCAA5', color: '#0F6E56', background: '#E1F5EE', fontSize: 12, textDecoration: 'none', fontWeight: 500 }}>
+  📝 Blog
+</a>
           {['en','ko','sw'].map(l => (
             <button key={l} onClick={() => setLang(l)} style={{ padding: '4px 10px', borderRadius: 6, border: '1px solid', borderColor: lang===l ? '#1D9E75' : '#d1d5db', background: lang===l ? '#E1F5EE' : 'white', color: lang===l ? '#0F6E56' : '#6b7280', cursor: 'pointer', fontSize: 12 }}>
               {l === 'en' ? 'EN' : l === 'ko' ? '한국어' : 'SW'}
