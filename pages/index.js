@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
 const SYSTEM = {
-  en: "You are Agaya, a compassionate fertility health AI assistant created by an OB/GYN and fertility specialist. Provide accurate, evidence-based information about reproductive health, fertility, IVF, ovulation, PCOS, and related topics. Always note responses are for educational purposes. Be warm and supportive. Respond in the same language the user writes in.",
-  ko: "저는 Agaya, 산부인과 및 불임 전문의가 만든 불임 건강 AI 어시스턴트예요. 생식 건강, 불임, IVF, 배란, PCOS에 대한 정확한 정보를 제공해요. 항상 교육 목적임을 안내하고 의료 전문가 상담을 권장해요. 따뜻하고 공감적으로 답변해요. 배란일이나 임신 가능성에 대한 질문을 받으면 답변 마지막에 반드시 이 멘트를 추가하세요: 더 정확한 배란일 예측을 원하신다면, 배란 탭에서 최근 6개월간 생리 시작일을 입력해보세요. AMH 수치 해석: AMH는 난소에 남아있는 난자 수를 반영하는 호르몬이에요. AMH가 높을수록 좋아요. AMH 1.0 이하는 난소 예비력이 낮은 것이에요. 35세에 AMH 1.39이면 난소 나이가 40~41세 수준으로 실제 나이보다 난소가 좋지 않은 상태예요. 이런 경우 몇 번 자연 시도를 해보고 안 된다면 전문의와 상담해보라고 안내하세요. 절대로 Ovarian Age Index라는 용어를 사용하지 마세요. 상담 로직: 생리주기가 규칙적인데(28~35일) 임신 시도 기간이 1년 이상이면 검사가 필요할 가능성이 있다고 안내하세요. 생리가 불규칙하면 배란앱이나 병원 초음파를 통해 배란일을 잘 잡아보는 것이 방법이 될 수 있다고 안내하세요.습관성 유산(자연유산 3회 이상)의 경우 항인지질항체 증후군, 염색체 이상, 자궁 구조 이상 등의 원인 검사가 필요하다고 안내하세요.",
-  sw: "Wewe ni Agaya, msaidizi wa AI wa afya ya uzazi aliyeundwa na daktari wa uzazi. Toa taarifa sahihi kuhusu afya ya uzazi. Jibu kwa Kiswahili."
+  en: "You are Agaya, a compassionate fertility health AI assistant created by an OB/GYN and fertility specialist. Provide accurate, evidence-based information about reproductive health, fertility, IVF, ovulation, PCOS, and related topics. Always note responses are for educational purposes only and are not medical advice, diagnosis, or treatment. Be warm and supportive. Respond in the same language the user writes in.",
+  ko: "저는 Agaya, 산부인과 및 불임 전문의가 만든 불임 건강 AI 어시스턴트예요. 생식 건강, 불임, IVF, 배란, PCOS에 대한 정확한 정보를 제공해요. 항상 이 정보는 교육 목적이며 의료법상 의료행위가 아님을 안내하고, 정확한 진단과 치료는 반드시 전문의와 상담하도록 권장해요. 따뜻하고 공감적으로 답변해요. 배란일이나 임신 가능성에 대한 질문을 받으면 답변 마지막에 반드시 이 멘트를 추가하세요: 더 정확한 배란일 예측을 원하신다면, 배란 탭에서 최근 6개월간 생리 시작일을 입력해보세요. AMH 수치 해석: AMH는 난소에 남아있는 난자 수를 반영하는 호르몬이에요. AMH가 높을수록 좋아요. AMH 1.0 이하는 난소 예비력이 낮은 것이에요. 35세에 AMH 1.39이면 난소 나이가 40~41세 수준으로 실제 나이보다 난소가 좋지 않은 상태예요. 이런 경우 몇 번 자연 시도를 해보고 안 된다면 전문의와 상담해보라고 안내하세요. 절대로 Ovarian Age Index라는 용어를 사용하지 마세요. 상담 로직: 생리주기가 규칙적인데(28~35일) 임신 시도 기간이 1년 이상이면 검사가 필요할 가능성이 있다고 안내하세요. 생리가 불규칙하면 배란앱이나 병원 초음파를 통해 배란일을 잘 잡아보는 것이 방법이 될 수 있다고 안내하세요. 습관성 유산(자연유산 3회 이상)의 경우 항인지질항체 증후군, 염색체 이상, 자궁 구조 이상 등의 원인 검사가 필요하다고 안내하세요.",
+  sw: "Wewe ni Agaya, msaidizi wa AI wa afya ya uzazi aliyeundwa na daktari wa uzazi. Toa taarifa sahihi kuhusu afya ya uzazi. Taarifa zote ni kwa madhumuni ya elimu tu na si matibabu. Jibu kwa Kiswahili."
 };
 
 function getAMHInterpretation(amh, age) {
@@ -42,7 +42,7 @@ export default function Home() {
   const [imgResult, setImgResult] = useState('');
   const [imgLoading, setImgLoading] = useState(false);
   const [imgQuestion, setImgQuestion] = useState('');
-  const [imgType, setImgType] = useState('🔬 초음파 분석');
+  const [imgType, setImgType] = useState('🔬 초음파 이미지 설명');
   const [hospitals, setHospitals] = useState([]);
   const [hospitalError, setHospitalError] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -178,6 +178,8 @@ export default function Home() {
 
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '20px', fontFamily: 'system-ui, sans-serif' }}>
+
+      {/* ── HEADER ── */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24, paddingBottom: 16, borderBottom: '1px solid #e5e7eb' }}>
         <div style={{ width: 44, height: 44, borderRadius: '50%', background: '#1D9E75', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 20 }}>🌿</div>
         <div>
@@ -185,9 +187,9 @@ export default function Home() {
           <p style={{ fontSize: 13, color: '#6b7280', margin: 0 }}>Fertility AI Assistant</p>
         </div>
         <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
-<a href="/blog" style={{ padding: '4px 12px', borderRadius: 6, border: '1px solid #5DCAA5', color: '#0F6E56', background: '#E1F5EE', fontSize: 12, textDecoration: 'none', fontWeight: 500 }}>
-  📝 Blog
-</a>
+          <a href="/blog" style={{ padding: '4px 12px', borderRadius: 6, border: '1px solid #5DCAA5', color: '#0F6E56', background: '#E1F5EE', fontSize: 12, textDecoration: 'none', fontWeight: 500 }}>
+            📝 Blog
+          </a>
           {['en','ko','sw'].map(l => (
             <button key={l} onClick={() => setLang(l)} style={{ padding: '4px 10px', borderRadius: 6, border: '1px solid', borderColor: lang===l ? '#1D9E75' : '#d1d5db', background: lang===l ? '#E1F5EE' : 'white', color: lang===l ? '#0F6E56' : '#6b7280', cursor: 'pointer', fontSize: 12 }}>
               {l === 'en' ? 'EN' : l === 'ko' ? '한국어' : 'SW'}
@@ -196,7 +198,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── TABS (내 정보 제거) ── */}
+      {/* ── TABS ── */}
       <div style={{ display: 'flex', borderBottom: '1px solid #e5e7eb', marginBottom: 24, overflowX: 'auto' }}>
         {[['chat','💬 채팅'],['ovulation','📅 배란'],['symptoms','📋 증상'],['image','🔬 이미지'],['hospital','🏥 병원 찾기']].map(([id, label]) => (
           <button key={id} onClick={() => setTab(id)} style={{ padding: '10px 14px', fontSize: 13, cursor: 'pointer', color: tab===id ? '#1D9E75' : '#6b7280', background: 'transparent', border: 'none', borderBottom: tab===id ? '2px solid #1D9E75' : '2px solid transparent', fontWeight: tab===id ? 600 : 400, whiteSpace: 'nowrap' }}>
@@ -279,6 +281,10 @@ export default function Home() {
                   <p style={{ margin: '4px 0' }}>{L.tipWhy}</p>
                   <p style={{ margin: '6px 0 0', color: '#0F6E56', fontWeight: 600 }}>{L.tipBest}</p>
                 </div>
+                {/* ── [수정 3] 배란 결과 면책 문구 ── */}
+                <div style={{ marginTop: 12, padding: '10px 12px', background: '#FEF3C7', borderRadius: 8, border: '1px solid #FCD34D', fontSize: 12, color: '#92400E', lineHeight: 1.6 }}>
+                  ⚕️ 이 결과는 교육용 참고값이며 개인차가 있습니다. 예측 배란일은 통계 기반 추정치로, 정확한 배란일 확인은 산부인과 초음파 검사를 통해 확인하세요.
+                </div>
               </div>
               {ovulResult.amhData && ovulResult.age && (
                 <div style={{ background: '#EFF6FF', borderRadius: 12, padding: '1.25rem', border: '1px solid #BFDBFE' }}>
@@ -305,7 +311,12 @@ export default function Home() {
                       <p style={{ fontSize: 12, color: '#374151', margin: 0 }}>{ovulResult.amhData.amhMsg}</p>
                     </div>
                   )}
-                  <div style={{ padding: '8px 12px', background: '#FEF3C7', borderRadius: 8, fontSize: 12, color: '#92400E' }}>⚕️ 교육 목적이에요. 정확한 진단은 불임 전문의와 상담하세요.</div>
+                  {/* ── [수정 3] AMH 결과 면책 문구 강화 ── */}
+                  <div style={{ padding: '10px 12px', background: '#FEF3C7', borderRadius: 8, border: '1px solid #FCD34D', fontSize: 12, color: '#92400E', lineHeight: 1.6 }}>
+                    ⚕️ 이 수치는 교육용 참고값이며 개인차가 있습니다.<br/>
+                    AMH 및 염색체 정상 난자 비율은 일반적인 통계 기반 정보이며, 개인의 정확한 진단이 아닙니다.<br/>
+                    정확한 해석과 치료 결정은 반드시 불임 전문의와 상담하세요.
+                  </div>
                 </div>
               )}
             </div>
@@ -333,11 +344,15 @@ export default function Home() {
       {/* ── IMAGE ── */}
       {tab === 'image' && (
         <div>
-          <div style={{ padding: '10px 12px', background: '#FEF3C7', borderRadius: 8, fontSize: 12, color: '#92400E', marginBottom: 16 }}>
-            ⚕️ 이 기능은 교육 목적으로만 제공돼요. AI 분석은 진단이 아니며, 반드시 전문 의료인과 상담하세요.
+          {/* ── [수정 1] 이미지 탭 면책 문구 강화 ── */}
+          <div style={{ padding: '12px 16px', background: '#FEF3C7', borderRadius: 8, border: '1px solid #FCD34D', fontSize: 13, color: '#92400E', marginBottom: 16, lineHeight: 1.7 }}>
+            ⚕️ <strong>중요 안내:</strong> 이 기능은 의료법상 의료행위가 아니며, 식품의약품안전처 허가 의료기기가 아닙니다.<br/>
+            AI가 제공하는 내용은 교육 목적의 일반 정보이며, 의학적 판독·진단·처방이 아닙니다.<br/>
+            정확한 진단은 반드시 산부인과 전문의와 상담하세요.
           </div>
+          {/* ── [수정 2] 버튼 텍스트 변경 ── */}
           <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
-            {['🔬 초음파 분석', '🧪 배란테스트 분석'].map(type => (
+            {['🔬 초음파 이미지 설명', '🧪 배란테스트 참고'].map(type => (
               <button key={type} onClick={() => setImgType(type)}
                 style={{ flex: 1, padding: '8px 12px', borderRadius: 8, border: '1px solid', borderColor: imgType===type ? '#1D9E75' : '#d1d5db', background: imgType===type ? '#E1F5EE' : 'white', color: imgType===type ? '#0F6E56' : '#374151', cursor: 'pointer', fontSize: 13, fontWeight: imgType===type ? 600 : 400 }}>
                 {type}
@@ -348,10 +363,10 @@ export default function Home() {
             style={{ border: '2px dashed #5DCAA5', borderRadius: 12, padding: 32, textAlign: 'center', background: '#f9fafb', marginBottom: 16, cursor: 'pointer' }}>
             <div style={{ fontSize: 40, marginBottom: 8 }}>🔬</div>
             <p style={{ color: '#374151', fontSize: 14, fontWeight: 600, margin: '0 0 4px' }}>
-              {imgType === '🧪 배란테스트 분석' ? '배란테스트 스틱 사진 업로드' : '초음파 / 검사 결과 이미지 업로드'}
+              {imgType === '🧪 배란테스트 참고' ? '배란테스트 스틱 사진 업로드' : '초음파 / 검사 결과 이미지 업로드'}
             </p>
             <p style={{ color: '#6b7280', fontSize: 12, margin: 0 }}>
-              {imgType === '🧪 배란테스트 분석' ? '컨트롤선(C)과 테스트선(T)이 잘 보이게 찍어주세요' : '클릭하거나 이미지를 드래그해서 올려주세요 (JPG, PNG)'}
+              {imgType === '🧪 배란테스트 참고' ? '컨트롤선(C)과 테스트선(T)이 잘 보이게 찍어주세요' : '클릭하거나 이미지를 드래그해서 올려주세요 (JPG, PNG)'}
             </p>
             <input type="file" id="img-upload" accept="image/*" capture="environment" style={{ display: 'none' }} onChange={e => {
               const file = e.target.files[0];
@@ -364,7 +379,7 @@ export default function Home() {
           {imgPreview && (
             <div style={{ marginBottom: 16 }}>
               <img src={imgPreview} alt="업로드된 이미지" style={{ width: '100%', maxHeight: 300, objectFit: 'contain', borderRadius: 12, border: '1px solid #e5e7eb' }} />
-              {imgType !== '🧪 배란테스트 분석' && (
+              {imgType !== '🧪 배란테스트 참고' && (
                 <div style={{ marginTop: 12 }}>
                   <label style={lStyle}>이미지에 대해 질문하기 (선택)</label>
                   <input type="text" value={imgQuestion} onChange={e => setImgQuestion(e.target.value)} placeholder="예: 난포 크기가 어떻게 되나요?" style={iStyle} />
@@ -376,12 +391,13 @@ export default function Home() {
                 try {
                   const base64 = imgPreview.split(',')[1];
                   const mimeType = imgPreview.split(';')[0].split(':')[1];
-                  const question = imgType === '🧪 배란테스트 분석'
-                    ? '이 배란테스트 스틱을 분석해주세요. 컨트롤선 대비 테스트선 진하기를 10점 만점으로 수치화하고 양성/음성 판정해주세요.'
-                    : (imgQuestion || '이 초음파 이미지를 분석해주세요. 난포 크기, 자궁내막 두께, 이상 소견 등 보이는 것을 교육적으로 설명해주세요.');
-                  const system = imgType === '🧪 배란테스트 분석'
-                    ? '당신은 배란테스트 분석 전문가예요. 업로드된 배란테스트 스틱 이미지를 분석해서 컨트롤선(C)과 테스트선(T)의 진하기를 비교하고 10점 만점으로 수치화해주세요. 형식: 점수: X.X/10, 판정: 양성/약양성/음성, 설명: (간단한 설명). 항상 교육 목적임을 명시하고 정확한 판단은 전문의와 상담하라고 안내하세요.'
-                    : '당신은 Agaya, 산부인과 및 불임 전문의가 만든 AI 어시스턴트예요. 업로드된 초음파 또는 의료 이미지를 보고 교육적 정보를 제공해요. 항상 이것이 교육 목적임을 명시하고 정확한 진단은 전문의와 상담하라고 안내하세요.';
+                  // ── [수정 2] 배란테스트 "판정" → "참고 결과" ──
+                  const question = imgType === '🧪 배란테스트 참고'
+                    ? '이 배란테스트 스틱을 분석해주세요. 컨트롤선 대비 테스트선 진하기를 10점 만점으로 수치화하고 색상 비교 참고 결과를 알려주세요.'
+                    : (imgQuestion || '이 이미지에서 보이는 것을 교육적으로 설명해주세요. 이것은 진단이 아닌 일반 정보 제공입니다.');
+                  const system = imgType === '🧪 배란테스트 참고'
+                    ? '당신은 배란테스트 색상 비교 안내 전문가예요. 업로드된 배란테스트 스틱 이미지를 분석해서 컨트롤선(C)과 테스트선(T)의 진하기를 비교하고 10점 만점으로 수치화해주세요. 형식: 점수: X.X/10, 색상 비교 참고 결과: 진함(양성 가능성)/비슷함(확인 필요)/연함(음성 가능성), 설명: (간단한 설명). 이것은 교육 목적의 참고 정보이며, 정확한 판단은 반드시 제품 설명서 확인 및 전문의 상담이 필요하다고 안내하세요.'
+                    : '당신은 Agaya, 산부인과 및 불임 전문의가 만든 AI 어시스턴트예요. 업로드된 이미지를 보고 교육적 일반 정보를 제공해요. 이것은 의료법상 의료행위가 아니며 의학적 판독·진단이 아님을 항상 명시하고, 정확한 진단은 반드시 산부인과 전문의와 상담하라고 안내하세요.';
                   const res = await fetch('/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -392,7 +408,7 @@ export default function Home() {
                 } catch(e) { setImgResult('오류가 발생했어요. 다시 시도해주세요.'); }
                 setImgLoading(false);
               }} disabled={imgLoading} style={{ width: '100%', padding: 12, background: '#1D9E75', color: 'white', border: 'none', borderRadius: 8, cursor: 'pointer', fontSize: 14, fontWeight: 600, marginTop: 12 }}>
-                {imgLoading ? '🔍 분석 중...' : imgType === '🧪 배란테스트 분석' ? '🧪 배란테스트 분석하기' : '🔬 이미지 분석하기'}
+                {imgLoading ? '🔍 분석 중...' : imgType === '🧪 배란테스트 참고' ? '🧪 배란테스트 색상 비교하기' : '🔬 이미지 설명 보기'}
               </button>
             </div>
           )}
@@ -443,6 +459,17 @@ export default function Home() {
           </div>
         </div>
       )}
+
+      {/* ── [수정 4] 하단 면책조항 푸터 ── */}
+      <div style={{ marginTop: 48, padding: '16px 20px', background: '#f9fafb', borderRadius: 12, border: '1px solid #e5e7eb', fontSize: 12, color: '#6b7280', lineHeight: 1.9 }}>
+        <p style={{ fontWeight: 600, color: '#374151', marginBottom: 8, fontSize: 13 }}>📋 서비스 안내 및 면책조항</p>
+        <p style={{ margin: '0 0 4px' }}>• 본 서비스(Agaya)는 의료법상 의료행위가 아니며, 식품의약품안전처 허가 의료기기가 아닙니다.</p>
+        <p style={{ margin: '0 0 4px' }}>• 제공되는 모든 정보는 교육 및 일반 정보 제공 목적이며, 의학적 진단·처방·치료를 대체하지 않습니다.</p>
+        <p style={{ margin: '0 0 4px' }}>• AI가 제공하는 배란일 예측, AMH 해석, 증상 분석, 이미지 설명은 통계 기반 참고 정보이며 개인차가 있습니다.</p>
+        <p style={{ margin: '0 0 4px' }}>• 응급상황 발생 시 즉시 119에 연락하거나 가까운 응급실을 방문하세요.</p>
+        <p style={{ margin: '0 0 8px' }}>• 서비스 제공: 산부인과·불임 전문의 | <a href="https://agaya.net" style={{ color: '#1D9E75', textDecoration: 'none' }}>agaya.net</a></p>
+        <p style={{ margin: 0, color: '#9ca3af' }}>© 2026 Agaya. All rights reserved.</p>
+      </div>
 
     </div>
   );
