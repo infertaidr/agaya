@@ -1,21 +1,52 @@
 import { useState } from 'react';
 
 const SAMPLE_POSTS = [
-  { id: 1, tag: 'PCOS', title: 'The Insulin Connection: Why Blood Sugar Management Matters for PCOS Fertility', excerpt: 'Insulin resistance affects up to 70% of women with PCOS. Understanding this link can change your approach to treatment.', date: 'Apr 8, 2026', readTime: '5 min read' },
-  { id: 2, tag: 'Agaya Stories', title: '"I Found Out I Had Endometriosis at 34" — Amara\'s Story from Lagos', excerpt: 'A personal account of delayed diagnosis, the emotional toll, and how information changed everything.', date: 'Apr 5, 2026', readTime: '7 min read' },
-  { id: 3, tag: 'Pregnancy', title: 'First Trimester Nausea: Evidence-Based Relief Beyond Ginger Tea', excerpt: 'What randomized trials actually say about managing hyperemesis gravidarum — and when to seek medical care.', date: 'Apr 2, 2026', readTime: '4 min read' },
-  { id: 4, tag: 'IVF & ART', title: 'IVF in Sub-Saharan Africa: Access, Cost, and What\'s Changing', excerpt: 'Assisted reproduction is expanding across the continent. A look at who it\'s reaching — and who it\'s still missing.', date: 'Mar 29, 2026', readTime: '9 min read' },
-  { id: 5, tag: 'Hormonal Health', title: 'Thyroid and Fertility: The Often-Missed Connection in Recurrent Miscarriage', excerpt: 'Subclinical hypothyroidism is treatable and underdiagnosed. Here\'s what to ask your doctor.', date: 'Mar 25, 2026', readTime: '5 min read' },
+  {
+    id: 1, tag: 'PCOS',
+    title: 'PCOS와 인슐린: 혈당 관리가 임신에 미치는 영향',
+    excerpt: 'PCOS 여성의 최대 70%에서 인슐린 저항성이 나타나요. 이 연결고리를 이해하면 치료 접근법이 달라질 수 있어요.',
+    date: '2026년 4월 8일', readTime: '5분 읽기'
+  },
+  {
+    id: 6, tag: 'AI & Medicine',
+    title: 'Claude로 시작해서 Gemma 4로 확장 중 — Agaya 개발 이야기',
+    excerpt: '산부인과 의사가 AI 앱을 만들면서 배운 것들. 그리고 아프리카 여성을 위해 Gemma 4를 선택한 이유.',
+    date: '2026년 4월 19일', readTime: '6분 읽기'
+  },
+  {
+    id: 2, tag: 'Agaya 스토리',
+    title: '"34살에 자궁내막증을 알게 됐어요" — 라고스에서 온 아마라의 이야기',
+    excerpt: '늦은 진단, 그 감정적 무게, 그리고 정보가 어떻게 모든 것을 바꿨는지에 대한 개인적인 이야기.',
+    date: '2026년 4월 5일', readTime: '7분 읽기'
+  },
+  {
+    id: 3, tag: '임신',
+    title: '임신 초기 입덧: 생강차 너머의 근거 기반 완화법',
+    excerpt: '임신오조증 관리에 대해 무작위 대조 시험이 실제로 말하는 것 — 그리고 언제 병원에 가야 하는지.',
+    date: '2026년 4월 2일', readTime: '4분 읽기'
+  },
+  {
+    id: 4, tag: 'IVF & ART',
+    title: '사하라 이남 아프리카의 IVF: 접근성, 비용, 그리고 변화',
+    excerpt: '보조 생식 기술이 아프리카 대륙 전역으로 확산되고 있어요. 누구에게 닿고 있고, 누가 아직 소외되어 있는지.',
+    date: '2026년 3월 29일', readTime: '9분 읽기'
+  },
+  {
+    id: 5, tag: '호르몬 건강',
+    title: '갑상선과 임신: 반복 유산에서 자주 놓치는 연결고리',
+    excerpt: '불현성 갑상선기능저하증은 치료 가능하지만 잘 발견되지 않아요. 의사에게 물어봐야 할 것들.',
+    date: '2026년 3월 25일', readTime: '5분 읽기'
+  },
 ];
 
 const TAG_COLORS = {
   'PCOS': '#C4704A',
-  'Agaya Stories': '#7B5EA7',
-  'Pregnancy': '#4A6741',
+  'Agaya 스토리': '#7B5EA7',
+  '임신': '#4A6741',
   'IVF & ART': '#2A1F14',
-  'Hormonal Health': '#D4963A',
+  '호르몬 건강': '#D4963A',
   'AI & Medicine': '#1D9E75',
-  'Fertility Science': '#C4704A',
+  '난임 과학': '#C4704A',
 };
 
 export default function Blog() {
@@ -23,11 +54,11 @@ export default function Blog() {
   const [generating, setGenerating] = useState(false);
   const [generatedPost, setGeneratedPost] = useState(null);
   const [langHint, setLangHint] = useState('');
-  const [activeTag, setActiveTag] = useState('All');
+  const [activeTag, setActiveTag] = useState('전체');
 
-  const allTags = ['All', 'PCOS', 'Pregnancy', 'IVF & ART', 'Hormonal Health', 'Agaya Stories', 'AI & Medicine'];
+  const allTags = ['전체', 'PCOS', '임신', 'IVF & ART', '호르몬 건강', 'Agaya 스토리', 'AI & Medicine'];
 
-  const filteredPosts = activeTag === 'All'
+  const filteredPosts = activeTag === '전체'
     ? SAMPLE_POSTS
     : SAMPLE_POSTS.filter(p => p.tag === activeTag);
 
@@ -43,17 +74,17 @@ export default function Blog() {
     setGenerating(true);
     setGeneratedPost(null);
 
-    const system = `You are Agaya's medical blog writer — a specialist in obstetrics, gynecology, and fertility medicine.
-Write authoritative yet accessible blog articles about women's health and fertility.
+    const system = `당신은 Agaya의 의학 블로그 작성자예요 — 산부인과 및 난임 전문의가 AI와 함께 씁니다.
+여성 건강과 난임에 대한 권위 있고 따뜻한 블로그 아티클을 작성해요.
 
-CRITICAL RULES:
-- Detect the language of the user's topic and write the ENTIRE article in that SAME language
-- Structure: use ## for section headings, write 3-4 sections
-- Style: warm but evidence-based
-- Length: ~500-700 words
-- End with a brief disclaimer that this is educational content, not personal medical advice
-- Output ONLY valid JSON, no markdown fences, no preamble:
-{"title":"...","category":"...","readTime":"X min read","content":"full article text with ## headings"}`;
+중요 규칙:
+- 사용자 입력 언어를 감지해서 전체 아티클을 그 언어로 작성하세요
+- 구조: ## 로 섹션 제목, 3-4개 섹션
+- 스타일: 따뜻하지만 근거 기반
+- 길이: 약 500-700단어
+- 마지막에 "이 글은 교육 목적이며 개인 의료 조언을 대체하지 않습니다" 문구 포함
+- JSON만 출력, 마크다운 펜스 없이:
+{"title":"...","category":"...","readTime":"X분 읽기","content":"## 섹션 제목 포함 전체 글"}`;
 
     try {
       const res = await fetch('/api/chat', {
@@ -61,17 +92,17 @@ CRITICAL RULES:
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           system,
-          messages: [{ role: 'user', content: `Write a blog article about: ${topic}` }]
+          messages: [{ role: 'user', content: `다음 주제로 블로그 아티클을 작성해주세요: ${topic}` }]
         })
       });
       const data = await res.json();
       const raw = (data.content || '').replace(/```json|```/g, '').trim();
       let parsed;
       try { parsed = JSON.parse(raw); }
-      catch { parsed = { title: topic, category: 'Fertility', readTime: '5 min read', content: data.content }; }
+      catch { parsed = { title: topic, category: '난임', readTime: '5분 읽기', content: data.content }; }
       setGeneratedPost(parsed);
     } catch {
-      setGeneratedPost({ title: topic, category: 'Error', readTime: '', content: '오류가 발생했어요. 다시 시도해주세요.' });
+      setGeneratedPost({ title: topic, category: '오류', readTime: '', content: '오류가 발생했어요. 다시 시도해주세요.' });
     }
     setGenerating(false);
     setTopic('');
@@ -94,6 +125,11 @@ CRITICAL RULES:
     aiInput: { width: '100%', background: 'rgba(245,239,228,0.07)', border: '1px solid rgba(245,239,228,0.15)', borderRadius: 4, padding: '10px 14px', color: '#F5EFE4', fontFamily: 'system-ui, sans-serif', fontSize: 14, outline: 'none', marginBottom: 6, boxSizing: 'border-box' },
     aiHint: { fontFamily: 'monospace', fontSize: 11, color: 'rgba(245,239,228,0.3)', marginBottom: 14 },
     aiBtn: { width: '100%', background: '#C4704A', border: 'none', color: '#F5EFE4', padding: '11px', borderRadius: 4, fontFamily: 'monospace', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', cursor: 'pointer' },
+
+    // 난임 전문의 + AI 협업 배너
+    collab: { background: '#E1F5EE', borderRadius: 6, border: '1px solid #5DCAA5', padding: '12px 18px', marginBottom: 48, display: 'flex', alignItems: 'center', gap: 12 },
+    collabDot: { width: 8, height: 8, borderRadius: '50%', background: '#1D9E75', flexShrink: 0 },
+    collabText: { fontSize: 13, color: '#085041', fontFamily: 'system-ui, sans-serif', lineHeight: 1.5 },
 
     generatedBox: { background: '#fff', borderRadius: 6, border: '1px solid #E8D9C0', marginBottom: 48, overflow: 'hidden' },
     generatedHeader: { background: '#2A1F14', padding: '14px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
@@ -122,7 +158,6 @@ CRITICAL RULES:
     footerSub: { fontFamily: 'monospace', fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#9E8E82' },
   };
 
-  // render markdown-ish content
   function renderContent(text) {
     if (!text) return null;
     return text.split('\n').map((line, i) => {
@@ -138,31 +173,39 @@ CRITICAL RULES:
       {/* NAV */}
       <nav style={s.nav}>
         <a href="/" style={s.navLogo}>Agaya</a>
-        <a href="/" style={s.navBack}>← Back to Assistant</a>
+        <a href="/" style={s.navBack}>← 어시스턴트로 돌아가기</a>
       </nav>
 
       {/* HERO */}
       <div style={{ marginBottom: 48 }}>
-        <p style={s.eyebrow}>// Agaya Journal</p>
-        <h1 style={s.heroTitle}>Knowledge is<br /><em style={s.heroTitleEm}>the first care.</em></h1>
-        <p style={s.heroSub}>Evidence-based articles on fertility, reproductive health, and AI in medicine — for every woman, everywhere.</p>
+        <p style={s.eyebrow}>// Agaya 저널</p>
+        <h1 style={s.heroTitle}>아는 것이<br /><em style={s.heroTitleEm}>첫 번째 치료예요.</em></h1>
+        <p style={s.heroSub}>난임, 생식 건강, 그리고 의학 속 AI에 대한 근거 기반 아티클 — 모든 여성을 위해, 어디서든.</p>
+      </div>
+
+      {/* 협업 배너 */}
+      <div style={s.collab}>
+        <div style={s.collabDot} />
+        <p style={s.collabText}>
+          <strong>난임 전문의 + AI가 함께 씁니다.</strong> 이 블로그의 모든 글은 산부인과·난임 전문의의 의학적 관점과 AI의 글쓰기가 협업한 결과예요. 교육 목적이며 개인 의료 조언을 대체하지 않아요.
+        </p>
       </div>
 
       {/* AI WRITER */}
       <div style={s.aiBox}>
-        <p style={s.aiLabel}>✦ Agaya AI Writer</p>
-        <h2 style={s.aiTitle}>Generate a new article</h2>
-        <p style={s.aiSub}>Enter a topic in any language — English, 한국어, Swahili… Agaya will write a full article.</p>
+        <p style={s.aiLabel}>✦ Agaya AI 글쓰기</p>
+        <h2 style={s.aiTitle}>새 아티클 생성하기</h2>
+        <p style={s.aiSub}>어떤 언어로든 주제를 입력하세요 — 한국어, English, Swahili… Agaya가 전체 아티클을 작성해드려요.</p>
         <input
           style={s.aiInput}
           value={topic}
           onChange={e => { setTopic(e.target.value); setLangHint(detectLang(e.target.value)); }}
           onKeyDown={e => e.key === 'Enter' && generateArticle()}
-          placeholder="e.g. How stress affects egg quality… / 스트레스가 난소에 미치는 영향…"
+          placeholder="예: 스트레스가 난소에 미치는 영향 / How stress affects egg quality…"
         />
-        <p style={s.aiHint}>{langHint || '✦ language auto-detected from your input'}</p>
+        <p style={s.aiHint}>{langHint || '✦ 입력 언어를 자동으로 감지해요'}</p>
         <button style={s.aiBtn} onClick={generateArticle} disabled={generating}>
-          {generating ? '⏳  Generating…' : '✦  Generate Article'}
+          {generating ? '⏳  생성 중…' : '✦  아티클 생성하기'}
         </button>
       </div>
 
@@ -170,13 +213,13 @@ CRITICAL RULES:
       {generatedPost && (
         <div style={s.generatedBox}>
           <div style={s.generatedHeader}>
-            <span style={s.generatedHeaderLabel}>✦ AI Generated · Agaya</span>
-            <button style={s.generatedClose} onClick={() => setGeneratedPost(null)}>✕ Close</button>
+            <span style={s.generatedHeaderLabel}>✦ AI 생성 · 난임 전문의 감수</span>
+            <button style={s.generatedClose} onClick={() => setGeneratedPost(null)}>✕ 닫기</button>
           </div>
           <div style={s.generatedBody}>
             <h2 style={s.generatedTitle}>{generatedPost.title}</h2>
             <p style={s.generatedMeta}>
-              {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+              {new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}
               {generatedPost.readTime ? ` · ${generatedPost.readTime}` : ''}
               {generatedPost.category ? ` · ${generatedPost.category}` : ''}
             </p>
@@ -187,7 +230,7 @@ CRITICAL RULES:
 
       {/* ARTICLE LIST */}
       <div style={s.sectionHead}>
-        <h2 style={s.sectionLabel}>Latest Articles</h2>
+        <h2 style={s.sectionLabel}>최신 아티클</h2>
       </div>
 
       {/* TAG FILTER */}
@@ -216,9 +259,9 @@ CRITICAL RULES:
       {/* FOOTER */}
       <div style={s.footer}>
         <p style={s.footerLogo}>Agaya</p>
-        <p style={s.footerSub}>// Fertility Intelligence for Every Woman</p>
+        <p style={s.footerSub}>// 모든 여성을 위한 난임 정보</p>
         <p style={{ fontFamily: 'system-ui, sans-serif', fontSize: 11, color: '#9E8E82', marginTop: 10 }}>
-          © 2026 Agaya · Not a substitute for medical advice
+          © 2026 Agaya · 의료 조언을 대체하지 않습니다
         </p>
       </div>
     </div>
