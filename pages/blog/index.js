@@ -3,156 +3,155 @@ import { useState } from 'react';
 const SAMPLE_POSTS = [
   {
     id: 1, tag: 'PCOS',
-    title: 'PCOS와 인슐린: 혈당 관리가 임신에 미치는 영향',
-    excerpt: 'PCOS 여성의 최대 70%에서 인슐린 저항성이 나타나요. 이 연결고리를 이해하면 치료 접근법이 달라질 수 있어요.',
-    date: '2026년 4월 8일', readTime: '5분 읽기',
-    content: `## PCOS와 인슐린 저항성이란?
+    title: 'PCOS and Insulin: How Blood Sugar Management Affects Fertility',
+    excerpt: 'Up to 70% of women with PCOS have insulin resistance. Understanding this connection can change your treatment approach.',
+    date: 'April 8, 2026', readTime: '5 min read',
+    content: `## What is PCOS and Insulin Resistance?
 
-다낭성 난소 증후군(PCOS)은 가임기 여성의 약 10%에게 영향을 미치는 가장 흔한 내분비 질환이에요. 많은 분들이 PCOS가 단순히 "생리 불순"이나 "난소 문제"라고만 알고 계시지만, 사실 그 핵심에는 **인슐린 저항성**이 자리 잡고 있는 경우가 많아요.
+Polycystic Ovary Syndrome (PCOS) affects about 10% of women of reproductive age and is the most common endocrine disorder. Many people think of PCOS simply as "irregular periods" or an "ovarian problem," but at its core is often insulin resistance.
 
-인슐린 저항성이란 세포가 인슐린 신호에 제대로 반응하지 못하는 상태예요. 이때 몸은 더 많은 인슐린을 분비하게 되고, 높아진 인슐린 수치는 난소를 자극해 남성 호르몬(안드로겐) 생산을 늘려요. 바로 이것이 불규칙한 배란, 여드름, 다모증, 그리고 임신 어려움으로 이어지는 연결고리예요.
+Insulin resistance means cells don't respond properly to insulin signals. The body then produces more insulin, and elevated insulin levels stimulate the ovaries to produce more androgens (male hormones). This is the chain reaction that leads to irregular ovulation, acne, excess hair growth, and difficulty conceiving.
 
-## 혈당 관리가 왜 임신에 중요할까요?
+## Why Does Blood Sugar Management Matter for Pregnancy?
 
-연구에 따르면 PCOS 여성의 약 70%에서 인슐린 저항성이 나타나요. 혈당을 안정적으로 관리하면 인슐린 수치가 낮아지고, 배란 주기가 규칙적으로 돌아올 수 있어요. 남성 호르몬 수치가 낮아져 증상이 완화되고, 임신 성공률도 높아질 수 있어요.
+Research shows insulin resistance appears in about 70% of women with PCOS. Stabilizing blood sugar lowers insulin levels, which can restore regular ovulation cycles, reduce androgen levels to ease symptoms, and improve pregnancy success rates.
 
-## 생활 습관으로 할 수 있는 것들
+## What You Can Do Through Lifestyle
 
-정제 탄수화물(흰쌀, 흰빵, 설탕)을 줄이고 단백질과 식이섬유를 늘리는 식단이 인슐린 감수성을 높이는 데 효과적이에요. 주 3-4회 30분 이상의 유산소 운동도 인슐린 저항성 개선에 도움이 된다는 근거가 충분해요. 메포르민(Metformin)은 인슐린 저항성을 직접 개선하는 약물로 PCOS 치료에 널리 사용돼요. 담당 전문의와 상담해보세요.
+Reducing refined carbohydrates (white rice, white bread, sugar) and increasing protein and fiber improves insulin sensitivity. There is strong evidence that aerobic exercise 3-4 times per week for 30+ minutes helps improve insulin resistance. Metformin is a medication that directly improves insulin resistance and is widely used in PCOS treatment — ask your specialist.
 
-## 전문의와 상담할 때 물어볼 것들
+## Questions to Ask Your Doctor
 
-공복 혈당, 인슐린, HOMA-IR 검사를 받아볼 수 있는지 물어보세요. 식단 변화나 운동이 내 PCOS 증상에 어느 정도 효과가 있을지, 메포르민이 나에게 적합한지도 확인해보세요.
+Ask about getting fasting glucose, insulin, and HOMA-IR tests. Find out how much diet changes or exercise might help your specific PCOS symptoms, and whether Metformin is appropriate for you.
 
 ---
-*이 글은 교육 목적이며 개인 의료 조언을 대체하지 않습니다. 정확한 진단과 치료는 산부인과 전문의와 상담하세요.*`
+*This article is for educational purposes and does not replace personal medical advice. For accurate diagnosis and treatment, consult an OB/GYN specialist.*`
   },
   {
     id: 6, tag: 'AI & Medicine',
-    title: 'Claude로 시작해서 Gemma 4로 확장 중 — Agaya 개발 이야기',
-    excerpt: '산부인과 의사가 AI 앱을 만들면서 배운 것들. 그리고 아프리카 여성을 위해 Gemma 4를 선택한 이유.',
-    date: '2026년 4월 19일', readTime: '6분 읽기',
-    content: `## 왜 의사가 직접 코딩을 배웠나요?
+    title: 'Starting with Claude, Expanding with Gemma 4 — The Agaya Story',
+    excerpt: 'What a Korean OB/GYN learned building an AI app. And why we chose Gemma 4 for women in Africa.',
+    date: 'April 19, 2026', readTime: '6 min read',
+    content: `## Why Did a Doctor Learn to Code?
 
-진료실에서 하루에도 수십 번 같은 질문을 들어요. "배란일이 언제예요?", "AMH가 낮으면 임신이 안 되나요?", "IVF를 꼭 해야 할까요?" 진료 시간은 짧고, 환자분들의 불안은 집까지 따라가는데 밤 11시에 물어볼 곳이 없었어요.
+In the clinic, I hear the same questions dozens of times a day. "When is my ovulation day?" "If my AMH is low, can I still get pregnant?" "Do I really need IVF?" Consultation time is short, patients' anxiety follows them home — and at 11pm, there's nowhere to ask.
 
-그래서 직접 만들기로 했어요. 코딩을 처음 배우면서, Claude AI와 대화하면서, Kaggle 노트북에서 에러를 보면서요. 부끄럽지 않아요. 배우면서 만드는 게 맞는 것 같았거든요.
+So I decided to build it myself. Learning to code from scratch, having conversations with Claude AI, seeing errors in Kaggle notebooks. I'm not embarrassed. Building while learning felt right.
 
-## Claude로 시작한 이유
+## Why We Started with Claude
 
-Agaya의 첫 버전은 Anthropic의 Claude API 기반으로 만들었어요. Claude는 의료 맥락을 잘 이해하고, 한국어 응답 품질이 뛰어나고, 무엇보다 안전하고 따뜻한 답변을 일관되게 줬어요. 지금 agaya.net의 채팅, 증상 분석, 이미지 설명, AI 블로그 글쓰기 — 모두 Claude 기반이에요.
+Agaya's first version was built on Anthropic's Claude API. Claude understands medical context well, delivers excellent multilingual responses, and most importantly, gives consistently safe and warm answers. The chat, symptom analysis, image descriptions, and AI blog writing on agaya.net — all Claude-based.
 
-## Gemma 4로 확장하는 이유
+## Why We're Expanding with Gemma 4
 
-Agaya를 만들면서 계속 마음에 걸렸던 것이 있어요. 이 앱이 실제로 가장 필요한 사람들 — 동아프리카, 서아프리카, 의료 소외 지역의 여성들 — 에게 닿고 있는가?
+While building Agaya, one thing kept weighing on me: is this app actually reaching the people who need it most — women in East Africa, West Africa, medically underserved regions?
 
-그래서 Google의 **Gemma 4 Hackathon**에 참가하게 됐어요. Gemma 4는 오픈 모델이에요. 인터넷이 불안정하거나 비용이 문제가 되는 지역에서도 동작할 수 있어요. 스와힐리어 응답도 테스트했는데 품질이 충분히 좋았어요.
+That's why I joined Google's Gemma 4 Hackathon. Gemma 4 is an open model. It can work in areas with unstable internet or where cost is a barrier. I tested Swahili responses and the quality was more than sufficient.
 
-Claude가 Agaya의 현재라면, Gemma 4는 Agaya가 닿아야 할 미래를 위한 실험이에요.
+If Claude is Agaya's present, Gemma 4 is the experiment toward the future Agaya needs to reach.
 
-## 앞으로의 계획
+## What's Next
 
-지금 Agaya는 한국어·영어·스와힐리어를 지원해요. 앞으로 Gemma 4 기반의 오프라인 친화적 버전을 만들어, 인터넷 연결이 불안정한 지역에서도 기본적인 난임·생식 건강 정보에 접근할 수 있게 하는 것이 목표예요.
+Agaya currently supports Korean, English, and Swahili. The goal is to build a Gemma 4-based, offline-friendly version so that people in areas with unstable internet can still access basic fertility and reproductive health information.
 
-아는 것이 첫 번째 치료예요. 그 정보가 창원에 사는 분들만의 것이어서는 안 된다고 생각해요.
+Knowing is the first step to healing. That information shouldn't only belong to people in Changwon.
 
 ---
-*이 글은 Agaya 개발자(산부인과·난임 전문의)가 직접 쓴 개발 스토리예요.*`
+*This article is the development story written directly by Agaya's creator (OB/GYN & Fertility Specialist).*`
   },
   {
-    id: 2, tag: 'Agaya 스토리',
-    title: '"34살에 자궁내막증을 알게 됐어요" — 라고스에서 온 아마라의 이야기',
-    excerpt: '늦은 진단, 그 감정적 무게, 그리고 정보가 어떻게 모든 것을 바꿨는지에 대한 개인적인 이야기.',
-    date: '2026년 4월 5일', readTime: '7분 읽기',
-    content: `## 10년 동안 "그냥 생리통"이라고 들었어요
+    id: 2, tag: 'Agaya Stories',
+    title: '"I Found Out I Had Endometriosis at 34" — Amara\'s Story from Lagos',
+    excerpt: 'A late diagnosis, the emotional weight it carried, and how information changed everything.',
+    date: 'April 5, 2026', readTime: '7 min read',
+    content: `## For 10 Years, She Was Told "It's Just Period Pain"
 
-아마라(가명)는 나이지리아 라고스에 사는 34세 여성이에요. 고등학교 때부터 생리 때마다 극심한 통증이 있었지만, 주변에서는 늘 "여자라면 다 그런 거야"라고 했어요. 결혼 후 2년이 지나도 임신이 되지 않자 처음으로 난임 전문의를 찾았어요. 복강경 검사 결과: 3기 자궁내막증이었어요.
+Amara (not her real name) is a 34-year-old woman living in Lagos, Nigeria. She'd had severe pain with every period since high school, but was always told "all women go through this." When she still hadn't conceived two years after getting married, she saw a fertility specialist for the first time. Laparoscopy result: Stage 3 endometriosis.
 
-## 자궁내막증이 왜 이렇게 늦게 발견되나요?
+## Why Is Endometriosis Diagnosed So Late?
 
-자궁내막증은 평균 진단까지 7-10년이 걸려요. 증상(생리통, 골반통, 성교통)이 "정상적인 생리 증상"으로 여겨지는 경우가 많고, 확진을 위해서는 복강경 수술이 필요하다는 것도 장벽이 돼요.
+Endometriosis takes an average of 7-10 years to diagnose. Symptoms like painful periods, pelvic pain, and pain during intercourse are often dismissed as "normal period symptoms." The fact that a laparoscopy is needed for a definitive diagnosis also creates a barrier.
 
-## 정보가 어떻게 모든 것을 바꿨나요?
+## How Information Changed Everything
 
-아마라는 진단 후 Agaya를 통해 자궁내막증에 대해 더 많이 알게 됐어요. 자신의 증상이 비정상이 아니었다는 것, 치료 옵션이 있다는 것, 임신도 가능하다는 것을요. "이걸 10년 전에 알았더라면"이라는 말이 마음에 남았어요. 그게 Agaya가 존재하는 이유예요.
+After her diagnosis, Amara learned more about endometriosis through Agaya. That her symptoms weren't abnormal. That there were treatment options. That pregnancy was still possible. "If I had known this 10 years ago" — those words stayed with me. That's why Agaya exists.
 
-## 자궁내막증, 이것만 알아두세요
+## What You Should Know About Endometriosis
 
-가임기 여성의 약 10%에서 발생해요. 생리통이 일상생활을 방해할 정도라면 전문의 상담이 필요해요. 조기 진단과 치료가 난임 예방에 중요하고, 호르몬 치료, 수술, 난임 치료 등 다양한 옵션이 있어요.
+It affects about 10% of women of reproductive age. If period pain is interfering with daily life, you need a specialist consultation. Early diagnosis and treatment are important for preventing infertility. Options include hormonal therapy, surgery, and fertility treatments.
 
 ---
-*이 글은 실제 경험을 바탕으로 재구성한 이야기예요. 개인정보 보호를 위해 이름과 일부 세부사항을 변경했어요.*`
+*This article is a reconstructed story based on real experiences. Names and some details have been changed to protect privacy.*`
   },
   {
-    id: 3, tag: '임신',
-    title: '임신 초기 입덧: 생강차 너머의 근거 기반 완화법',
-    excerpt: '임신오조증 관리에 대해 무작위 대조 시험이 실제로 말하는 것 — 그리고 언제 병원에 가야 하는지.',
-    date: '2026년 4월 2일', readTime: '4분 읽기',
-    content: `## 입덧은 왜 생기나요?
+    id: 3, tag: 'Pregnancy',
+    title: 'Morning Sickness: Evidence-Based Relief Beyond Ginger Tea',
+    excerpt: 'What randomized controlled trials actually say about managing hyperemesis — and when to go to the hospital.',
+    date: 'April 2, 2026', readTime: '4 min read',
+    content: `## Why Does Morning Sickness Happen?
 
-임신 초기 입덧(오심·구토)은 임산부의 약 70-80%가 경험해요. 임신 6-8주에 시작해서 대부분 12-14주쯤 완화돼요. hCG 호르몬 급증, 에스트로겐 증가, 후각 민감도 변화 등이 관여하는 것으로 알려져 있어요.
+About 70-80% of pregnant women experience nausea and vomiting in early pregnancy. It typically starts at 6-8 weeks and eases around 12-14 weeks for most. Rising hCG hormones, increased estrogen, and heightened smell sensitivity are all thought to play a role.
 
-## 근거가 있는 방법들
+## Methods With Evidence Behind Them
 
-생강이 입덧 완화에 도움이 된다는 연구가 실제로 있어요. 생강차, 생강 캡슐(250mg, 하루 4회) 모두 효과가 확인됐어요. 비타민 B6(피리독신)는 여러 무작위 대조 시험에서 오심 완화 효과가 입증됐어요(하루 10-25mg). 빈속을 피하고 소량씩 자주 먹는 것, 기름진 음식과 강한 냄새 음식을 피하는 것도 도움이 돼요.
+There is real research showing ginger helps with nausea relief. Both ginger tea and ginger capsules (250mg, 4 times daily) have shown effectiveness. Vitamin B6 (pyridoxine) has demonstrated nausea relief in multiple randomized controlled trials (10-25mg per day). Avoiding an empty stomach, eating small amounts frequently, and avoiding greasy foods and strong smells also help.
 
-## 언제 병원에 가야 하나요?
+## When Should You Go to the Hospital?
 
-하루 3-4회 이상 구토가 지속되거나, 24시간 동안 아무것도 먹거나 마실 수 없거나, 소변이 매우 진하거나 양이 줄었다면 즉시 병원을 방문하세요. 이는 **임신오조증(Hyperemesis Gravidarum)**의 신호일 수 있어요.
+If you're vomiting more than 3-4 times a day, can't eat or drink anything for 24 hours, or notice your urine is very dark or reduced in volume — visit the hospital immediately. These can be signs of **Hyperemesis Gravidarum**.
 
 ---
-*이 글은 교육 목적이며 개인 의료 조언을 대체하지 않습니다. 증상이 심하면 반드시 산부인과 전문의와 상담하세요.*`
+*This article is for educational purposes and does not replace personal medical advice. If symptoms are severe, consult an OB/GYN specialist.*`
   },
   {
     id: 4, tag: 'IVF & ART',
-    title: '사하라 이남 아프리카의 IVF: 접근성, 비용, 그리고 변화',
-    excerpt: '보조 생식 기술이 아프리카 대륙 전역으로 확산되고 있어요. 누구에게 닿고 있고, 누가 아직 소외되어 있는지.',
-    date: '2026년 3월 29일', readTime: '9분 읽기',
-    content: `## 아프리카의 난임, 과소평가된 위기
+    title: 'IVF in Sub-Saharan Africa: Access, Cost, and Change',
+    excerpt: 'Assisted reproductive technologies are spreading across the continent. Who is being reached, and who is still left out.',
+    date: 'March 29, 2026', readTime: '9 min read',
+    content: `## Infertility in Africa: An Underestimated Crisis
 
-사하라 이남 아프리카에서 난임은 개인의 문제를 넘어 사회적 낙인이에요. 많은 문화에서 아이를 갖지 못하는 여성은 이혼, 가정 폭력, 사회적 배제의 위험에 놓이기도 해요. 그런데 이 지역에서 IVF 등 보조 생식 기술에 접근하는 것은 여전히 매우 어려워요.
+In sub-Saharan Africa, infertility goes beyond a personal issue — it carries social stigma. In many cultures, women who cannot have children risk divorce, domestic violence, and social exclusion. Yet access to IVF and other assisted reproductive technologies in this region remains extremely difficult.
 
-## 현재 상황
+## The Current Situation
 
-나이지리아, 케냐, 남아프리카공화국, 가나 등에 IVF 클리닉이 생겨나고 있어요. 그러나 한 주기 비용이 2,000-5,000달러 수준으로 현지 평균 월급의 수십 배에 달하고, 건강보험 적용은 거의 없어요.
+IVF clinics are emerging in Nigeria, Kenya, South Africa, Ghana, and elsewhere. But the cost of one cycle — around $2,000-5,000 — is dozens of times the average monthly wage, and health insurance coverage is almost nonexistent.
 
-## Agaya가 이 문제에 관심을 갖는 이유
+## Why Agaya Cares About This
 
-Agaya는 스와힐리어를 지원해요. 단순한 언어 추가가 아니에요. 동아프리카 1억 명 이상이 쓰는 언어로 생식 건강 정보에 접근할 수 있게 하는 것이에요. 전문 클리닉에 가기 전, 기본적인 정보를 얻고 올바른 질문을 할 수 있도록 돕는 것 — 그게 시작이에요.
+Agaya supports Swahili. This isn't a simple language addition. It's about making reproductive health information accessible in a language spoken by over 100 million people in East Africa. Helping people get basic information and know the right questions to ask before visiting a specialist — that's the starting point.
 
 ---
-*이 글은 교육 목적이며 개인 의료 조언을 대체하지 않습니다.*`
+*This article is for educational purposes and does not replace personal medical advice.*`
   },
   {
-    id: 5, tag: '호르몬 건강',
-    title: '갑상선과 임신: 반복 유산에서 자주 놓치는 연결고리',
-    excerpt: '불현성 갑상선기능저하증은 치료 가능하지만 잘 발견되지 않아요. 의사에게 물어봐야 할 것들.',
-    date: '2026년 3월 25일', readTime: '5분 읽기',
-    content: `## 반복 유산과 갑상선의 연결고리
+    id: 5, tag: 'Hormonal Health',
+    title: 'Thyroid and Pregnancy: The Often-Missed Link in Recurrent Miscarriage',
+    excerpt: 'Subclinical hypothyroidism is treatable but often goes undetected. What you should ask your doctor.',
+    date: 'March 25, 2026', readTime: '5 min read',
+    content: `## The Link Between Recurrent Miscarriage and the Thyroid
 
-자연유산을 두 번 이상 경험하셨다면, 원인 검사에서 갑상선 기능을 반드시 확인해야 해요. **불현성 갑상선기능저하증(Subclinical Hypothyroidism)**은 증상이 없거나 미미해서 지나치기 쉽지만, 반복 유산과 난임의 원인이 될 수 있어요.
+If you have experienced two or more miscarriages, thyroid function must be checked in your workup. **Subclinical Hypothyroidism** has no or minimal symptoms, making it easy to miss — but it can be a cause of recurrent miscarriage and infertility.
 
-## 불현성 갑상선기능저하증이란?
+## What Is Subclinical Hypothyroidism?
 
-갑상선 호르몬(T4)은 정상이지만 TSH가 경미하게 높은 상태예요. 일반 건강검진에서 "정상"으로 통과되는 경우가 많지만, 임신을 준비하거나 임신 중인 경우에는 기준이 달라져요. 임신 준비 중이라면 TSH 2.5 mIU/L 이하를 목표로 하는 것이 일반적으로 권장돼요.
+It's a condition where thyroid hormones (T4) are normal but TSH is mildly elevated. It often passes as "normal" in routine checkups, but the standards are different for those trying to conceive or who are pregnant. For women preparing for pregnancy, a TSH below 2.5 mIU/L is generally recommended.
 
-## 치료와 전문의 상담
+## Treatment and Specialist Consultation
 
-치료는 레보티록신(Levothyroxine) 복용으로, 안전하고 효과적이에요. 전문의에게 TSH, Free T4, 갑상선 항체(TPOAb) 검사를 요청해보세요. 임신 성공 후에도 용량 조절이 필요하므로 지속적인 모니터링이 중요해요.
+Treatment with Levothyroxine is safe and effective. Ask your doctor for TSH, Free T4, and thyroid antibody (TPOAb) tests. Ongoing monitoring is important as dosage adjustments may be needed even after a successful pregnancy.
 
 ---
-*이 글은 교육 목적이며 개인 의료 조언을 대체하지 않습니다. 반복 유산 경험이 있다면 반드시 전문의와 상담하세요.*`
+*This article is for educational purposes and does not replace personal medical advice. If you have experienced recurrent miscarriage, please consult a specialist.*`
   },
 ];
 
 const TAG_COLORS = {
   'PCOS': '#C4704A',
-  'Agaya 스토리': '#7B5EA7',
-  '임신': '#4A6741',
+  'Agaya Stories': '#7B5EA7',
+  'Pregnancy': '#4A6741',
   'IVF & ART': '#2A1F14',
-  '호르몬 건강': '#D4963A',
+  'Hormonal Health': '#D4963A',
   'AI & Medicine': '#1D9E75',
-  '난임 과학': '#C4704A',
 };
 
 export default function Blog() {
@@ -160,48 +159,48 @@ export default function Blog() {
   const [generating, setGenerating] = useState(false);
   const [generatedPost, setGeneratedPost] = useState(null);
   const [langHint, setLangHint] = useState('');
-  const [activeTag, setActiveTag] = useState('전체');
+  const [activeTag, setActiveTag] = useState('All');
   const [openPostId, setOpenPostId] = useState(null);
 
-  const allTags = ['전체', 'PCOS', '임신', 'IVF & ART', '호르몬 건강', 'Agaya 스토리', 'AI & Medicine'];
+  const allTags = ['All', 'PCOS', 'Pregnancy', 'IVF & ART', 'Hormonal Health', 'Agaya Stories', 'AI & Medicine'];
 
-  const filteredPosts = activeTag === '전체'
+  const filteredPosts = activeTag === 'All'
     ? SAMPLE_POSTS
     : SAMPLE_POSTS.filter(p => p.tag === activeTag);
 
   function detectLang(text) {
     if (/[\uAC00-\uD7AF]/.test(text)) return '한국어로 생성됩니다';
-    if (/[éèêëàâùûîïôœç]/i.test(text)) return 'Sera généré en français';
-    if (/[\u0600-\u06FF]/.test(text)) return 'سيتم الإنشاء بالعربية';
-    return '';
+    if (/[\u0E00-\u0E7F]/.test(text)) return 'จะสร้างเป็นภาษาไทย';
+    if (/[\u0080-\u024F]/.test(text) && /[àâéèêëîïôùûüç]/i.test(text)) return 'Será generado en español / français';
+    return 'Will be generated in the detected language';
   }
 
   async function generateArticle() {
     if (!topic.trim()) return;
     setGenerating(true);
     setGeneratedPost(null);
-    const system = `당신은 Agaya의 의학 블로그 작성자예요 — 산부인과 및 난임 전문의가 AI와 함께 씁니다.
-여성 건강과 난임에 대한 권위 있고 따뜻한 블로그 아티클을 작성해요.
-중요 규칙:
-- 사용자 입력 언어를 감지해서 전체 아티클을 그 언어로 작성하세요
-- 구조: ## 로 섹션 제목, 3-4개 섹션
-- 스타일: 따뜻하지만 근거 기반, 길이 500-700단어
-- 마지막에 교육 목적 면책 문구 포함
-- JSON만 출력: {"title":"...","category":"...","readTime":"X분 읽기","content":"..."}`;
+    const system = `You are Agaya's medical blog writer — an OB/GYN and fertility specialist writing together with AI.
+Write authoritative, warm blog articles about women's health and fertility.
+Important rules:
+- Detect the user's input language and write the entire article in that language
+- Structure: ## for section headings, 3-4 sections
+- Style: warm but evidence-based, 500-700 words
+- Include educational disclaimer at the end
+- Output JSON only: {"title":"...","category":"...","readTime":"X min read","content":"..."}`;
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ system, messages: [{ role: 'user', content: `다음 주제로 블로그 아티클을 작성해주세요: ${topic}` }] })
+        body: JSON.stringify({ system, messages: [{ role: 'user', content: `Please write a blog article on this topic: ${topic}` }] })
       });
       const data = await res.json();
       const raw = (data.content || '').replace(/```json|```/g, '').trim();
       let parsed;
       try { parsed = JSON.parse(raw); }
-      catch { parsed = { title: topic, category: '난임', readTime: '5분 읽기', content: data.content }; }
+      catch { parsed = { title: topic, category: 'Fertility', readTime: '5 min read', content: data.content }; }
       setGeneratedPost(parsed);
     } catch {
-      setGeneratedPost({ title: topic, category: '오류', readTime: '', content: '오류가 발생했어요. 다시 시도해주세요.' });
+      setGeneratedPost({ title: topic, category: 'Error', readTime: '', content: 'An error occurred. Please try again.' });
     }
     setGenerating(false);
     setTopic('');
@@ -267,46 +266,46 @@ export default function Blog() {
     <div style={S.page}>
       <nav style={S.nav}>
         <a href="/" style={S.navLogo}>Agaya</a>
-        <a href="/" style={S.navBack}>← 어시스턴트로 돌아가기</a>
+        <a href="/" style={S.navBack}>← Back to Assistant</a>
       </nav>
 
       <div style={{ marginBottom: 48 }}>
-        <p style={S.eyebrow}>// Agaya 저널</p>
-        <h1 style={S.heroTitle}>아는 것이<br /><em style={S.heroTitleEm}>첫 번째 치료예요.</em></h1>
-        <p style={S.heroSub}>난임, 생식 건강, 그리고 의학 속 AI에 대한 근거 기반 아티클 — 모든 여성을 위해, 어디서든.</p>
+        <p style={S.eyebrow}>// Agaya Journal</p>
+        <h1 style={S.heroTitle}>Knowing is<br /><em style={S.heroTitleEm}>the first step to healing.</em></h1>
+        <p style={S.heroSub}>Evidence-based articles on fertility, reproductive health, and AI in medicine — for every woman, everywhere.</p>
       </div>
 
       <div style={S.collab}>
         <div style={S.collabDot} />
         <p style={S.collabText}>
-          <strong>난임 전문의 + AI가 함께 씁니다.</strong> 이 블로그의 모든 글은 산부인과·난임 전문의의 의학적 관점과 AI의 글쓰기가 협업한 결과예요. 교육 목적이며 개인 의료 조언을 대체하지 않아요.
+          <strong>Written by a Fertility Specialist + AI.</strong> Every article on this blog is a collaboration between the medical perspective of an OB/GYN & fertility specialist and AI writing. For educational purposes only — does not replace personal medical advice.
         </p>
       </div>
 
       <div style={S.aiBox}>
-        <p style={S.aiLabel}>✦ Agaya AI 글쓰기</p>
-        <h2 style={S.aiTitle}>새 아티클 생성하기</h2>
-        <p style={S.aiSub}>어떤 언어로든 주제를 입력하세요 — 한국어, English, Swahili… Agaya가 전체 아티클을 작성해드려요.</p>
+        <p style={S.aiLabel}>✦ Agaya AI Writing</p>
+        <h2 style={S.aiTitle}>Generate a New Article</h2>
+        <p style={S.aiSub}>Enter a topic in any language — English, 한국어, Swahili, Tiếng Việt, ภาษาไทย… Agaya will write the full article.</p>
         <input style={S.aiInput} value={topic}
           onChange={e => { setTopic(e.target.value); setLangHint(detectLang(e.target.value)); }}
           onKeyDown={e => e.key === 'Enter' && generateArticle()}
-          placeholder="예: 스트레스가 난소에 미치는 영향 / How stress affects egg quality…" />
-        <p style={S.aiHint}>{langHint || '✦ 입력 언어를 자동으로 감지해요'}</p>
+          placeholder="e.g. How stress affects egg quality / PCOS and diet / 배란과 스트레스…" />
+        <p style={S.aiHint}>{langHint || '✦ Language is automatically detected from your input'}</p>
         <button style={S.aiBtn} onClick={generateArticle} disabled={generating}>
-          {generating ? '⏳  생성 중…' : '✦  아티클 생성하기'}
+          {generating ? '⏳  Generating…' : '✦  Generate Article'}
         </button>
       </div>
 
       {generatedPost && (
         <div style={S.genBox}>
           <div style={S.genHeader}>
-            <span style={S.genLabel}>✦ AI 생성 · 난임 전문의 감수</span>
-            <button style={S.genClose} onClick={() => setGeneratedPost(null)}>✕ 닫기</button>
+            <span style={S.genLabel}>✦ AI Generated · Reviewed by Fertility Specialist</span>
+            <button style={S.genClose} onClick={() => setGeneratedPost(null)}>✕ Close</button>
           </div>
           <div style={S.genBody}>
             <h2 style={S.genTitle}>{generatedPost.title}</h2>
             <p style={S.genMeta}>
-              {new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}
+              {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
               {generatedPost.readTime ? ` · ${generatedPost.readTime}` : ''}
               {generatedPost.category ? ` · ${generatedPost.category}` : ''}
             </p>
@@ -316,7 +315,7 @@ export default function Blog() {
       )}
 
       <div style={S.sectionHead}>
-        <h2 style={S.sectionLabel}>최신 아티클</h2>
+        <h2 style={S.sectionLabel}>Latest Articles</h2>
       </div>
 
       <div style={S.tagStrip}>
@@ -338,14 +337,14 @@ export default function Blog() {
                 <div style={S.meta}>
                   <span>{post.date}</span>
                   <span>{post.readTime}</span>
-                  <span style={{ color: '#C4704A' }}>{isOpen ? '▲ 접기' : '읽기 →'}</span>
+                  <span style={{ color: '#C4704A' }}>{isOpen ? '▲ Collapse' : 'Read →'}</span>
                 </div>
               </div>
             </div>
             {isOpen && (
               <div style={S.articleBody}>
                 <div style={S.articleContent}>{renderContent(post.content)}</div>
-                <button style={S.closeBtn} onClick={() => setOpenPostId(null)}>✕ 접기</button>
+                <button style={S.closeBtn} onClick={() => setOpenPostId(null)}>✕ Collapse</button>
               </div>
             )}
           </div>
@@ -354,9 +353,9 @@ export default function Blog() {
 
       <div style={S.footer}>
         <p style={S.footerLogo}>Agaya</p>
-        <p style={S.footerSub}>// 모든 여성을 위한 난임 정보</p>
+        <p style={S.footerSub}>// Fertility information for every woman</p>
         <p style={{ fontFamily: 'system-ui, sans-serif', fontSize: 11, color: '#9E8E82', marginTop: 10 }}>
-          © 2026 Agaya · 의료 조언을 대체하지 않습니다
+          © 2026 Agaya · Does not replace medical advice · <a href="https://agaya.net" style={{ color: '#1D9E75', textDecoration: 'none' }}>agaya.net</a>
         </p>
       </div>
     </div>
