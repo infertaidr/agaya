@@ -538,38 +538,6 @@ Rules:
         <p style={S.collabText}>{t.collabText}</p>
       </div>
 
-      <div style={S.aiBox}>
-        <p style={S.aiLabel}>{t.aiLabel}</p>
-        <h2 style={S.aiTitle}>{t.aiTitle}</h2>
-        <p style={S.aiSub}>{t.aiSub}</p>
-        <input style={S.aiInput} value={topic}
-          onChange={e => { setTopic(e.target.value); setLangHint(detectLang(e.target.value)); }}
-          onKeyDown={e => e.key === 'Enter' && generateArticle()}
-          placeholder={t.aiPlaceholder} />
-        <p style={S.aiHint}>{langHint || t.aiHint}</p>
-        <button style={S.aiBtn} onClick={generateArticle} disabled={generating}>
-          {generating ? t.generating : t.generateBtn}
-        </button>
-      </div>
-
-      {generatedPost && (
-        <div style={S.genBox}>
-          <div style={S.genHeader}>
-            <span style={S.genLabel}>{t.aiGenLabel}</span>
-            <button style={S.genClose} onClick={() => setGeneratedPost(null)}>{t.closeBtn}</button>
-          </div>
-          <div style={S.genBody}>
-            <h2 style={S.genTitle}>{generatedPost.title}</h2>
-            <p style={S.genMeta}>
-              {new Date().toLocaleDateString(lang === 'ko' ? 'ko-KR' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-              {generatedPost.readTime ? ` · ${generatedPost.readTime}` : ''}
-              {generatedPost.category ? ` · ${generatedPost.category}` : ''}
-            </p>
-            <div style={S.genContent}>{renderContent(generatedPost.content)}</div>
-          </div>
-        </div>
-      )}
-
       <div style={S.sectionHead}>
         <h2 style={S.sectionLabel}>{t.latestArticles}</h2>
       </div>
@@ -603,6 +571,20 @@ Rules:
             {isOpen && (
               <div style={S.articleBody}>
                 <div style={S.articleContent}>{renderContent(post.content)}</div>
+              <a href={`/?topic=${encodeURIComponent(post.title)}`}
+  style={{
+    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+    margin: '20px 0 8px', padding: '14px 18px',
+    background: '#E1F5EE', borderRadius: 8,
+    border: '1px solid #5DCAA5', textDecoration: 'none'
+  }}>
+  <span style={{ fontFamily: 'system-ui', fontSize: 13, color: '#085041' }}>
+    💬 {lang === 'ko' ? '이 주제가 더 궁금하신가요?' : 'Want to know more about this topic?'}
+  </span>
+  <span style={{ fontFamily: 'system-ui', fontSize: 13, fontWeight: 600, color: '#1D9E75' }}>
+    {lang === 'ko' ? 'Agaya에게 물어보기 →' : 'Ask Agaya →'}
+  </span>
+</a>
                 <button style={S.closeBtn} onClick={() => setOpenPostId(null)}>{t.collapseBtn}</button>
               </div>
             )}
