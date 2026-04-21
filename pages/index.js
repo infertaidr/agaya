@@ -334,8 +334,10 @@ export default function Home() {
   // 동의 팝업 (영어 기본)
   if (!agreed) {
     return (
-      <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999, padding: 20 }}>
-        <div style={{ background: 'white', borderRadius: 16, padding: 28, maxWidth: 480, width: '100%', maxHeight: '80vh', overflowY: 'auto' }}>
+      <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', zIndex: 9999}}>
+        <div style={{ background: 'white', borderRadius: '24px 24px 0 0', padding: '8px 28px 40px', maxWidth: 480, width: '100%', maxHeight: '72vh', overflowY: 'auto', boxShadow: '0 -4px 24px rgba(0,0,0,0.15)' }}><div style={{ display: 'flex', justifyContent: 'center', paddingTop: 12, marginBottom: 16 }}>
+            <div style={{ width: 40, height: 4, borderRadius: 2, background: '#d1d5db' }} />
+          </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
             <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#1D9E75', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 18 }}>🌿</div>
             <div>
