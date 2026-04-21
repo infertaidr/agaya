@@ -335,7 +335,7 @@ export default function Home() {
   if (!agreed) {
     return (
       <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', zIndex: 9999}}>
-        <div style={{ background: 'white', borderRadius: '24px 24px 0 0', padding: '8px 28px 40px', maxWidth: 480, width: '100%', maxHeight: '72vh', overflowY: 'auto', boxShadow: '0 -4px 24px rgba(0,0,0,0.15)' }}><div style={{ display: 'flex', justifyContent: 'center', paddingTop: 12, marginBottom: 16 }}>
+        <div style={{ background: 'white', borderRadius: '24px 24px 0 0', padding: '8px 28px 40px', maxWidth: 100%, width: '100%', maxHeight: '72vh', overflowY: 'auto', boxShadow: '0 -4px 24px rgba(0,0,0,0.15)' }}><div style={{ display: 'flex', justifyContent: 'center', paddingTop: 12, marginBottom: 16 }}>
             <div style={{ width: 40, height: 4, borderRadius: 2, background: '#d1d5db' }} />
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
