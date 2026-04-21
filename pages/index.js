@@ -370,7 +370,7 @@ export default function Home() {
   }
 
   return (
-    <div style={{ maxWidth: 800, margin: '0 auto', padding: '20px', fontFamily: 'system-ui, sans-serif' }}>
+    <div style={{ maxWidth: 800, margin: '0 auto', padding: '20px 20px 80px', fontFamily: 'system-ui, sans-serif' }}>
 
       {/* ── HEADER ── */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24, paddingBottom: 16, borderBottom: '1px solid #e5e7eb' }}>
