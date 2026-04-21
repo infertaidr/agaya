@@ -379,26 +379,23 @@ export default function Home() {
           <h1 style={{ fontSize: 22, fontWeight: 600, margin: 0 }}>Agaya</h1>
           <p style={{ fontSize: 13, color: '#6b7280', margin: 0 }}>Fertility AI by a Korean Doctor</p>
         </div>
-        <div style={{ marginLeft: 'auto', display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-          <a href="/blog" style={{ padding: '4px 12px', borderRadius: 6, border: '1px solid #5DCAA5', color: '#0F6E56', background: '#E1F5EE', fontSize: 12, textDecoration: 'none', fontWeight: 500 }}>
-            📝 Blog
-          </a>
-          {['en','ko','vi','th','tl','sw'].map(l => (
-            <button key={l} onClick={() => setLang(l)} style={{ padding: '4px 10px', borderRadius: 6, border: '1px solid', borderColor: lang===l ? '#1D9E75' : '#d1d5db', background: lang===l ? '#E1F5EE' : 'white', color: lang===l ? '#0F6E56' : '#6b7280', cursor: 'pointer', fontSize: 12 }}>
-              {langLabels[l]}
-            </button>
-          ))}
-        </div>
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: 6, alignItems: 'center' }}>
+  <a href="/blog" style={{ padding: '4px 12px', borderRadius: 6, border: '1px solid #5DCAA5', color: '#0F6E56', background: '#E1F5EE', fontSize: 12, textDecoration: 'none', fontWeight: 500 }}>
+    📝 Blog
+  </a>
+  <select value={lang} onChange={e => setLang(e.target.value)}
+    style={{ padding: '5px 10px', borderRadius: 8, border: '1px solid #d1d5db', fontSize: 13, color: '#0F6E56', background: '#E1F5EE', cursor: 'pointer', fontWeight: 500 }}>
+    <option value="en">🌐 EN</option>
+    <option value="ko">🇰🇷 한국어</option>
+    <option value="vi">🇻🇳 VI</option>
+    <option value="th">🇹🇭 TH</option>
+    <option value="tl">🇵🇭 TL</option>
+    <option value="sw">🌍 SW</option>
+  </select>
+</div>
       </div>
 
       {/* ── TABS ── */}
-      <div style={{ display: 'flex', borderBottom: '1px solid #e5e7eb', marginBottom: 24, overflowX: 'auto' }}>
-        {[['chat','💬 Chat'],['ovulation','📅 Cycle'],['symptoms','📋 Symptoms'],['image','🔬 Image'],['hospital','🏥 Clinics']].map(([id, label]) => (
-          <button key={id} onClick={() => setTab(id)} style={{ padding: '10px 14px', fontSize: 13, cursor: 'pointer', color: tab===id ? '#1D9E75' : '#6b7280', background: 'transparent', border: 'none', borderBottom: tab===id ? '2px solid #1D9E75' : '2px solid transparent', fontWeight: tab===id ? 600 : 400, whiteSpace: 'nowrap' }}>
-            {label}
-          </button>
-        ))}
-      </div>
 
       {/* ── CHAT ── */}
       {tab === 'chat' && (
@@ -648,7 +645,26 @@ export default function Home() {
         <p style={{ margin: '0 0 8px' }}>• Service by OB/GYN & Fertility Specialist | <a href="https://agaya.net" style={{ color: '#1D9E75', textDecoration: 'none' }}>agaya.net</a></p>
         <p style={{ margin: 0, color: '#9ca3af' }}>© 2026 Agaya. All rights reserved.</p>
       </div>
-
+{/* ── 하단 탭바 ── */}
+      <div style={{
+        position: 'fixed', bottom: 0, left: 0, right: 0,
+        background: 'white', borderTop: '1px solid #e5e7eb',
+        display: 'flex', justifyContent: 'space-around',
+        padding: '8px 0 28px', zIndex: 100,
+        boxShadow: '0 -2px 12px rgba(0,0,0,0.08)'
+      }}>
+        {[['chat','💬','Chat'],['ovulation','📅','Cycle'],['symptoms','📋','Symptoms'],['image','🔬','Image'],['hospital','🏥','Clinics']].map(([id, icon, label]) => (
+          <button key={id} onClick={() => setTab(id)} style={{
+            display: 'flex', flexDirection: 'column', alignItems: 'center',
+            gap: 3, padding: '4px 12px', border: 'none', background: 'transparent',
+            cursor: 'pointer',
+            color: tab === id ? '#1D9E75' : '#9ca3af',
+          }}>
+            <span style={{ fontSize: 24 }}>{icon}</span>
+            <span style={{ fontSize: 10, fontWeight: tab === id ? 600 : 400 }}>{label}</span>
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
