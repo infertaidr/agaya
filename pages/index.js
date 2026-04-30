@@ -374,7 +374,7 @@ export default function Home() {
 
       {/* ── HEADER ── */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24, paddingBottom: 16, borderBottom: '1px solid #e5e7eb' }}>
-        <div style={{ width: 44, height: 44, borderRadius: '50%', background: '#1D9E75', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 20 }}>🌿</div>
+        <img src="/Dr urange ovul.png" alt="Dr Urangejuice" style={{ width: 44, height: 44, borderRadius: '50%', objectFit: 'cover' }} />
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 600, margin: 0 }}>Agaya</h1>
           <p style={{ fontSize: 13, color: '#6b7280', margin: 0 }}>Fertility AI by a Korean Doctor</p>
@@ -407,7 +407,7 @@ export default function Home() {
             </div>
             {messages.map((m, i) => (
               <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 12, flexDirection: m.role==='user' ? 'row-reverse' : 'row' }}>
-                <div style={{ width: 28, height: 28, borderRadius: '50%', background: m.role==='user' ? '#5DCAA5' : '#E1F5EE', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, color: m.role==='user' ? 'white' : '#0F6E56', flexShrink: 0 }}>{m.role==='user'?'U':'A'}</div>
+                {m.role==='user'    ? <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#5DCAA5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, color: 'white', flexShrink: 0 }}>U</div>   : <img src="/Dr urange ovul.png" alt="Dr Urangejuice" style={{ width: 28, height: 28, borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} /> }
                 <div style={{ background: m.role==='user' ? '#1D9E75' : 'white', color: m.role==='user' ? 'white' : '#111', padding: '8px 12px', borderRadius: 12, fontSize: 14, border: m.role==='user' ? 'none' : '1px solid #e5e7eb', maxWidth: '75%', whiteSpace: 'pre-wrap' }}>{m.content}</div>
               </div>
             ))}
