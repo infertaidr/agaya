@@ -402,7 +402,7 @@ export default function Home() {
         <div>
           <div style={{ minHeight: 280, maxHeight: 320, overflowY: 'auto', background: '#f9fafb', borderRadius: 12, padding: 16, marginBottom: 12, border: '1px solid #e5e7eb' }}>
             <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
-              <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#E1F5EE', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, color: '#0F6E56', flexShrink: 0 }}>A</div>
+              <img src="/Dr urange ovul.png" alt="Dr Urangejuice" style={{ width: 28, height: 28, borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
               <div style={{ background: 'white', padding: '8px 12px', borderRadius: 12, fontSize: 14, border: '1px solid #e5e7eb', maxWidth: '75%' }}>{welcomeMsg[lang]}</div>
             </div>
             {messages.map((m, i) => (
