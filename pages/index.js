@@ -400,7 +400,7 @@ export default function Home() {
 
       {/* ── HEADER ── */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24, paddingBottom: 16, borderBottom: '1px solid #e5e7eb' }}>
-        <img src="/Dr urange ovul.png" alt="Agaya" style={{ width: 44, height: 44, borderRadius: '50%', objectFit: 'cover' }} />
+        <div style={{ width: 44, height: 44, borderRadius: '50%', background: '#1D9E75', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22 }}>🌿</div>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 600, margin: 0 }}>Agaya</h1>
           <p style={{ fontSize: 13, color: '#6b7280', margin: 0 }}>Fertility AI by a Korean Doctor</p>
